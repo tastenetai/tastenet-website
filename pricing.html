@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing - TasteNet AI</title>
+    <meta name="description" content="TasteNet AI pricing plans for TASTE SENTINEL, TASTE JUDGE, and TASTE VISION. Flexible plans for businesses of all sizes.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .pricing-hero {
+            padding: 150px 5% 80px;
+            text-align: center;
+        }
+        
+        .pricing-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .toggle-btn {
+            padding: 12px 30px;
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        
+        .toggle-btn.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark);
+        }
+        
+        .pricing-section {
+            padding: 60px 5%;
+            scroll-margin-top: 100px;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--secondary);
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, rgba(255, 215, 0, 0.05) 100%);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background: var(--secondary);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+        
+        .pricing-card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .pricing-card .tier-name {
+            color: var(--text-dim);
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .price {
+            font-size: 56px;
+            font-weight: 900;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .price-period {
+            color: var(--text-dim);
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        
+        .price-description {
+            color: var(--text-dim);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .features-list li {
+            padding: 12px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .check-icon {
+            color: var(--secondary);
+            font-size: 20px;
+            min-width: 20px;
+        }
+        
+        .feature-unavailable {
+            opacity: 0.4;
+        }
+        
+        .feature-unavailable .check-icon {
+            color: var(--text-dim);
+        }
+        
+        .faq-section {
+            padding: 100px 5%;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .faq-item:hover {
+            border-color: var(--primary);
+        }
+        
+        .faq-question {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            color: var(--text-dim);
+            line-height: 1.8;
+        }
+        
+        @media (max-width: 968px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .price {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TasteNet AI</a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="pricing.html" class="active">Pricing</a></li>
+                <li><a href="demo.html">Demo</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <a href="contact.html" class="cta-nav">Get Started</a>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pricing Hero -->
+    <section class="pricing-hero">
+        <h1 class="section-title">Simple, Transparent Pricing</h1>
+        <p class="section-subtitle">Choose the plan that fits your needs. All plans include core features and premium support.</p>
+        
+        <div class="pricing-toggle">
+            <button class="toggle-btn active" onclick="showProduct('sentinel')">TASTE SENTINEL™</button>
+            <button class="toggle-btn" onclick="showProduct('judge')">TASTE JUDGE™</button>
+            <button class="toggle-btn" onclick="showProduct('vision')">TASTE VISION™</button>
+        </div>
+    </section>
+
+    <!-- TASTE SENTINEL Pricing -->
+    <section class="pricing-section" id="sentinel">
+        <div class="container">
+            <h2 class="section-title" style="font-size: 36px; margin-bottom: 50px;">TASTE SENTINEL™ Plans</h2>
+            
+            <div class="pricing-grid">
+                <!-- Starter Plan -->
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <p class="tier-name">Perfect for small teams</p>
+                    <div class="price">$999</div>
+                    <p class="price-period">per month</p>
+                    <p class="price-description">Essential security monitoring with 5-sensory detection</p>
+                    
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> 1 deployment environment</li>
+                        <li><span class="check-icon">✓</span> 5-sensory threat detection</li>
+                        <li><span class="check-icon">✓</span> Real-time monitoring</li>
+                        <li><span class="check-icon">✓</span> Basic dashboards</li>
+                        <li><span class="check-icon">✓</span> Email alerts</li>
+                        <li><span class="check-icon">✓</span> 30-day data retention</li>
+                        <li><span class="check-icon">✓</span> Email support</li>
+                        <li class="feature-unavailable"><span class="check-icon">✗</span> Advanced analytics</li>
+                        <li class="feature-unavailable"><span class="check-icon">✗</span> Custom integrations</li>
+                        <li class="feature-unavailable"><span class="check-icon">✗</span> Dedicated support</li>
+                    </ul>
+                    
+                    <a href="contact.html?plan=sentinel-starter" class="btn btn-secondary" style="width: 100%; text-align: center;">Get Started</a>
+                </div>
+                
+                <!-- Professional Plan -->
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <h3>Professional</h3>
+                    <p class="tier-name">For growing businesses</p>
+                    <div class="price">$2,999</div>
+                    <p class="price-period">per month</p>
+                    <p class="price-description">Advanced security with multi-deployment support</p>
+                    
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> 3 deployment environments</li>
+                        <li><span class="check-icon">✓</span> 5-sensory threat detection</li>
+                        <li><span class="check-icon">✓</span> Real-time monitoring</li>
+                        <li><span class="check-icon">✓</span> Advanced dashboards</li>
+                        <li><span class="check-icon">✓</span> Multi-channel alerts</li>
+                        <li><span class="check-icon">✓</span> 90-day data retention</li>
+                        <li><span class="check-icon">✓</span> Priority support (24/7)</li>
+                        <li><span class="check-icon">✓</span> Advanced analytics</li>
+                        <li><span class="check-icon">✓</span> API access</li>
+                        <li class="feature-unavailable"><span class="check-icon">✗</span> White-label option</li>
+                    </ul>
+                    
+                    <a href="contact.html?plan=sentinel-pro" class="btn btn-primary" style="width: 100%; text-align: center;">Get Started</a>
+                </div>
+                
+                <!-- Enterprise Plan -->
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <p class="tier-name">For large organizations</p>
+                    <div class="price">$9,999</div>
+                    <p class="price-period">per month</p>
+                    <p class="price-description">Unlimited scale with premium features</p>
+                    
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> Unlimited deployments</li>
+                        <li><span class="check-icon">✓</span> 5-sensory threat detection</li>
+                        <li><span class="check-icon">✓</span> Real-time monitoring</li>
+                        <li><span class="check-icon">✓</span> Custom dashboards</li>
+                        <li><span class="check-icon">✓</span> All alert channels</li>
+                        <li><span class="check-icon">✓</span> Unlimited data retention</li>
+                        <li><span class="check-icon">✓</span> Dedicated support team</li>
+                        <li><span class="check-icon">✓</span> Advanced analytics</li>
+                        <li><span class="check-icon">✓</span> Full API access</li>
+                        <li><span class="check-icon">✓</span> White-label option</li>
+                        <li><span class="check-icon">✓</span> Custom integrations</li>
+                        <li><span class="check-icon">✓</span> SLA guarantee</li>
+                    </ul>
+                    
+                    <a href="contact.html?plan=sentinel-enterprise" class="btn btn-secondary" style="width: 100%; text-align: center;">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TASTE JUDGE Pricing -->
+    <section class="pricing-section" id="judge" style="display: none;">
+        <div class="container">
+            <h2 class="section-title" style="font-size: 36px; margin-bottom: 50px;">TASTE JUDGE™ Plans</h2>
+            
+            <div class="pricing-grid">
+                <!-- Developer Plan -->
+                <div class="pricing-card">
+                    <h3>Developer</h3>
+                    <p class="tier-name">Perfect for testing</p>
+                    <div class="price">$99</div>
+                    <p class="price-period">per month</p>
+                    <p class="price-description">Essential aesthetic assessment for small projects</p>
+                    
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> 10,000 assessments/month</li>
+                        <li><span class="check-icon">✓</span> Design quality scoring</li>
+                        <li><span class="check-icon">✓</span> Brand consistency checks</li>
+                        <li><span class="check-icon">✓</span> REST API access</li>
+                        <li><span class="check-icon">✓</span> Basic analytics</li>
+                        <li><span class="check-icon">✓</span> Email support</li>
+                        <li class="feature-unavailable"><span class="check-icon">✗</span> Batch processing</li>
+                        <li class="feature-unavailable"><span class="check-icon">✗</span> Custom models</li>
+                        <li class="feature-unavailable"><span class="check-icon">✗</span> Priority support</li>
+                    </ul>
+                    
+                    <a href="contact.html?plan=judge-dev" class="btn btn-secondary" style="width: 100%; text-align: center;">Start Free Trial</a>
+                </div>
+                
+                <!-- Growth Plan -->
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Best Value</div>
+                    <h3>Growth</h3>
+                    <p class="tier-name">For scaling businesses</p>
+                    <div class="price">$499</div>
+                    <p class="price-period">per month</p>
+                    <p class="price-description">High-volume aesthetic assessment with advanced features</p>
+                    
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> 100,000 assessments/month</li>
+                        <li><span class="check-icon">✓</span> Design quality scoring</li>
+                        <li><span class="check-icon">✓</span> Brand consistency checks</li>
+                        <li><span class="check-icon">✓</span> REST API access</li>
+                        <li><span class="check-icon">✓</span> Advanced analytics</li>
+                        <li><span class="check-icon">✓</span> Priority support</li>
+                        <li><span class="check-icon">✓</span> Batch processing</li>
+                        <li><span class="check-icon">✓</span> Webhooks</li>
+                        <li class="feature-unavailable"><span class="check-icon">✗</span> Custom models</li>
+                    </ul>
+                    
+                    <a href="contact.html?plan=judge-growth" class="btn btn-primary" style="width: 100%; text-align: center;">Get Started</a>
+                </div>
+                
+                <!-- Scale Plan -->
+                <div class="pricing-card">
+                    <h3>Scale</h3>
+                    <p class="tier-name">For enterprises</p>
+                    <div class="price">$1,999</div>
+                    <p class="price-period">per month</p>
+                    <p class="price-description">Unlimited assessments with custom AI models</p>
+                    
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> 1M+ assessments/month</li>
+                        <li><span class="check-icon">✓</span> Design quality scoring</li>
+                        <li><span class="check-icon">✓</span> Brand consistency checks</li>
+                        <li><span class="check-icon">✓</span> Full API access</li>
+                        <li><span class="check-icon">✓</span> Advanced analytics</li>
+                        <li><span class="check-icon">✓</span> Dedicated support</li>
+                        <li><span class="check-icon">✓</span> Batch processing</li>
+                        <li><span class="check-icon">✓</span> Webhooks & integrations</li>
+                        <li><span class="check-icon">✓</span> Custom AI models</li>
+                        <li><span class="check-icon">✓</span> White-label option</li>
+                        <li><span class="check-icon">✓</span> SLA guarantee</li>
+                    </ul>
+                    
+                    <a href="contact.html?plan=judge-scale" class="btn btn-secondary" style="width: 100%; text-align: center;">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TASTE VISION Pricing -->
+    <section class="pricing-section" id="vision" style="display: none;">
+        <div class="container">
+            <h2 class="section-title" style="font-size: 36px; margin-bottom: 50px;">TASTE VISION™ Packages</h2>
+            
+            <div class="pricing-grid">
+                <!-- Basic Package -->
+                <div class="pricing-card">
+                    <h3>Basic Dashboard</h3>
+                    <p class="tier-name">Single custom dashboard</p>
+                    <div class="price">$5K</div>
+                    <p class="price-period">one-time + $500/mo</p>
+                    <p class="price-description">Professional dashboard with essential features</p>
+                    
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> Custom design</li>
+                        <li><span class="check-icon">✓</span> 3 data sources</li>
+                        <li><span class="check-icon">✓</span> Real-time updates</li>
+                        <li><span class="check-icon">✓</span> Responsive design</li>
+                        <li><span class="check-icon">✓</span> Basic support</li>
+                        <li><span class="check-icon">✓</span> 2 revisions included</li>
+                        <li class="feature-unavailable"><span class="check-icon">✗</span> Multi-sensory integration</li>
+                        <li class="feature-unavailable"><span class="check-icon">✗</span> White-label</li>
+                    </ul>
+                    
+                    <a href="contact.html?plan=vision-basic" class="btn btn-secondary" style="width: 100%; text-align: center;">Request Quote</a>
+                </div>
+                
+                <!-- Professional Package -->
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Recommended</div>
+                    <h3>Professional Suite</h3>
+                    <p class="tier-name">Complete consciousness platform</p>
+                    <div class="price">$15K</div>
+                    <p class="price-period">one-time + $2K/mo</p>
+                    <p class="price-description">Advanced multi-sensory dashboard suite</p>
+                    
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> Custom design system</li>
+                        <li><span class="check-icon">✓</span> Unlimited data sources</li>
+                        <li><span class="check-icon">✓</span> Real-time updates</li>
+                        <li><span class="check-icon">✓</span> Multi-sensory integration</li>
+                        <li><span class="check-icon">✓</span> Priority support</li>
+                        <li><span class="check-icon">✓</span> Unlimited revisions</li>
+                        <li><span class="check-icon">✓</span> Advanced analytics</li>
+                        <li><span class="check-icon">✓</span> API access</li>
+                        <li class="feature-unavailable"><span class="check-icon">✗</span> White-label</li>
+                    </ul>
+                    
+                    <a href="contact.html?plan=vision-pro" class="btn btn-primary" style="width: 100%; text-align: center;">Schedule Consultation</a>
+                </div>
+                
+                <!-- Enterprise Package -->
+                <div class="pricing-card">
+                    <h3>Enterprise Platform</h3>
+                    <p class="tier-name">Fully custom solution</p>
+                    <div class="price">Custom</div>
+                    <p class="price-period">based on requirements</p>
+                    <p class="price-description">White-label consciousness platform for resale</p>
+                    
+                    <ul class="features-list">
+                        <li><span class="check-icon">✓</span> Completely custom</li>
+                        <li><span class="check-icon">✓</span> Unlimited everything</li>
+                        <li><span class="check-icon">✓</span> Multi-sensory integration</li>
+                        <li><span class="check-icon">✓</span> White-label ready</li>
+                        <li><span class="check-icon">✓</span> Dedicated team</li>
+                        <li><span class="check-icon">✓</span> Ongoing development</li>
+                        <li><span class="check-icon">✓</span> Full source code</li>
+                        <li><span class="check-icon">✓</span> Training included</li>
+                        <li><span class="check-icon">✓</span> SLA guarantee</li>
+                    </ul>
+                    
+                    <a href="contact.html?plan=vision-enterprise" class="btn btn-secondary" style="width: 100%; text-align: center;">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I change plans later?
+                        <span style="color: var(--secondary);">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate any differences.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you offer free trials?
+                        <span style="color: var(--secondary);">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! TASTE JUDGE offers a 14-day free trial with 1,000 assessments. For TASTE SENTINEL, we offer personalized demos to qualified prospects.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What payment methods do you accept?
+                        <span style="color: var(--secondary);">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        We accept all major credit cards, bank transfers, and purchase orders for Enterprise plans. Annual plans receive a 15% discount.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Is there a setup fee?
+                        <span style="color: var(--secondary);">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        No setup fees for TASTE SENTINEL or TASTE JUDGE. TASTE VISION has a one-time design fee as listed in the pricing.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I get a custom quote?
+                        <span style="color: var(--secondary);">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! Contact our sales team for custom enterprise solutions, volume discounts, or special requirements.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="section-title">Ready to Get Started?</h2>
+            <p class="cta-description">Join leading organizations using TasteNet AI. Start your free trial or schedule a demo today.</p>
+            
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-primary btn-large">Contact Sales</a>
+                <a href="demo.html" class="btn btn-secondary btn-large">Watch Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 class="footer-logo">TasteNet AI</h3>
+                    <p>Consciousness-Driven Intelligence for the modern enterprise.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                        <a href="#" aria-label="Twitter">Twitter</a>
+                        <a href="#" aria-label="GitHub">GitHub</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="products.html#sentinel">TASTE SENTINEL™</a></li>
+                        <li><a href="products.html#judge">TASTE JUDGE™</a></li>
+                        <li><a href="products.html#vision">TASTE VISION™</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="demo.html">Demo</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TasteNet AI. All rights reserved.</p>
+                <p class="footer-tagline">Built with aesthetic judgment by the Taste Network</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        function showProduct(product) {
+            // Hide all sections
+            document.getElementById('sentinel').style.display = 'none';
+            document.getElementById('judge').style.display = 'none';
+            document.getElementById('vision').style.display = 'none';
+            
+            // Show selected section
+            document.getElementById(product).style.display = 'block';
+            
+            // Update button states
+            const buttons = document.querySelectorAll('.toggle-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
