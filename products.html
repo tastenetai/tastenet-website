@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - TasteNet AI</title>
+    <meta name="description" content="Explore TasteNet AI products: TASTE SENTINEL for security, TASTE JUDGE for quality assessment, and TASTE VISION for custom dashboards.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .products-hero {
+            padding: 150px 5% 100px;
+            text-align: center;
+        }
+        
+        .product-section {
+            padding: 80px 5%;
+            scroll-margin-top: 100px;
+        }
+        
+        .product-section:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .product-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .product-info h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 48px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .product-tagline {
+            font-size: 20px;
+            color: var(--secondary);
+            margin-bottom: 30px;
+        }
+        
+        .product-description {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .product-features {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+        }
+        
+        .features-list {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .features-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-icon-small {
+            font-size: 24px;
+            min-width: 24px;
+        }
+        
+        .pricing-badge {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .use-cases {
+            margin-top: 30px;
+        }
+        
+        .use-cases h4 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .use-case-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tag {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: var(--primary);
+        }
+        
+        @media (max-width: 968px) {
+            .product-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .product-info h2 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TasteNet AI</a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="demo.html">Demo</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <a href="contact.html" class="cta-nav">Get Started</a>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Products Hero -->
+    <section class="products-hero">
+        <h1 class="section-title">Our Products</h1>
+        <p class="section-subtitle">Comprehensive solutions for security, quality assessment, and data visualization powered by 5-sensory AI</p>
+    </section>
+
+    <!-- TASTE SENTINEL -->
+    <section class="product-section" id="sentinel">
+        <div class="product-content">
+            <div class="product-info">
+                <div class="pricing-badge">From $999/month</div>
+                <h2>TASTE SENTINEL™</h2>
+                <p class="product-tagline">AI-Powered Security & Anomaly Detection</p>
+                <p class="product-description">
+                    The most advanced threat detection platform ever created. TASTE SENTINEL uses 5-sensory AI architecture to detect security threats, behavioral anomalies, and network intrusions before they become critical.
+                </p>
+                <p class="product-description">
+                    Unlike traditional security tools that rely on single-vector analysis, SENTINEL monitors your infrastructure through five distinct sensory systems, providing unprecedented depth of awareness and faster threat detection.
+                </p>
+                <div class="use-cases">
+                    <h4>Perfect For:</h4>
+                    <div class="use-case-tags">
+                        <span class="tag">Cybersecurity Firms</span>
+                        <span class="tag">Financial Services</span>
+                        <span class="tag">E-commerce</span>
+                        <span class="tag">SaaS Companies</span>
+                        <span class="tag">Enterprise IT</span>
+                    </div>
+                </div>
+                <div style="margin-top: 30px;">
+                    <a href="pricing.html#sentinel" class="btn btn-primary">View Pricing</a>
+                    <a href="contact.html" class="btn btn-secondary">Request Demo</a>
+                </div>
+            </div>
+            
+            <div class="product-features">
+                <h3 style="color: var(--primary); margin-bottom: 20px; font-family: 'Orbitron', monospace;">Key Features</h3>
+                <ul class="features-list">
+                    <li>
+                        <span class="feature-icon-small">👁️</span>
+                        <div>
+                            <strong>Visual Threat Detection</strong><br>
+                            <span style="color: var(--text-dim); font-size: 14px;">Meaning anomalies and semantic pattern analysis</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon-small">👂</span>
+                        <div>
+                            <strong>Audio Monitoring</strong><br>
+                            <span style="color: var(--text-dim); font-size: 14px;">Proximity changes and behavioral analysis</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon-small">🦵</span>
+                        <div>
+                            <strong>Network Exploration</strong><br>
+                            <span style="color: var(--text-dim); font-size: 14px;">Autonomous threat discovery and mapping</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon-small">🌐</span>
+                        <div>
+                            <strong>Environmental Sensing</strong><br>
+                            <span style="color: var(--text-dim); font-size: 14px;">1000+ distributed infrastructure sensors</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon-small">👅</span>
+                        <div>
+                            <strong>Quality Monitoring</strong><br>
+                            <span style="color: var(--text-dim); font-size: 14px;">Aesthetic corruption and degradation detection</span>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="feature-icon-small">📊</span>
+                        <div>
+                            <strong>Real-time Dashboards</strong><br>
+                            <span style="color: var(--text-dim); font-size: 14px;">Beautiful consciousness visualization</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- TASTE JUDGE -->
+    <section class="product-section" id="judge">
