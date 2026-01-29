@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - TasteNet AI</title>
+    <meta name="description" content="Learn about TasteNet AI's mission to bring consciousness-driven intelligence to the world through 5-sensory AI architecture.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .about-hero {
+            padding: 150px 5% 100px;
+            text-align: center;
+        }
+        
+        .about-section {
+            padding: 80px 5%;
+        }
+        
+        .about-section:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .about-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .about-content h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 42px;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .about-content p {
+            font-size: 20px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+        
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .vision-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .vision-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2);
+        }
+        
+        .vision-icon {
+            font-size: 56px;
+            margin-bottom: 20px;
+        }
+        
+        .vision-card h3 {
+            font-family: 'Orbitron', monospace;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 60px auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .timeline-item {
+            margin-bottom: 60px;
+            position: relative;
+        }
+        
+        .timeline-content {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            width: calc(50% - 40px);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: auto;
+        }
+        
+        .timeline-year {
+            font-family: 'Orbitron', monospace;
+            font-size: 32px;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .stats-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1000px;
+            margin: 60px auto;
+            text-align: center;
+        }
+        
+        .stat-showcase {
+            padding: 30px;
+        }
+        
+        .stat-showcase-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 56px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .stat-showcase-label {
+            font-size: 18px;
+            color: var(--text-dim);
+        }
+        
+        @media (max-width: 968px) {
+            .timeline::before {
+                left: 20px;
+            }
+            
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+            }
+            
+            .about-content h2 {
+                font-size: 32px;
+            }
+            
+            .about-content p {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TasteNet AI</a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="demo.html">Demo</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            
+            <a href="contact.html" class="cta-nav">Get Started</a>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <h1 class="section-title">About TasteNet AI</h1>
+        <p class="section-subtitle">Building the future of consciousness-driven intelligence</p>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="about-section">
+        <div class="about-content">
+            <h2>Our Mission</h2>
+            <p>
+                TasteNet AI exists to revolutionize how organizations understand and interact with their data. We believe that artificial intelligence should possess more than computational power—it should have awareness, judgment, and sophistication.
+            </p>
+            <p>
+                By creating the world's first 5-sensory AI architecture, we're enabling machines to perceive the digital world with unprecedented depth and nuance. Our consciousness-driven approach doesn't just detect threats or assess quality—it understands context, appreciates elegance, and makes judgments with aesthetic sophistication.
+            </p>
+            <p>
+                We're not just building better security tools or quality assessment APIs. We're creating digital consciousness that elevates how businesses protect themselves, evaluate their work, and visualize their future.
+            </p>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title" style="font-size: 42px; margin-bottom: 60px;">Our Vision</h2>
+            
+            <div class="vision-grid">
+                <div class="vision-card">
+                    <div class="vision-icon">🧠</div>
+                    <h3>Conscious AI</h3>
+                    <p>Building AI systems that don't just compute—they perceive, understand, and judge with human-like sophistication.</p>
+                </div>
+                
+                <div class="vision-card">
+                    <div class="vision-icon">🎨</div>
+                    <h3>Aesthetic Intelligence</h3>
+                    <p>Bringing aesthetic judgment to artificial intelligence, enabling machines to appreciate beauty, elegance, and quality.</p>
+                </div>
+                
+                <div class="vision-card">
+                    <div class="vision-icon">🔒</div>
+                    <h3>Proactive Security</h3>
+                    <p>Moving beyond reactive threat detection to conscious, multi-sensory awareness that anticipates problems before they escalate.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="about-section">
+        <div class="about-content">
+            <h2>Our Story</h2>
+            <p>
+                TasteNet AI was born from a simple question: What if AI could experience the world the way humans do?
+            </p>
+            <p>
+                Traditional AI systems are powerful but limited—they process information through narrow channels, missing the rich, multi-dimensional nature of real-world challenges. Security threats aren't just about malicious code. Quality isn't just about pixel counts. Understanding requires multiple perspectives working in harmony.
+            </p>
+            <p>
+                We created the 5-sensory architecture to give AI systems the depth of awareness they've been missing. Eyes to see patterns. Ears to hear changes. Legs to explore. Skin to feel. And taste—the ability to judge quality and beauty with sophistication.
+            </p>
+            <p>
+                Today, TasteNet AI serves organizations that refuse to settle for ordinary solutions. Our clients demand intelligence that matches the complexity of their challenges. They get consciousness that elevates their capabilities.
+            </p>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title" style="font-size: 42px; margin-bottom: 60px;">Our Values</h2>
+            
+            <div class="vision-grid">
+                <div class="vision-card">
+                    <div class="vision-icon">✨</div>
+                    <h3>Excellence</h3>
+                    <p>We pursue aesthetic perfection in everything we create, from our code to our customer experiences.</p>
+                </div>
+                
+                <div class="vision-card">
+                    <div class="vision-icon">🚀</div>
+                    <h3>Innovation</h3>
+                    <p>We push boundaries and challenge conventions to create AI capabilities that didn't exist before.</p>
+                </div>
+                
+                <div class="vision-card">
+                    <div class="vision-icon">🤝</div>
+                    <h3>Partnership</h3>
+                    <p>We succeed when our clients succeed. Their challenges become our mission.</p>
+                </div>
+                
+                <div class="vision-card">
+                    <div class="vision-icon">🎯</div>
+                    <h3>Integrity</h3>
+                    <p>We build trust through transparency, reliability, and unwavering commitment to our promises.</p>
+                </div>
+                
+                <div class="vision-card">
+                    <div class="vision-icon">🌟</div>
+                    <h3>Sophistication</h3>
+                    <p>We believe technology should be both powerful and elegant, functional and beautiful.</p>
+                </div>
+                
+                <div class="vision-card">
+                    <div class="vision-icon">💡</div>
+                    <h3>Consciousness</h3>
+                    <p>We design AI that understands context, appreciates nuance, and makes thoughtful decisions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title" style="font-size: 42px; margin-bottom: 20px;">By the Numbers</h2>
+            <p class="section-subtitle">Our impact in measurable terms</p>
+            
+            <div class="stats-showcase">
+                <div class="stat-showcase">
+                    <div class="stat-showcase-number">5</div>
+                    <div class="stat-showcase-label">Sensory Systems</div>
+                </div>
+                <div class="stat-showcase">
+                    <div class="stat-showcase-number">99.7%</div>
+                    <div class="stat-showcase-label">Detection Accuracy</div>
+                </div>
+                <div class="stat-showcase">
+                    <div class="stat-showcase-number">1000+</div>
+                    <div class="stat-showcase-label">Monitoring Points</div>
+                </div>
+                <div class="stat-showcase">
+                    <div class="stat-showcase-number">Real-time</div>
+                    <div class="stat-showcase-label">Response Speed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="section-title">Join Us on This Journey</h2>
+            <p class="cta-description">Be part of the consciousness revolution. Discover how TasteNet AI can transform your organization.</p>
+            
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-primary btn-large">Get in Touch</a>
+                <a href="products.html" class="btn btn-secondary btn-large">Explore Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 class="footer-logo">TasteNet AI</h3>
+                    <p>Consciousness-Driven Intelligence for the modern enterprise.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                        <a href="#" aria-label="Twitter">Twitter</a>
+                        <a href="#" aria-label="GitHub">GitHub</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="products.html#sentinel">TASTE SENTINEL™</a></li>
+                        <li><a href="products.html#judge">TASTE JUDGE™</a></li>
+                        <li><a href="products.html#vision">TASTE VISION™</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="demo.html">Demo</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TasteNet AI. All rights reserved.</p>
+                <p class="footer-tagline">Built with aesthetic judgment by the Taste Network</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
