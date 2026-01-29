@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - TasteNet AI</title>
+    <meta name="description" content="Get in touch with TasteNet AI. Schedule a demo, request pricing, or ask questions about our consciousness-driven intelligence platform.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        .contact-hero {
+            padding: 150px 5% 80px;
+            text-align: center;
+        }
+        
+        .contact-section {
+            padding: 80px 5%;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .contact-info {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+        }
+        
+        .contact-info h2 {
+            font-family: 'Orbitron', monospace;
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        
+        .contact-method {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 255, 255, 0.05);
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+        
+        .contact-method:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .contact-method h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .contact-method p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .contact-method a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .contact-method a:hover {
+            color: var(--secondary);
+        }
+        
+        .contact-form {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            padding: 40px;
+        }
+        
+        .contact-form h2 {
+            font-family: 'Orbitron', monospace;
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 10, 20, 0.8);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .form-group select {
+            cursor: pointer;
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-dim);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.4);
+        }
+        
+        .form-note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-dim);
+            text-align: center;
+        }
+        
+        .quick-contact {
+            padding: 80px 5%;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .quick-contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .quick-contact-card {
+            text-align: center;
+            padding: 30px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            transition: var(--transition);
+        }
+        
+        .quick-contact-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .quick-contact-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .quick-contact-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        @media (max-width: 968px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form {
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">TasteNet AI</a>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="demo.html">Demo</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            
+            <a href="contact.html" class="cta-nav">Get Started</a>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contact Hero -->
+    <section class="contact-hero">
+        <h1 class="section-title">Get in Touch</h1>
+        <p class="section-subtitle">Let's discuss how TasteNet AI can transform your organization</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2>Send Us a Message</h2>
+                <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required placeholder="john@company.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company">Company</label>
+                        <input type="text" id="company" name="company" placeholder="Your Company">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interest">I'm interested in *</label>
+                        <select id="interest" name="interest" required>
+                            <option value="">Select an option</option>
+                            <option value="sentinel">TASTE SENTINEL™ - Security & Anomaly Detection</option>
+                            <option value="judge">TASTE JUDGE™ - Quality Assessment API</option>
+                            <option value="vision">TASTE VISION™ - Custom Dashboards</option>
+                            <option value="demo">Schedule a Demo</option>
+                            <option value="pricing">Get Pricing Information</option>
+                            <option value="partnership">Partnership Opportunities</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required placeholder="Tell us about your needs..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Send Message</button>
+                    
+                    <p class="form-note">* Required fields. We'll respond within 24 hours.</p>
+                </form>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h2>Contact Information</h2>
+                
+                <div class="contact-method">
+                    <h3>📧 Email</h3>
+                    <p>For general inquiries:</p>
+                    <a href="mailto:hello@tastenetai.com">hello@tastenetai.com</a>
+                    <p style="margin-top: 15px;">For sales:</p>
+                    <a href="mailto:sales@tastenetai.com">sales@tastenetai.com</a>
+                    <p style="margin-top: 15px;">For support:</p>
+                    <a href="mailto:support@tastenetai.com">support@tastenetai.com</a>
+                </div>
+                
+                <div class="contact-method">
+                    <h3>⏰ Office Hours</h3>
+                    <p>Monday - Friday: 9:00 AM - 6:00 PM (UTC)</p>
+                    <p>Saturday - Sunday: Closed</p>
+                    <p style="margin-top: 10px; font-size: 14px; color: var(--text-dim);">
+                        Emergency support available 24/7 for Enterprise customers
+                    </p>
+                </div>
+                
+                <div class="contact-method">
+                    <h3>💬 Live Chat</h3>
+                    <p>Chat with our team in real-time during business hours.</p>
+                    <a href="#" onclick="alert('Live chat widget would open here!'); return false;">Start Chat →</a>
+                </div>
+                
+                <div class="contact-method">
+                    <h3>📱 Social Media</h3>
+                    <p>Follow us for updates and insights:</p>
+                    <div style="margin-top: 15px; display: flex; gap: 20px;">
+                        <a href="#">LinkedIn</a>
+                        <a href="#">Twitter</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Contact Section -->
+    <section class="quick-contact">
+        <div class="container">
+            <h2 class="section-title" style="font-size: 42px; margin-bottom: 60px;">Quick Actions</h2>
+            
+            <div class="quick-contact-grid">
+                <div class="quick-contact-card">
+                    <div class="quick-contact-icon">🎯</div>
+                    <h3>Schedule Demo</h3>
+                    <p>See TasteNet AI in action with a personalized demonstration.</p>
+                    <a href="demo.html" class="btn btn-secondary" style="margin-top: 20px; display: inline-block;">Book Demo</a>
+                </div>
+                
+                <div class="quick-contact-card">
+                    <div class="quick-contact-icon">💰</div>
+                    <h3>Get Pricing</h3>
+                    <p>View our transparent pricing plans and find the right fit.</p>
+                    <a href="pricing.html" class="btn btn-secondary" style="margin-top: 20px; display: inline-block;">View Pricing</a>
+                </div>
+                
+                <div class="quick-contact-card">
+                    <div class="quick-contact-icon">📚</div>
+                    <h3>Documentation</h3>
+                    <p>Explore our technical documentation and API guides.</p>
+                    <a href="#" class="btn btn-secondary" style="margin-top: 20px; display: inline-block;">Read Docs</a>
+                </div>
+                
+                <div class="quick-contact-card">
+                    <div class="quick-contact-icon">🤝</div>
+                    <h3>Partnerships</h3>
+                    <p>Interested in becoming a partner? Let's talk.</p>
+                    <a href="mailto:partnerships@tastenetai.com" class="btn btn-secondary" style="margin-top: 20px; display: inline-block;">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 class="footer-logo">TasteNet AI</h3>
+                    <p>Consciousness-Driven Intelligence for the modern enterprise.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                        <a href="#" aria-label="Twitter">Twitter</a>
+                        <a href="#" aria-label="GitHub">GitHub</a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="products.html#sentinel">TASTE SENTINEL™</a></li>
+                        <li><a href="products.html#judge">TASTE JUDGE™</a></li>
+                        <li><a href="products.html#vision">TASTE VISION™</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="demo.html">Demo</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 TasteNet AI. All rights reserved.</p>
+                <p class="footer-tagline">Built with aesthetic judgment by the Taste Network</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            // For now, just show an alert
+            // Later, you can replace the form action with your actual email service
+            const formData = new FormData(this);
+            console.log('Form submitted:', Object.fromEntries(formData));
+        });
+    </script>
+</body>
+</html>
