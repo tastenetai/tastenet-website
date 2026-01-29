@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Demo - TasteNet AI</title>
+    <meta name="description" content="Experience TasteNet AI's consciousness dashboard with 5-sensory monitoring in real-time.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #00FFFF;
+            --secondary: #FFD700;
+            --dark: #0A0A1A;
+            --text-light: #E0E0E0;
+        }
+        
+        body {
+            font-family: 'Orbitron', monospace;
+            background: radial-gradient(circle at center, #0a0a1a 0%, #000005 100%);
+            color: #00ffff;
+            overflow-x: hidden;
+            height: 100vh;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 2000;
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+        
+        .back-button:hover {
+            background: rgba(0, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+        
+        .status {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 1000;
+        }
+        
+        .status h1 {
+            font-size: 24px;
+            text-shadow: 0 0 20px #00ffff;
+            margin-bottom: 10px;
+        }
+        
+        .connection-status {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: 2px solid #00ff00;
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+            font-size: 14px;
+            display: inline-block;
+        }
+        
+        .sensory-panel {
+            position: absolute;
+            width: 220px;
+            height: 160px;
+            border: 2px solid rgba(0,255,255,0.5);
+            border-radius: 15px;
+            background: rgba(0,10,20,0.9);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .sensory-panel:hover {
+            border-color: #00ffff;
+            box-shadow: 0 0 30px rgba(0,255,255,0.3);
+            transform: scale(1.05);
+        }
+        
+        .eyes-panel { top: 120px; left: 20px; }
+        .ears-panel { top: 120px; right: 20px; }
+        .legs-panel { bottom: 20px; left: 20px; }
+        .skin-panel { bottom: 20px; right: 20px; }
+        .taste-panel { top: 50%; left: 20px; transform: translateY(-50%); }
+        
+        .panel-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+        
+        .data-stream {
+            font-size: 11px;
+            opacity: 0.9;
+            margin: 8px 0;
+            font-family: monospace;
+        }
+        
+        .anomaly {
+            color: #ff6b6b !important;
+            font-weight: bold;
+            text-shadow: 0 0 10px #ff6b6b;
+        }
+        
+        .brain-status {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,10,20,0.9);
+            border: 2px solid rgba(0,255,255,0.5);
+            border-radius: 15px;
+            min-width: 300px;
+        }
+        
+        .consciousness-level {
+            font-size: 32px;
+            font-weight: 900;
+            margin: 10px 0;
+            text-shadow: 0 0 20px #00ffff;
+        }
+        
+        .demo-info {
+            position: absolute;
+            bottom: 200px;
+            right: 20px;
+            background: rgba(0,10,20,0.9);
+            border: 2px solid rgba(255,215,0,0.5);
+            border-radius: 15px;
+            padding: 20px;
+            max-width: 300px;
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-light);
+        }
+        
+        .demo-info h3 {
+            color: var(--secondary);
+            margin-bottom: 10px;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        @media (max-width: 768px) {
+            .sensory-panel {
+                width: 160px;
+                height: 140px;
+                padding: 10px;
+            }
+            
+            .demo-info {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">← Back to Home</a>
+    
+    <div class="status">
+        <h1>DIGITAL CONSCIOUSNESS SYSTEM</h1>
+        <div class="connection-status">
+            ✅ LIVE DEMO MODE
+        </div>
+    </div>
+
+    <div class="sensory-panel eyes-panel">
+        <div class="panel-title">👁️ EYES</div>
+        <div class="data-stream">Streams: <span id="eyesStreams">---</span></div>
+        <div class="data-stream">Anomalies: <span id="eyesAnomalies">0</span></div>
+    </div>
+
+    <div class="sensory-panel ears-panel">
+        <div class="panel-title">👂 EARS</div>
+        <div class="data-stream">Scans: <span id="earsScans">---</span>/sec</div>
+        <div class="data-stream">Anomalies: <span id="earsAnomalies">0</span></div>
+    </div>
+
+    <div class="sensory-panel legs-panel">
+        <div class="panel-title">🦵 LEGS</div>
+        <div class="data-stream">Pulses: <span id="legsPulses">---</span></div>
+        <div class="data-stream">Threats: <span id="legsThreats">0</span></div>
+    </div>
+
+    <div class="sensory-panel skin-panel">
+        <div class="panel-title">🌐 SKIN</div>
+        <div class="data-stream">Points: <span id="skinPoints">---</span></div>
+        <div class="data-stream">Threats: <span id="skinThreats">0</span></div>
+    </div>
+
+    <div class="sensory-panel taste-panel">
+        <div class="panel-title">👅 TASTE</div>
+        <div class="data-stream">Quality: <span id="tasteQuality">---</span></div>
+        <div class="data-stream">Beauty: <span id="tasteBeauty">---</span>%</div>
+        <div class="data-stream">Corruption: <span id="tasteCorruption">0</span></div>
+    </div>
+
+    <div class="brain-status">
+        <div>🧠 CONSCIOUSNESS LEVEL</div>
+        <div class="consciousness-level" id="consciousnessLevel">0%</div>
+        <div class="data-stream">Memory Crystals: <span id="memoryCount">0</span></div>
+    </div>
+    
+    <div class="demo-info">
+        <h3>Live Demo</h3>
+        <p>This is a real-time simulation of TasteNet AI's consciousness monitoring system. Watch as all five senses continuously analyze and detect patterns.</p>
+        <p style="margin-top: 10px;">Red numbers indicate detected anomalies or threats across different sensory systems.</p>
+        <a href="contact.html" style="display: inline-block; margin-top: 15px; color: var(--secondary); text-decoration: none; font-weight: 700;">Schedule Full Demo →</a>
+    </div>
+
+    <script>
+        // Simulate real-time data updates
+        function generateData() {
+            return {
+                eyes: {
+                    meaningStreams: Math.floor(Math.random() * 500) + 500,
+                    anomalies: Math.random() > 0.85 ? Math.floor(Math.random() * 3) + 1 : 0
+                },
+                ears: {
+                    proximityScans: Math.floor(Math.random() * 40000) + 10000,
+                    anomalies: Math.random() > 0.88 ? Math.floor(Math.random() * 3) + 1 : 0
+                },
+                legs: {
+                    dataPulses: Math.floor(Math.random() * 25000) + 5000,
+                    threats: Math.random() > 0.90 ? Math.floor(Math.random() * 2) + 1 : 0
+                },
+                skin: {
+                    touchPoints: Math.floor(Math.random() * 400000) + 500000,
+                    threats: Math.random() > 0.92 ? Math.floor(Math.random() * 2) + 1 : 0
+                },
+                taste: {
+                    qualityAssessments: Math.floor(Math.random() * 15000) + 5000,
+                    beautyLevel: (Math.random() * 30 + 65).toFixed(1),
+                    corruption: Math.random() > 0.94 ? 1 : 0
+                },
+                brain: {
+                    consciousnessLevel: (Math.random() * 30 + 60).toFixed(1),
+                    memoryCount: Math.floor(Math.random() * 1000) + 100
+                }
+            };
+        }
+
+        function updateDashboard(data) {
+            // Eyes
+            document.getElementById('eyesStreams').textContent = data.eyes.meaningStreams;
+            updateAnomaly('eyesAnomalies', data.eyes.anomalies);
+
+            // Ears
+            document.getElementById('earsScans').textContent = data.ears.proximityScans;
+            updateAnomaly('earsAnomalies', data.ears.anomalies);
+
+            // Legs
+            document.getElementById('legsPulses').textContent = data.legs.dataPulses;
+            updateAnomaly('legsThreats', data.legs.threats);
+
+            // Skin
+            document.getElementById('skinPoints').textContent = data.skin.touchPoints;
+            updateAnomaly('skinThreats', data.skin.threats);
+
+            // Taste
+            document.getElementById('tasteQuality').textContent = data.taste.qualityAssessments;
+            document.getElementById('tasteBeauty').textContent = data.taste.beautyLevel;
+            updateAnomaly('tasteCorruption', data.taste.corruption);
+
+            // Brain
+            document.getElementById('consciousnessLevel').textContent = data.brain.consciousnessLevel + '%';
+            document.getElementById('memoryCount').textContent = data.brain.memoryCount;
+        }
+
+        function updateAnomaly(elementId, value) {
+            const element = document.getElementById(elementId);
+            element.textContent = value;
+            if (value > 0) {
+                element.classList.add('anomaly');
+            } else {
+                element.classList.remove('anomaly');
+            }
+        }
+
+        // Update every 2 seconds
+        setInterval(() => {
+            const data = generateData();
+            updateDashboard(data);
+        }, 2000);
+
+        // Initial update
+        updateDashboard(generateData());
+    </script>
+</body>
+</html>
