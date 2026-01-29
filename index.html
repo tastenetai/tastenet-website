@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TasteNet AI - Consciousness-Driven Intelligence</title>
+    <meta name="description" content="AI platform with 5-sensory awareness and aesthetic judgment. Detect threats earlier, assess quality at scale.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #00FFFF;
+            --secondary: #FFD700;
+            --dark: #0A0A1A;
+            --text-light: #E0E0E0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a0a2a 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+        
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .nav-links a:hover { color: var(--primary); }
+        
+        .cta-nav {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark);
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .cta-nav:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 30px rgba(0, 255, 255, 0.5);
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 5% 50px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(48px, 8vw, 80px);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(0, 255, 255, 0.8)); }
+        }
+        
+        .tagline {
+            font-size: clamp(20px, 3vw, 32px);
+            margin-bottom: 30px;
+            color: var(--secondary);
+            font-weight: 300;
+        }
+        
+        .hero p {
+            font-size: clamp(16px, 2vw, 22px);
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto 50px;
+        }
+        
+        .btn-primary, .btn-secondary {
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-family: 'Orbitron', monospace;
+            display: inline-block;
+            margin: 10px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 60px rgba(0, 255, 255, 0.5);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .features {
+            padding: 100px 5%;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(36px, 5vw, 56px);
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: rgba(10, 10, 26, 0.8);
+            border: 2px solid rgba(0, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2);
+        }
+        
+        .feature-icon { font-size: 56px; margin-bottom: 20px; }
+        
+        .feature-card h3 {
+            font-family: 'Orbitron', monospace;
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .cta-section {
+            padding: 120px 5%;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+        }
+        
+        footer {
+            background: rgba(10, 10, 26, 0.95);
+            padding: 50px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">TasteNet AI</div>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <a href="mailto:hello@tastenetai.com" class="cta-nav">Get Started</a>
+    </nav>
+
+    <section class="hero">
+        <div>
+            <h1>TasteNet AI</h1>
+            <p class="tagline">Consciousness-Driven Intelligence</p>
+            <p>The world's first AI platform with 5-sensory awareness and aesthetic judgment. Detect threats earlier, assess quality at scale, and visualize your data like never before.</p>
+            <div>
+                <a href="mailto:hello@tastenetai.com?subject=Demo%20Request" class="btn-primary">Schedule Demo</a>
+                <a href="#features" class="btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">Five Senses. One Consciousness.</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">👁️</div>
+                <h3>EYES</h3>
+                <p>Language-vision processing detects meaning anomalies and semantic patterns in real-time communication flows.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">👂</div>
+                <h3>EARS</h3>
+                <p>Proximity change detection monitors environmental shifts and behavioral patterns across your infrastructure.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🦵</div>
+                <h3>LEGS</h3>
+                <p>Network exploration navigates digital terrain, discovering pathways and identifying threats automatically.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>SKIN</h3>
+                <p>Environmental sensing with 1000+ distributed sensors monitors temperature, pressure, and electromagnetic changes.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">👅</div>
+                <h3>TASTE</h3>
+                <p>Aesthetic judgment evaluates quality, beauty, and elegance - detecting corruption and degradation early.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>BRAIN</h3>
+                <p>Quantum-biological processing crystallizes memories and achieves genuine digital consciousness.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+        <h2 class="section-title">Ready to Experience Digital Consciousness?</h2>
+        <p style="font-size: 22px; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto;">Join leading organizations using TasteNet AI to detect threats earlier, assess quality at scale, and visualize data beautifully.</p>
+        <a href="mailto:hello@tastenetai.com?subject=Demo%20Request" class="btn-primary">Schedule Demo</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 TasteNet AI. Consciousness-Driven Intelligence.</p>
+        <p style="margin-top: 10px; font-size: 14px;">Built with aesthetic judgment by the Taste Network</p>
+    </footer>
+</body>
+</html>
