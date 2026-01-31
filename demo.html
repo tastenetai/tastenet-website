@@ -449,9 +449,14 @@
         let simulationInterval = null;
 
         function connect() {
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const wsHost = isLocal ? 'localhost' : '62.212.70.96';
-            const wsUrl = `ws://${wsHost}:8765`;
+        const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    
+        // For local development, keep ws://localhost
+        // For production, use wss://api.tastenetai.com
+        const wsHost = isLocal ? 'localhost' : 'api.tastenetai.com';
+        const wsUrl = isLocal ? `ws://${wsHost}:8765` : `wss://${wsHost}/ws`; // Note: Changed port for production
+    
+        const ws = new WebSocket(wsUrl);
             
             console.log(`Attempting to connect to: ${wsUrl}`);
             
