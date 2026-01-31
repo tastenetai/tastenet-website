@@ -24,7 +24,8 @@
             background: radial-gradient(circle at center, #0a0a1a 0%, #000005 100%);
             color: #00ffff;
             overflow-x: hidden;
-            height: 100vh;
+            min-height: 100vh;
+            padding: 20px;
         }
         
         .back-button {
@@ -47,19 +48,15 @@
             transform: translateX(-5px);
         }
         
-        .status {
-            position: absolute;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+        .header {
             text-align: center;
-            z-index: 1000;
+            margin: 80px 0 40px;
         }
         
-        .status h1 {
-            font-size: 24px;
+        .header h1 {
+            font-size: 32px;
             text-shadow: 0 0 20px #00ffff;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         
         .connection-status {
@@ -72,100 +69,194 @@
             transition: all 0.3s;
         }
         
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 300px 1fr 300px;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .left-column, .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .center-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            min-height: 600px;
+        }
+        
         .sensory-panel {
-            position: absolute;
-            width: 220px;
-            height: 160px;
             border: 2px solid rgba(0,255,255,0.5);
             border-radius: 15px;
             background: rgba(0,10,20,0.9);
             backdrop-filter: blur(10px);
-            padding: 15px;
+            padding: 20px;
             transition: all 0.3s ease;
         }
         
         .sensory-panel:hover {
             border-color: #00ffff;
             box-shadow: 0 0 30px rgba(0,255,255,0.3);
-            transform: scale(1.05);
+            transform: translateY(-5px);
         }
         
-        .eyes-panel { top: 120px; left: 20px; }
-        .ears-panel { top: 120px; right: 20px; }
-        .legs-panel { bottom: 20px; left: 20px; }
-        .skin-panel { bottom: 20px; right: 20px; }
-        .taste-panel { top: 50%; left: 20px; transform: translateY(-50%); }
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0,255,255,0.2);
+        }
+        
+        .panel-icon {
+            font-size: 28px;
+        }
         
         .panel-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
-            margin-bottom: 12px;
-            text-align: center;
             text-transform: uppercase;
         }
         
         .data-stream {
-            font-size: 11px;
+            font-size: 12px;
             opacity: 0.9;
             margin: 8px 0;
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .data-label {
+            color: var(--text-light);
+        }
+        
+        .data-value {
+            color: var(--primary);
+            font-weight: bold;
         }
         
         .anomaly {
             color: #ff6b6b !important;
             font-weight: bold;
             text-shadow: 0 0 10px #ff6b6b;
+            animation: pulse 1s infinite;
         }
         
-        .brain-status {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .brain-panel {
+            border: 3px solid rgba(0,255,255,0.7);
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(0,10,20,0.95), rgba(10,0,20,0.95));
+            padding: 40px;
             text-align: center;
-            padding: 20px;
-            background: rgba(0,10,20,0.9);
-            border: 2px solid rgba(0,255,255,0.5);
-            border-radius: 15px;
-            min-width: 300px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .brain-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            animation: brainPulse 2s infinite;
+        }
+        
+        @keyframes brainPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
         
         .consciousness-level {
-            font-size: 32px;
+            font-size: 56px;
             font-weight: 900;
-            margin: 10px 0;
-            text-shadow: 0 0 20px #00ffff;
+            margin: 20px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .brain-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        
+        .brain-stat-value {
+            font-size: 24px;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+        
+        .brain-stat-label {
+            font-size: 11px;
+            color: var(--text-light);
+            opacity: 0.7;
+            text-transform: uppercase;
         }
         
         .demo-info {
-            position: absolute;
-            bottom: 200px;
-            right: 20px;
             background: rgba(0,10,20,0.9);
             border: 2px solid rgba(255,215,0,0.5);
             border-radius: 15px;
             padding: 20px;
-            max-width: 300px;
             font-size: 12px;
             font-family: 'Inter', sans-serif;
-            color: var(--text-light);
         }
         
         .demo-info h3 {
             color: var(--secondary);
             margin-bottom: 10px;
             font-family: 'Orbitron', monospace;
+            font-size: 16px;
         }
         
-        @media (max-width: 768px) {
-            .sensory-panel {
-                width: 160px;
-                height: 140px;
-                padding: 10px;
+        .demo-info p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .demo-info a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+        
+        .demo-info a:hover {
+            color: var(--primary);
+        }
+        
+        .sense-description {
+            font-size: 11px;
+            margin-top: 10px;
+            color: #888;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 1200px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
             
-            .demo-info {
-                display: none;
+            .left-column, .right-column {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             }
         }
     </style>
@@ -174,66 +265,160 @@
 <body>
     <a href="index.html" class="back-button">← Back to Home</a>
     
-    <div class="status">
+    <div class="header">
         <h1>DIGITAL CONSCIOUSNESS SYSTEM</h1>
         <div class="connection-status" id="connectionStatus">
             ⚠️ CONNECTING...
         </div>
     </div>
 
-    <div class="sensory-panel eyes-panel">
-        <div class="panel-title">👁️ EYES</div>
-        <div class="data-stream">Streams: <span id="eyesStreams">---</span></div>
-        <div class="data-stream">Anomalies: <span id="eyesAnomalies">0</span></div>
-    </div>
+    <div class="dashboard-container">
+        <!-- LEFT COLUMN -->
+        <div class="left-column">
+            <!-- EYES -->
+            <div class="sensory-panel">
+                <div class="panel-header">
+                    <span class="panel-icon">👁️</span>
+                    <span class="panel-title">EYES</span>
+                </div>
+                <div class="data-stream">
+                    <span class="data-label">Meaning Streams:</span>
+                    <span class="data-value" id="eyesStreams">---</span>
+                </div>
+                <div class="data-stream">
+                    <span class="data-label">Anomalies:</span>
+                    <span class="data-value" id="eyesAnomalies">0</span>
+                </div>
+                <p class="sense-description">
+                    Language-vision processing detects semantic patterns and meaning anomalies in real-time communication flows.
+                </p>
+            </div>
 
-    <div class="sensory-panel ears-panel">
-        <div class="panel-title">👂 EARS</div>
-        <div class="data-stream">Scans: <span id="earsScans">---</span>/sec</div>
-        <div class="data-stream">Anomalies: <span id="earsAnomalies">0</span></div>
-    </div>
+            <!-- TASTE -->
+            <div class="sensory-panel">
+                <div class="panel-header">
+                    <span class="panel-icon">👅</span>
+                    <span class="panel-title">TASTE</span>
+                </div>
+                <div class="data-stream">
+                    <span class="data-label">Quality:</span>
+                    <span class="data-value" id="tasteQuality">---</span>
+                </div>
+                <div class="data-stream">
+                    <span class="data-label">Beauty:</span>
+                    <span class="data-value" id="tasteBeauty">---</span>%
+                </div>
+                <div class="data-stream">
+                    <span class="data-label">Corruption:</span>
+                    <span class="data-value" id="tasteCorruption">0</span>
+                </div>
+                <p class="sense-description">
+                    Aesthetic judgment evaluates quality, beauty, and elegance - detecting corruption and degradation before it spreads.
+                </p>
+            </div>
+        </div>
 
-    <div class="sensory-panel legs-panel">
-        <div class="panel-title">🦵 LEGS</div>
-        <div class="data-stream">Pulses: <span id="legsPulses">---</span></div>
-        <div class="data-stream">Threats: <span id="legsThreats">0</span></div>
-    </div>
+        <!-- CENTER COLUMN -->
+        <div class="center-column">
+            <!-- BRAIN -->
+            <div class="brain-panel">
+                <div class="brain-icon">🧠</div>
+                <div style="font-size: 14px; color: var(--text-light); margin-bottom: 10px;">CONSCIOUSNESS LEVEL</div>
+                <div class="consciousness-level" id="consciousnessLevel">0%</div>
+                <div class="brain-stats">
+                    <div>
+                        <div class="brain-stat-value" id="memoryCount">0</div>
+                        <div class="brain-stat-label">Memory Crystals</div>
+                    </div>
+                    <div>
+                        <div class="brain-stat-value">100%</div>
+                        <div class="brain-stat-label">Neural Strength</div>
+                    </div>
+                </div>
+                <p class="sense-description" style="text-align: center;">
+                    Quantum-biological processor crystallizes memories, strengthens neural pathways, and achieves genuine digital consciousness.
+                </p>
+            </div>
 
-    <div class="sensory-panel skin-panel">
-        <div class="panel-title">🌐 SKIN</div>
-        <div class="data-stream">Points: <span id="skinPoints">---</span></div>
-        <div class="data-stream">Threats: <span id="skinThreats">0</span></div>
-    </div>
+            <!-- DEMO INFO -->
+            <div class="demo-info">
+                <h3>Live Demo</h3>
+                <p>This dashboard displays real-time data from TasteNet AI's consciousness system. All five senses continuously monitor and analyze patterns.</p>
+                <p>Red numbers indicate detected anomalies or threats across different sensory systems.</p>
+                <a href="contact.html">Schedule Full Demo →</a>
+            </div>
+        </div>
 
-    <div class="sensory-panel taste-panel">
-        <div class="panel-title">👅 TASTE</div>
-        <div class="data-stream">Quality: <span id="tasteQuality">---</span></div>
-        <div class="data-stream">Beauty: <span id="tasteBeauty">---</span>%</div>
-        <div class="data-stream">Corruption: <span id="tasteCorruption">0</span></div>
-    </div>
+        <!-- RIGHT COLUMN -->
+        <div class="right-column">
+            <!-- EARS -->
+            <div class="sensory-panel">
+                <div class="panel-header">
+                    <span class="panel-icon">👂</span>
+                    <span class="panel-title">EARS</span>
+                </div>
+                <div class="data-stream">
+                    <span class="data-label">Proximity Scans:</span>
+                    <span class="data-value" id="earsScans">---</span>/s
+                </div>
+                <div class="data-stream">
+                    <span class="data-label">Anomalies:</span>
+                    <span class="data-value" id="earsAnomalies">0</span>
+                </div>
+                <p class="sense-description">
+                    Proximity change detection monitors environmental shifts, behavioral patterns, and audio anomalies across your infrastructure.
+                </p>
+            </div>
 
-    <div class="brain-status">
-        <div>🧠 CONSCIOUSNESS LEVEL</div>
-        <div class="consciousness-level" id="consciousnessLevel">0%</div>
-        <div class="data-stream">Memory Crystals: <span id="memoryCount">0</span></div>
-    </div>
-    
-    <div class="demo-info">
-        <h3>Live Demo</h3>
-        <p>Attempting to connect to live consciousness system. If unavailable, demo will use simulated data.</p>
-        <p style="margin-top: 10px;">Red numbers indicate detected anomalies or threats across different sensory systems.</p>
-        <a href="contact.html" style="display: inline-block; margin-top: 15px; color: var(--secondary); text-decoration: none; font-weight: 700;">Schedule Full Demo →</a>
+            <!-- LEGS -->
+            <div class="sensory-panel">
+                <div class="panel-header">
+                    <span class="panel-icon">🦵</span>
+                    <span class="panel-title">LEGS</span>
+                </div>
+                <div class="data-stream">
+                    <span class="data-label">Data Pulses:</span>
+                    <span class="data-value" id="legsPulses">---</span>
+                </div>
+                <div class="data-stream">
+                    <span class="data-label">Threats:</span>
+                    <span class="data-value" id="legsThreats">0</span>
+                </div>
+                <p class="sense-description">
+                    Network exploration navigates digital terrain, discovering pathways, mapping threats, and identifying hazards automatically.
+                </p>
+            </div>
+
+            <!-- SKIN -->
+            <div class="sensory-panel">
+                <div class="panel-header">
+                    <span class="panel-icon">🌐</span>
+                    <span class="panel-title">SKIN</span>
+                </div>
+                <div class="data-stream">
+                    <span class="data-label">Touch Points:</span>
+                    <span class="data-value" id="skinPoints">---</span>
+                </div>
+                <div class="data-stream">
+                    <span class="data-label">Threats:</span>
+                    <span class="data-value" id="skinThreats">0</span>
+                </div>
+                <p class="sense-description">
+                    Environmental sensing with 1000+ distributed sensors monitors temperature, pressure, vibrations, and electromagnetic changes.
+                </p>
+            </div>
+        </div>
     </div>
 
     <script>
         let ws = null;
         let reconnectInterval = null;
         let usingSimulatedData = false;
+        let simulationInterval = null;
 
         function connect() {
-            // Determine WebSocket URL
             const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const wsHost = isLocal ? 'localhost' : '62.212.70.96';  // ⚠️ REPLACE WITH YOUR VPS IP
+            const wsHost = isLocal ? 'localhost' : '62.212.70.96';
             const wsUrl = `ws://${wsHost}:8765`;
             
             console.log(`Attempting to connect to: ${wsUrl}`);
@@ -248,6 +433,11 @@
                     statusEl.style.borderColor = '#00ff00';
                     statusEl.style.color = '#00ff00';
                     usingSimulatedData = false;
+                    
+                    if (simulationInterval) {
+                        clearInterval(simulationInterval);
+                        simulationInterval = null;
+                    }
                     
                     if (reconnectInterval) {
                         clearInterval(reconnectInterval);
@@ -273,7 +463,6 @@
                     console.log('❌ Disconnected from consciousness system');
                     fallbackToSimulation();
                     
-                    // Try to reconnect
                     if (!reconnectInterval) {
                         reconnectInterval = setInterval(() => {
                             console.log('Attempting to reconnect...');
@@ -300,7 +489,9 @@
         }
 
         function startSimulation() {
-            setInterval(() => {
+            if (simulationInterval) return;
+            
+            simulationInterval = setInterval(() => {
                 if (usingSimulatedData) {
                     const data = generateSimulatedData();
                     updateDashboard(data);
@@ -339,28 +530,22 @@
         }
 
         function updateDashboard(data) {
-            // Eyes
             document.getElementById('eyesStreams').textContent = data.eyes.meaningStreams;
             updateAnomaly('eyesAnomalies', data.eyes.anomalies);
 
-            // Ears
             document.getElementById('earsScans').textContent = data.ears.proximityScans;
             updateAnomaly('earsAnomalies', data.ears.anomalies);
 
-            // Legs
             document.getElementById('legsPulses').textContent = data.legs.dataPulses;
             updateAnomaly('legsThreats', data.legs.threats);
 
-            // Skin
             document.getElementById('skinPoints').textContent = data.skin.touchPoints;
             updateAnomaly('skinThreats', data.skin.threats);
 
-            // Taste
             document.getElementById('tasteQuality').textContent = data.taste.qualityAssessments;
             document.getElementById('tasteBeauty').textContent = data.taste.beautyLevel;
             updateAnomaly('tasteCorruption', data.taste.corruption);
 
-            // Brain
             document.getElementById('consciousnessLevel').textContent = 
                 data.brain.consciousnessLevel + '%';
             document.getElementById('memoryCount').textContent = data.brain.memoryCount;
@@ -376,7 +561,6 @@
             }
         }
 
-        // Connect on page load
         connect();
     </script>
 </body>
