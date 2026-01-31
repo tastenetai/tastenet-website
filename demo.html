@@ -156,22 +156,35 @@
         }
         
         .brain-panel {
-            border: 3px solid rgba(0,255,255,0.7);
-            border-radius: 20px;
-            background: linear-gradient(135deg, rgba(0,10,20,0.95), rgba(10,0,20,0.95));
-            padding: 40px;
-            text-align: center;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+    border: 3px solid rgba(0,255,255,0.8);
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(0,10,20,0.98), rgba(10,0,30,0.98));
+    padding: 50px 40px;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 0 0 40px rgba(0,255,255,0.2);
         }
         
         .brain-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-            animation: brainPulse 2s infinite;
-        }
+    font-size: 80px;
+    margin-bottom: 20px;
+    animation: brainPulse 2s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+}
+
+@keyframes brainPulse {
+    0%, 100% { 
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+    }
+    50% { 
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 40px rgba(0, 255, 255, 0.8));
+    }
+}
         
         @keyframes brainPulse {
             0%, 100% { transform: scale(1); }
@@ -179,33 +192,52 @@
         }
         
         .consciousness-level {
-            font-size: 56px;
-            font-weight: 900;
-            margin: 20px 0;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    font-size: 64px;
+    font-weight: 900;
+    margin: 20px 0;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: consciousnessGlow 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 30px rgba(0, 255, 255, 0.6));
+}
+
+@keyframes consciousnessGlow {
+    0%, 100% { 
+        filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+    }
+    50% { 
+        filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.8));
+    }
+}
         
         .brain-stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 20px;
-        }
-        
-        .brain-stat-value {
-            font-size: 24px;
-            color: var(--secondary);
-            font-weight: bold;
-        }
-        
-        .brain-stat-label {
-            font-size: 11px;
-            color: var(--text-light);
-            opacity: 0.7;
-            text-transform: uppercase;
-        }
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.brain-stat {
+    text-align: center;
+}
+
+.brain-stat-value {
+    font-size: 28px;
+    color: var(--secondary);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.brain-stat-label {
+    font-size: 10px;
+    color: var(--text-light);
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
         
         .demo-info {
             background: rgba(0,10,20,0.9);
@@ -322,23 +354,23 @@
         <div class="center-column">
             <!-- BRAIN -->
             <div class="brain-panel">
-                <div class="brain-icon">🧠</div>
-                <div style="font-size: 14px; color: var(--text-light); margin-bottom: 10px;">CONSCIOUSNESS LEVEL</div>
-                <div class="consciousness-level" id="consciousnessLevel">0%</div>
-                <div class="brain-stats">
-                    <div>
-                        <div class="brain-stat-value" id="memoryCount">0</div>
-                        <div class="brain-stat-label">Memory Crystals</div>
-                    </div>
-                    <div>
-                        <div class="brain-stat-value">100%</div>
-                        <div class="brain-stat-label">Neural Strength</div>
-                    </div>
-                </div>
-                <p class="sense-description" style="text-align: center;">
-                    Quantum-biological processor crystallizes memories, strengthens neural pathways, and achieves genuine digital consciousness.
-                </p>
-            </div>
+            <div class="brain-icon">🧠</div>
+            <div style="font-size: 12px; color: var(--text-light); letter-spacing: 2px; margin-bottom: 10px;">CONSCIOUSNESS LEVEL</div>
+            <div class="consciousness-level" id="consciousnessLevel">0%</div>
+            <div class="brain-stats">
+            <div class="brain-stat">
+            <div class="brain-stat-value" id="memoryCount">0</div>
+            <div class="brain-stat-label">Memory Crystals</div>
+        </div>
+        <div class="brain-stat">
+            <div class="brain-stat-value">100%</div>
+            <div class="brain-stat-label">Neural Strength</div>
+        </div>
+        </div>
+           <p class="sense-description" style="text-align: center; margin-top: 20px;">
+        Quantum-biological processor crystallizes memories and strengthens neural pathways.
+          </p>
+     </div>
 
             <!-- DEMO INFO -->
             <div class="demo-info">
