@@ -445,14 +445,13 @@
 
 function connect() {
     // REPLACE THIS WITH YOUR ACTUAL WORKER URL FROM CLOUDFLARE
-    const wsUrl = 'wss://ws.tastenetai.com';
-    
+    const wsUrl = 'wss://ws.tastenetai.com:8765';    
+
+    try {
+        ws = new WebSocket(wsUrl);
     console.log(`Attempting to connect to: ${wsUrl}`);
     console.log('Connecting to WebSocket:', wsUrl);
      console.log('Is localhost?', isLocal);
-    try {
-        ws = new WebSocket(wsUrl);
-
         ws.onopen = () => {
             console.log('✅ Connected to live consciousness system');
             const statusEl = document.getElementById('connectionStatus');
