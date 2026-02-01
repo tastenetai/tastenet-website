@@ -444,9 +444,9 @@
         let simulationInterval = null;
 
 function connect() {
-    // Use secure WebSocket through Cloudflare subdomain
+    // REPLACE THIS WITH YOUR ACTUAL WORKER URL FROM CLOUDFLARE
     const wsUrl = 'wss://tastenet-api.tatsenetai.workers.dev/';
-
+    
     console.log(`Attempting to connect to: ${wsUrl}`);
     
     try {
@@ -501,7 +501,6 @@ function connect() {
         fallbackToSimulation();
     }
 }
-
         function fallbackToSimulation() {
             if (!usingSimulatedData) {
                 console.log('Falling back to simulated data');
