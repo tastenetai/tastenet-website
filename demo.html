@@ -59,7 +59,7 @@
             margin-bottom: 15px;
         }
         
-        .connection-status {
+        .ion-status {
             padding: 10px 20px;
             border-radius: 20px;
             border: 2px solid;
@@ -443,68 +443,64 @@
         let usingSimulatedData = false;
         let simulationInterval = null;
 
-        function connect() {
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+function connect() {
+    // Use secure WebSocket through Cloudflare subdomain
+    const wsUrl = 'wss://api.tastenetai.com';
+
+    console.log(`Attempting to connect to: ${wsUrl}`);
+    
+    try {
+        ws = new WebSocket(wsUrl);
+
+        ws.onopen = () => {
+            console.log('✅ Connected to live consciousness system');
+            const statusEl = document.getElementById('connectionStatus');
+            statusEl.textContent = '✅ LIVE - CONNECTED TO VPS';
+            statusEl.style.borderColor = '#00ff00';
+            statusEl.style.color = '#00ff00';
+            usingSimulatedData = false;
             
-            // For local development, keep ws://localhost
-            // For production, use wss://api.tastenetai.com
-            const wsHost = isLocal ? 'localhost' : 'api.tastenetai.com';
-            const wsUrl = isLocal ? `ws://${wsHost}:8765` : `wss://${wsHost}:8765`;
-            
-            console.log(`Attempting to connect to: ${wsUrl}`);
-            
-            try {
-                ws = new WebSocket(wsUrl);
-
-                ws.onopen = () => {
-                    console.log('✅ Connected to live consciousness system');
-                    const statusEl = document.getElementById('connectionStatus');
-                    statusEl.textContent = '✅ LIVE - CONNECTED';
-                    statusEl.style.borderColor = '#00ff00';
-                    statusEl.style.color = '#00ff00';
-                    usingSimulatedData = false;
-                    
-                    if (simulationInterval) {
-                        clearInterval(simulationInterval);
-                        simulationInterval = null;
-                    }
-                    
-                    if (reconnectInterval) {
-                        clearInterval(reconnectInterval);
-                        reconnectInterval = null;
-                    }
-                };
-
-                ws.onmessage = (event) => {
-                    try {
-                        const data = JSON.parse(event.data);
-                        updateDashboard(data);
-                    } catch (e) {
-                        console.error('Error parsing data:', e);
-                    }
-                };
-
-                ws.onerror = (error) => {
-                    console.error('WebSocket error:', error.message || error);
-                    fallbackToSimulation();
-                };
-
-                ws.onclose = () => {
-                    console.log('❌ WebSocket connection closed');
-                    fallbackToSimulation();
-                    
-                    if (!reconnectInterval) {
-                        reconnectInterval = setInterval(() => {
-                            console.log('Attempting to reconnect...');
-                            connect();
-                        }, 5000);
-                    }
-                };
-            } catch (error) {
-                console.error('Connection error:', error);
-                fallbackToSimulation();
+            if (simulationInterval) {
+                clearInterval(simulationInterval);
+                simulationInterval = null;
             }
-        }
+            
+            if (reconnectInterval) {
+                clearInterval(reconnectInterval);
+                reconnectInterval = null;
+            }
+        };
+
+        ws.onmessage = (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                updateDashboard(data);
+            } catch (e) {
+                console.error('Error parsing data:', e);
+            }
+        };
+
+        ws.onerror = (error) => {
+            console.error('WebSocket error:', error);
+            fallbackToSimulation();
+        };
+
+        ws.onclose = () => {
+            console.log('❌ Disconnected from consciousness system');
+            fallbackToSimulation();
+            
+            if (!reconnectInterval) {
+                reconnectInterval = setInterval(() => {
+                    console.log('Attempting to reconnect...');
+                    connect();
+                }, 5000);
+            }
+        };
+    } catch (error) {
+        console.error('Connection error:', error);
+        fallbackToSimulation();
+    }
+}
 
         function fallbackToSimulation() {
             if (!usingSimulatedData) {
