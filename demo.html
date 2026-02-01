@@ -448,7 +448,8 @@ function connect() {
     const wsUrl = 'wss://ws.tastenetai.com:8765';
     
     console.log(`Attempting to connect to: ${wsUrl}`);
-    
+    console.log('Connecting to WebSocket:', wsUrl);
+     console.log('Is localhost?', isLocal);
     try {
         ws = new WebSocket(wsUrl);
 
