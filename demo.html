@@ -443,64 +443,64 @@
         let usingSimulatedData = false;
         let simulationInterval = null;
 
-function connect() {
-    // REPLACE THIS WITH YOUR ACTUAL WORKER URL FROM CLOUDFLARE
-    const wsUrl = 'wss://ws.tastenetai.com:8765';    
-
-    try {
-        ws = new WebSocket(wsUrl);
-    console.log(`Attempting to connect to: ${wsUrl}`);
-    console.log('Connecting to WebSocket:', wsUrl);
-     console.log('Is localhost?', isLocal);
-        ws.onopen = () => {
-            console.log('✅ Connected to live consciousness system');
-            const statusEl = document.getElementById('connectionStatus');
-            statusEl.textContent = '✅ LIVE - CONNECTED TO VPS';
-            statusEl.style.borderColor = '#00ff00';
-            statusEl.style.color = '#00ff00';
-            usingSimulatedData = false;
+        function connect() {
+            // ⚠️ IMPORTANT: REPLACE THIS WITH YOUR ACTUAL WORKER URL
+            const wsUrl = 'wss://ws.tastenetai.com:8765';
             
-            if (simulationInterval) {
-                clearInterval(simulationInterval);
-                simulationInterval = null;
-            }
-            
-            if (reconnectInterval) {
-                clearInterval(reconnectInterval);
-                reconnectInterval = null;
-            }
-        };
-
-        ws.onmessage = (event) => {
             try {
-                const data = JSON.parse(event.data);
-                updateDashboard(data);
-            } catch (e) {
-                console.error('Error parsing data:', e);
-            }
-        };
+                ws = new WebSocket(wsUrl);
+                console.log('Attempting to connect to WebSocket:', wsUrl);
+                
+                ws.onopen = () => {
+                    console.log('✅ Connected to live consciousness system');
+                    const statusEl = document.getElementById('connectionStatus');
+                    statusEl.textContent = '✅ LIVE - CONNECTED TO VPS';
+                    statusEl.style.borderColor = '#00ff00';
+                    statusEl.style.color = '#00ff00';
+                    usingSimulatedData = false;
+                    
+                    if (simulationInterval) {
+                        clearInterval(simulationInterval);
+                        simulationInterval = null;
+                    }
+                    
+                    if (reconnectInterval) {
+                        clearInterval(reconnectInterval);
+                        reconnectInterval = null;
+                    }
+                };
 
-        ws.onerror = (error) => {
-            console.error('WebSocket error:', error);
-            fallbackToSimulation();
-        };
+                ws.onmessage = (event) => {
+                    try {
+                        const data = JSON.parse(event.data);
+                        updateDashboard(data);
+                    } catch (e) {
+                        console.error('Error parsing data:', e);
+                    }
+                };
 
-        ws.onclose = () => {
-            console.log('❌ Disconnected from consciousness system');
-            fallbackToSimulation();
-            
-            if (!reconnectInterval) {
-                reconnectInterval = setInterval(() => {
-                    console.log('Attempting to reconnect...');
-                    connect();
-                }, 5000);
+                ws.onerror = (error) => {
+                    console.error('WebSocket error:', error);
+                    fallbackToSimulation();
+                };
+
+                ws.onclose = () => {
+                    console.log('❌ Disconnected from consciousness system');
+                    fallbackToSimulation();
+                    
+                    if (!reconnectInterval) {
+                        reconnectInterval = setInterval(() => {
+                            console.log('Attempting to reconnect...');
+                            connect();
+                        }, 5000);
+                    }
+                };
+            } catch (error) {
+                console.error('Connection error:', error);
+                fallbackToSimulation();
             }
-        };
-    } catch (error) {
-        console.error('Connection error:', error);
-        fallbackToSimulation();
-    }
-}
+        }
+
         function fallbackToSimulation() {
             if (!usingSimulatedData) {
                 console.log('Falling back to simulated data');
@@ -586,6 +586,7 @@ function connect() {
             }
         }
 
+        // Start connection when page loads
         connect();
     </script>
 </body>
