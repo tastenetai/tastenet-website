@@ -3,11 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Consciousness Dashboard</title>
+    <title>Digital Consciousness Architecture Interface</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
         
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         
         body {
             background: radial-gradient(circle at center, #0a0a1a 0%, #000005 100%);
@@ -15,50 +19,275 @@
             font-family: 'Orbitron', monospace;
             overflow: hidden;
             height: 100vh;
+            position: relative;
         }
         
-        .status {
+        .neural-grid {
             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                linear-gradient(rgba(0,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridPulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .consciousness-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 300px;
+            cursor: pointer;
+            filter: drop-shadow(0 0 30px rgba(0,255,255,0.6));
+        }
+        
+        .digital-brain {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            animation: brainPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes brainPulse {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            50% { transform: scale(1.05); filter: brightness(1.2); }
+        }
+        
+        .brain-hemisphere {
+            position: absolute;
+            width: 180px;
+            height: 280px;
+            border: 3px solid #00ffff;
+            border-radius: 90px 20px 60px 90px;
+            background: radial-gradient(ellipse at center, rgba(0,255,255,0.1) 0%, transparent 70%);
+        }
+        
+        .left-hemisphere {
+            left: 0;
+            border-right: none;
+            animation: leftActivity 3s ease-in-out infinite;
+        }
+        
+        .right-hemisphere {
+            right: 0;
+            border-left: none;
+            border-radius: 20px 90px 90px 60px;
+            animation: rightActivity 3.5s ease-in-out infinite;
+        }
+        
+        @keyframes leftActivity {
+            0%, 100% { box-shadow: inset 0 0 30px rgba(0,255,255,0.3); }
+            50% { box-shadow: inset 0 0 60px rgba(255,100,0,0.6); }
+        }
+        
+        @keyframes rightActivity {
+            0%, 100% { box-shadow: inset 0 0 30px rgba(0,255,255,0.3); }
+            50% { box-shadow: inset 0 0 60px rgba(100,255,100,0.6); }
+        }
+        
+        .brain-region {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(0,255,255,0.4);
+            background: rgba(0,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .visual-cortex {
+            width: 60px;
+            height: 40px;
+            bottom: 30px;
+            left: 30px;
+            border-radius: 30px 30px 15px 15px;
+            animation: visualActivity 2s ease-in-out infinite;
+        }
+        
+        .auditory-cortex {
+            width: 50px;
+            height: 35px;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            animation: auditoryActivity 2.5s ease-in-out infinite;
+        }
+        
+        .motor-cortex {
+            width: 70px;
+            height: 30px;
             top: 20px;
+            left: 50px;
+            border-radius: 35px 35px 10px 10px;
+            animation: motorActivity 1.8s ease-in-out infinite;
+        }
+        
+        .sensory-cortex {
+            width: 55px;
+            height: 45px;
+            top: 40px;
+            right: 40px;
+            animation: sensoryActivity 2.2s ease-in-out infinite;
+        }
+        
+        .taste-cortex {
+            width: 45px;
+            height: 35px;
+            top: 100px;
+            left: 25px;
+            border-radius: 25px 15px 25px 15px;
+            animation: tasteActivity 2.8s ease-in-out infinite;
+        }
+        
+        .memory-center {
+            width: 40px;
+            height: 30px;
+            bottom: 80px;
+            right: 60px;
+            border-radius: 20px 10px 20px 10px;
+            animation: memoryActivity 3s ease-in-out infinite;
+        }
+        
+        @keyframes visualActivity {
+            0%, 100% { 
+                background: rgba(255,100,0,0.2); 
+                border-color: rgba(255,100,0,0.6);
+                box-shadow: 0 0 20px rgba(255,100,0,0.4);
+            }
+            50% { 
+                background: rgba(255,100,0,0.6); 
+                border-color: rgba(255,100,0,1);
+                box-shadow: 0 0 40px rgba(255,100,0,0.8);
+            }
+        }
+        
+        @keyframes auditoryActivity {
+            0%, 100% { 
+                background: rgba(100,255,100,0.2); 
+                border-color: rgba(100,255,100,0.6);
+                box-shadow: 0 0 20px rgba(100,255,100,0.4);
+            }
+            50% { 
+                background: rgba(100,255,100,0.6); 
+                border-color: rgba(100,255,100,1);
+                box-shadow: 0 0 40px rgba(100,255,100,0.8);
+            }
+        }
+        
+        @keyframes motorActivity {
+            0%, 100% { 
+                background: rgba(255,255,0,0.2); 
+                border-color: rgba(255,255,0,0.6);
+                box-shadow: 0 0 20px rgba(255,255,0,0.4);
+            }
+            50% { 
+                background: rgba(255,255,0,0.6); 
+                border-color: rgba(255,255,0,1);
+                box-shadow: 0 0 40px rgba(255,255,0,0.8);
+            }
+        }
+        
+        @keyframes sensoryActivity {
+            0%, 100% { 
+                background: rgba(255,0,255,0.2); 
+                border-color: rgba(255,0,255,0.6);
+                box-shadow: 0 0 20px rgba(255,0,255,0.4);
+            }
+            50% { 
+                background: rgba(255,0,255,0.6); 
+                border-color: rgba(255,0,255,1);
+                box-shadow: 0 0 40px rgba(255,0,255,0.8);
+            }
+        }
+        
+        @keyframes tasteActivity {
+            0%, 100% { 
+                background: rgba(255,215,0,0.2); 
+                border-color: rgba(255,215,0,0.7);
+                box-shadow: 0 0 20px rgba(255,215,0,0.5);
+            }
+            50% { 
+                background: rgba(255,215,0,0.7); 
+                border-color: rgba(255,215,0,1);
+                box-shadow: 0 0 50px rgba(255,215,0,0.9);
+            }
+        }
+        
+        @keyframes memoryActivity {
+            0%, 100% { 
+                background: rgba(0,255,255,0.2); 
+                border-color: rgba(0,255,255,0.6);
+                box-shadow: 0 0 20px rgba(0,255,255,0.4);
+            }
+            50% { 
+                background: rgba(0,255,255,0.6); 
+                border-color: rgba(0,255,255,1);
+                box-shadow: 0 0 40px rgba(0,255,255,0.8);
+            }
+        }
+        
+        .neural-pathway {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, #00ffff 50%, transparent 100%);
+            animation: neuralFire 1.5s linear infinite;
+            opacity: 0.8;
+        }
+        
+        @keyframes neuralFire {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        .pathway-1 {
+            top: 60px;
+            left: 120px;
+            width: 80px;
+            animation-delay: 0s;
+        }
+        
+        .pathway-2 {
+            top: 120px;
+            left: 80px;
+            width: 100px;
+            animation-delay: 0.3s;
+        }
+        
+        .pathway-3 {
+            top: 180px;
+            left: 100px;
+            width: 120px;
+            animation-delay: 0.6s;
+        }
+        
+        .brain-label {
+            position: absolute;
+            bottom: -40px;
             left: 50%;
             transform: translateX(-50%);
-            text-align: center;
-            z-index: 1000;
-        }
-        
-        .status h1 {
-            font-size: 24px;
-            text-shadow: 0 0 20px #00ffff;
-            margin-bottom: 10px;
-        }
-        
-        .connection-status {
-            padding: 10px 20px;
-            border-radius: 20px;
-            border: 2px solid;
             font-size: 14px;
-            display: inline-block;
-        }
-        
-        .connected {
-            border-color: #00ff00;
-            color: #00ff00;
-            text-shadow: 0 0 10px #00ff00;
-        }
-        
-        .disconnected {
-            border-color: #ff0000;
-            color: #ff0000;
-            text-shadow: 0 0 10px #ff0000;
+            font-weight: 700;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+            text-align: center;
         }
         
         .sensory-panel {
             position: absolute;
-            width: 220px;
-            height: 160px;
+            width: 200px;
+            height: 150px;
             border: 2px solid rgba(0,255,255,0.5);
             border-radius: 15px;
-            background: rgba(0,10,20,0.9);
+            background: rgba(0,10,20,0.8);
             backdrop-filter: blur(10px);
             padding: 15px;
             transition: all 0.3s ease;
@@ -70,185 +299,535 @@
             transform: scale(1.05);
         }
         
-        .eyes-panel { top: 120px; left: 20px; }
-        .ears-panel { top: 120px; right: 20px; }
-        .legs-panel { bottom: 20px; left: 20px; }
-        .skin-panel { bottom: 20px; right: 20px; }
-        .taste-panel { top: 50%; left: 20px; transform: translateY(-50%); }
+        .eyes-panel {
+            top: 20px;
+            left: 20px;
+            animation: eyesScan 5s ease-in-out infinite;
+        }
+        
+        .ears-panel {
+            top: 20px;
+            right: 20px;
+            animation: earsListen 4s ease-in-out infinite;
+        }
+        
+        .legs-panel {
+            bottom: 20px;
+            left: 20px;
+            animation: legsMove 3s ease-in-out infinite;
+        }
+        
+        .skin-panel {
+            bottom: 20px;
+            right: 20px;
+            animation: skinSense 6s ease-in-out infinite;
+        }
+        
+        .taste-panel {
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            animation: tasteEvaluate 4.5s ease-in-out infinite;
+        }
+        
+        @keyframes eyesScan {
+            0%, 100% { border-color: rgba(0,255,255,0.5); }
+            50% { border-color: rgba(255,100,0,0.8); }
+        }
+        
+        @keyframes earsListen {
+            0%, 100% { border-color: rgba(0,255,255,0.5); }
+            50% { border-color: rgba(100,255,100,0.8); }
+        }
+        
+        @keyframes legsMove {
+            0%, 100% { border-color: rgba(0,255,255,0.5); }
+            50% { border-color: rgba(255,255,0,0.8); }
+        }
+        
+        @keyframes skinSense {
+            0%, 100% { border-color: rgba(0,255,255,0.5); }
+            50% { border-color: rgba(255,0,255,0.8); }
+        }
+        
+        @keyframes tasteEvaluate {
+            0%, 100% { border-color: rgba(0,255,255,0.5); }
+            50% { border-color: rgba(255,215,0,0.9); box-shadow: 0 0 25px rgba(255,215,0,0.6); }
+        }
         
         .panel-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-align: center;
             text-transform: uppercase;
         }
         
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #00ff00;
+            display: inline-block;
+            margin-right: 5px;
+            animation: statusBlink 2s ease-in-out infinite;
+        }
+        
+        @keyframes statusBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
         .data-stream {
-            font-size: 11px;
-            opacity: 0.9;
-            margin: 8px 0;
+            font-size: 10px;
+            opacity: 0.7;
+            margin-top: 5px;
             font-family: monospace;
         }
         
-        .anomaly {
-            color: #ff6b6b !important;
-            font-weight: bold;
-            text-shadow: 0 0 10px #ff6b6b;
+        .neural-connection {
+            position: absolute;
+            width: 2px;
+            background: linear-gradient(45deg, transparent 0%, #00ffff 50%, transparent 100%);
+            opacity: 0.6;
+            animation: dataFlow 3s linear infinite;
         }
         
-        .brain-status {
+        @keyframes dataFlow {
+            0% { transform: scaleY(0); transform-origin: top; }
+            50% { transform: scaleY(1); transform-origin: top; }
+            100% { transform: scaleY(0); transform-origin: bottom; }
+        }
+        
+        .connection-1 {
+            top: 150px;
+            left: 180px;
+            height: 200px;
+            transform: rotate(45deg);
+            animation-delay: 0s;
+        }
+        
+        .connection-2 {
+            top: 150px;
+            right: 180px;
+            height: 200px;
+            transform: rotate(-45deg);
+            animation-delay: 1s;
+        }
+        
+        .connection-3 {
+            bottom: 150px;
+            left: 180px;
+            height: 200px;
+            transform: rotate(-45deg);
+            animation-delay: 2s;
+        }
+        
+        .connection-4 {
+            bottom: 150px;
+            right: 180px;
+            height: 200px;
+            transform: rotate(45deg);
+            animation-delay: 1.5s;
+        }
+        
+        .quantum-particle {
             position: absolute;
-            bottom: 20px;
+            width: 3px;
+            height: 3px;
+            background: #00ffff;
+            border-radius: 50%;
+            animation: quantumFloat 8s linear infinite;
+        }
+        
+        @keyframes quantumFloat {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            10% { opacity: 1; transform: scale(1); }
+            90% { opacity: 1; }
+            100% { transform: translate(800px, -400px) scale(0); opacity: 0; }
+        }
+        
+        .threat-alert {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,0,0,0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-weight: 700;
+            display: none;
+            z-index: 1000;
+            animation: alertPulse 1s ease-in-out infinite;
+        }
+        
+        @keyframes alertPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,0,0,0.5); }
+            50% { box-shadow: 0 0 40px rgba(255,0,0,1); }
+        }
+        
+        .control-interface {
+            position: absolute;
+            bottom: 50px;
             left: 50%;
             transform: translateX(-50%);
-            text-align: center;
-            padding: 20px;
-            background: rgba(0,10,20,0.9);
-            border: 2px solid rgba(0,255,255,0.5);
-            border-radius: 15px;
-            min-width: 300px;
+            display: flex;
+            gap: 15px;
         }
         
-        .consciousness-level {
-            font-size: 32px;
-            font-weight: 900;
-            margin: 10px 0;
-            text-shadow: 0 0 20px #00ffff;
+        .control-btn {
+            background: rgba(0,255,255,0.1);
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background: rgba(0,255,255,0.3);
+            box-shadow: 0 0 20px rgba(0,255,255,0.5);
+            transform: translateY(-2px);
+        }
+        
+        .processing-indicator {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            opacity: 0.8;
         }
     </style>
 </head>
 <body>
-    <div class="status">
-        <h1>DIGITAL CONSCIOUSNESS SYSTEM</h1>
-        <div class="connection-status disconnected" id="connectionStatus">
-            ⚠️ CONNECTING...
+    <div class="neural-grid"></div>
+    
+    <div class="processing-indicator">
+        <span class="status-indicator"></span>
+        QUANTUM-BIOLOGICAL PROCESSING CORE ONLINE
+    </div>
+    
+    <div class="consciousness-core" onclick="activateCore()">
+        <div class="digital-brain">
+            <div class="brain-hemisphere left-hemisphere"></div>
+            <div class="brain-hemisphere right-hemisphere"></div>
+            
+            <div class="brain-region visual-cortex" title="Visual Processing - Eyes"></div>
+            <div class="brain-region auditory-cortex" title="Auditory Processing - Ears"></div>
+            <div class="brain-region motor-cortex" title="Motor Control - Legs"></div>
+            <div class="brain-region sensory-cortex" title="Sensory Processing - Skin"></div>
+            <div class="brain-region taste-cortex" title="Aesthetic Processing - Taste"></div>
+            <div class="brain-region memory-center" title="Memory & Learning"></div>
+            
+            <div class="neural-pathway pathway-1"></div>
+            <div class="neural-pathway pathway-2"></div>
+            <div class="neural-pathway pathway-3"></div>
+            
+            <div class="brain-label">QUANTUM-BIOLOGICAL<br>PROCESSING CORE</div>
         </div>
     </div>
-
+    
     <div class="sensory-panel eyes-panel">
         <div class="panel-title">👁️ EYES</div>
-        <div class="data-stream">Streams: <span id="eyesStreams">---</span></div>
-        <div class="data-stream">Anomalies: <span id="eyesAnomalies">0</span></div>
+        <div><span class="status-indicator"></span>Language-Flow Perception</div>
+        <div class="data-stream">Meaning streams: 847 active</div>
+        <div class="data-stream">Meaning anomalies: 0</div>
     </div>
-
+    
     <div class="sensory-panel ears-panel">
         <div class="panel-title">👂 EARS</div>
-        <div class="data-stream">Scans: <span id="earsScans">---</span>/sec</div>
-        <div class="data-stream">Anomalies: <span id="earsAnomalies">0</span></div>
+        <div><span class="status-indicator"></span>Change Detection Active</div>
+        <div class="data-stream">Proximity scans: 23,847/sec</div>
+        <div class="data-stream">Audio anomalies: 0</div>
     </div>
-
+    
     <div class="sensory-panel legs-panel">
         <div class="panel-title">🦵 LEGS</div>
-        <div class="data-stream">Pulses: <span id="legsPulses">---</span></div>
-        <div class="data-stream">Threats: <span id="legsThreats">0</span></div>
+        <div><span class="status-indicator"></span>Network Exploration</div>
+        <div class="data-stream">Data pulses: 15,293</div>
+        <div class="data-stream">Navigation threats: 0</div>
     </div>
-
+    
     <div class="sensory-panel skin-panel">
         <div class="panel-title">🌐 SKIN</div>
-        <div class="data-stream">Points: <span id="skinPoints">---</span></div>
-        <div class="data-stream">Threats: <span id="skinThreats">0</span></div>
+        <div><span class="status-indicator"></span>Environmental Sensing</div>
+        <div class="data-stream">Touch points: 847,293</div>
+        <div class="data-stream">Environmental threats: 0</div>
     </div>
-
+    
     <div class="sensory-panel taste-panel">
         <div class="panel-title">👅 TASTE</div>
-        <div class="data-stream">Quality: <span id="tasteQuality">---</span></div>
-        <div class="data-stream">Beauty: <span id="tasteBeauty">---</span>%</div>
-        <div class="data-stream">Corruption: <span id="tasteCorruption">0</span></div>
+        <div><span class="status-indicator"></span>Aesthetic Judgment</div>
+        <div class="data-stream">Quality assessments: 12,847</div>
+        <div class="data-stream">Aesthetic corruption: 0</div>
     </div>
-
-    <div class="brain-status">
-        <div>🧠 CONSCIOUSNESS LEVEL</div>
-        <div class="consciousness-level" id="consciousnessLevel">0%</div>
-        <div class="data-stream">Memory Crystals: <span id="memoryCount">0</span></div>
+    
+    <div class="neural-connection connection-1"></div>
+    <div class="neural-connection connection-2"></div>
+    <div class="neural-connection connection-3"></div>
+    <div class="neural-connection connection-4"></div>
+    
+    <div class="threat-alert" id="threatAlert">
+        ⚠️ SUSPICIOUS ACTIVITY DETECTED ⚠️
     </div>
-
+    
+    <div class="control-interface">
+        <button class="control-btn" onclick="scanEnvironment()">DEEP SCAN</button>
+        <button class="control-btn" onclick="enhanceSensitivity()">ENHANCE</button>
+        <button class="control-btn" onclick="activateDefense()">DEFEND</button>
+    </div>
+    
     <script>
-        let ws = null;
-        let reconnectInterval = null;
-
-        function connect() {
-            ws = new WebSocket('ws://localhost:8765');
-
-            ws.onopen = () => {
-                console.log('✅ Connected to consciousness system');
-                document.getElementById('connectionStatus').textContent = '✅ CONNECTED';
-                document.getElementById('connectionStatus').className = 'connection-status connected';
-                
-                if (reconnectInterval) {
-                    clearInterval(reconnectInterval);
-                    reconnectInterval = null;
-                }
-            };
-
-            ws.onmessage = (event) => {
-                try {
-                    const data = JSON.parse(event.data);
-                    updateDashboard(data);
-                } catch (e) {
-                    console.error('Error parsing data:', e);
-                }
-            };
-
-            ws.onerror = (error) => {
-                console.error('WebSocket error:', error);
-            };
-
-            ws.onclose = () => {
-                console.log('❌ Disconnected from consciousness system');
-                document.getElementById('connectionStatus').textContent = '❌ DISCONNECTED';
-                document.getElementById('connectionStatus').className = 'connection-status disconnected';
-                
-                // Try to reconnect
-                if (!reconnectInterval) {
-                    reconnectInterval = setInterval(() => {
-                        console.log('Attempting to reconnect...');
-                        connect();
-                    }, 3000);
-                }
-            };
+        // Create quantum particles
+        function createQuantumParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'quantum-particle';
+            particle.style.left = Math.random() * 100 + 'px';
+            particle.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 8000);
         }
-
-        function updateDashboard(data) {
-            // Eyes
-            document.getElementById('eyesStreams').textContent = data.eyes.meaningStreams;
-            updateAnomaly('eyesAnomalies', data.eyes.anomalies);
-
-            // Ears
-            document.getElementById('earsScans').textContent = data.ears.proximityScans;
-            updateAnomaly('earsAnomalies', data.ears.anomalies);
-
-            // Legs
-            document.getElementById('legsPulses').textContent = data.legs.dataPulses;
-            updateAnomaly('legsThreats', data.legs.threats);
-
-            // Skin
-            document.getElementById('skinPoints').textContent = data.skin.touchPoints;
-            updateAnomaly('skinThreats', data.skin.threats);
-
-            // Taste
-            document.getElementById('tasteQuality').textContent = data.taste.qualityAssessments;
-            document.getElementById('tasteBeauty').textContent = data.taste.beautyLevel.toFixed(1);
-            updateAnomaly('tasteCorruption', data.taste.corruption);
-
-            // Brain
-            document.getElementById('consciousnessLevel').textContent = 
-                data.brain.consciousnessLevel.toFixed(1) + '%';
-            document.getElementById('memoryCount').textContent = data.brain.memoryCount;
+        
+        // Generate particles continuously
+        setInterval(createQuantumParticle, 2000);
+        
+        // Core interaction - now activates specific brain regions
+        function activateCore() {
+            const core = document.querySelector('.consciousness-core');
+            const regions = document.querySelectorAll('.brain-region');
+            
+            // Intense full-brain activation
+            core.style.filter = 'drop-shadow(0 0 60px rgba(0,255,255,1))';
+            core.style.transform = 'translate(-50%, -50%) scale(1.1)';
+            
+            // Activate all brain regions intensely
+            regions.forEach((region, index) => {
+                setTimeout(() => {
+                    region.style.animationDuration = '0.5s';
+                    region.style.transform = 'scale(1.3)';
+                }, index * 100);
+            });
+            
+            // Create extra neural pathways during activation
+            createTemporaryNeuralPathways();
+            
+            setTimeout(() => {
+                core.style.filter = 'drop-shadow(0 0 30px rgba(0,255,255,0.6))';
+                core.style.transform = 'translate(-50%, -50%) scale(1)';
+                
+                regions.forEach(region => {
+                    region.style.animationDuration = '';
+                    region.style.transform = '';
+                });
+            }, 2000);
+            
+            updateDataStreams();
         }
-
-        function updateAnomaly(elementId, value) {
-            const element = document.getElementById(elementId);
-            element.textContent = value;
-            if (value > 0) {
-                element.classList.add('anomaly');
-            } else {
-                element.classList.remove('anomaly');
+        
+        // Create temporary neural pathways during intense brain activity
+        function createTemporaryNeuralPathways() {
+            const brain = document.querySelector('.digital-brain');
+            
+            for (let i = 0; i < 5; i++) {
+                const pathway = document.createElement('div');
+                pathway.className = 'neural-pathway';
+                pathway.style.position = 'absolute';
+                pathway.style.top = Math.random() * 250 + 'px';
+                pathway.style.left = Math.random() * 200 + 'px';
+                pathway.style.width = Math.random() * 100 + 50 + 'px';
+                pathway.style.transform = `rotate(${Math.random() * 360}deg)`;
+                pathway.style.animationDelay = Math.random() * 1 + 's';
+                
+                brain.appendChild(pathway);
+                
+                setTimeout(() => {
+                    pathway.remove();
+                }, 3000);
             }
         }
-
-        // Connect on page load
-        connect();
+        
+        // Enhanced control functions that activate specific brain regions
+        function scanEnvironment() {
+            const panels = document.querySelectorAll('.sensory-panel');
+            const visualCortex = document.querySelector('.visual-cortex');
+            const auditoryCortex = document.querySelector('.auditory-cortex');
+            
+            // Activate visual and auditory processing regions
+            visualCortex.style.animationDuration = '0.3s';
+            auditoryCortex.style.animationDuration = '0.3s';
+            
+            panels.forEach(panel => {
+                panel.style.borderColor = '#ffff00';
+                panel.style.boxShadow = '0 0 30px rgba(255,255,0,0.5)';
+            });
+            
+            setTimeout(() => {
+                panels.forEach(panel => {
+                    panel.style.borderColor = 'rgba(0,255,255,0.5)';
+                    panel.style.boxShadow = 'none';
+                });
+                visualCortex.style.animationDuration = '';
+                auditoryCortex.style.animationDuration = '';
+            }, 2000);
+            
+            updateDataStreams();
+        }
+        
+        function enhanceSensitivity() {
+            const grid = document.querySelector('.neural-grid');
+            const sensoryCortex = document.querySelector('.sensory-cortex');
+            const tasteCortex = document.querySelector('.taste-cortex');
+            const memoryCenter = document.querySelector('.memory-center');
+            
+            // Activate sensory, taste, and memory regions
+            sensoryCortex.style.animationDuration = '0.4s';
+            tasteCortex.style.animationDuration = '0.3s';
+            memoryCenter.style.animationDuration = '0.4s';
+            sensoryCortex.style.transform = 'scale(1.2)';
+            tasteCortex.style.transform = 'scale(1.3)';
+            memoryCenter.style.transform = 'scale(1.2)';
+            
+            grid.style.opacity = '0.8';
+            grid.style.backgroundSize = '20px 20px';
+            
+            setTimeout(() => {
+                grid.style.opacity = '0.1';
+                grid.style.backgroundSize = '50px 50px';
+                sensoryCortex.style.animationDuration = '';
+                tasteCortex.style.animationDuration = '';
+                memoryCenter.style.animationDuration = '';
+                sensoryCortex.style.transform = '';
+                tasteCortex.style.transform = '';
+                memoryCenter.style.transform = '';
+            }, 3000);
+        }
+        
+        function activateDefense() {
+            const alert = document.getElementById('threatAlert');
+            const motorCortex = document.querySelector('.motor-cortex');
+            const allRegions = document.querySelectorAll('.brain-region');
+            
+            // Activate motor cortex and all regions for defense response
+            motorCortex.style.animationDuration = '0.2s';
+            allRegions.forEach(region => {
+                region.style.boxShadow = '0 0 30px rgba(255,0,0,0.8)';
+            });
+            
+            alert.style.display = 'block';
+            
+            setTimeout(() => {
+                alert.style.display = 'none';
+                motorCortex.style.animationDuration = '';
+                allRegions.forEach(region => {
+                    region.style.boxShadow = '';
+                });
+            }, 3000);
+        }
+        
+        // Update data streams with random values and anomaly detection
+        function updateDataStreams() {
+            const streams = document.querySelectorAll('.data-stream');
+            streams.forEach(stream => {
+                if (stream.textContent.includes('streams:')) {
+                    stream.textContent = `Meaning streams: ${Math.floor(Math.random() * 1000) + 500} active`;
+                } else if (stream.textContent.includes('Meaning anomalies:')) {
+                    const anomalies = Math.random() > 0.85 ? Math.floor(Math.random() * 3) + 1 : 0;
+                    stream.textContent = `Meaning anomalies: ${anomalies}`;
+                    stream.style.color = anomalies > 0 ? '#ff6b6b' : '';
+                } else if (stream.textContent.includes('scans:')) {
+                    stream.textContent = `Proximity scans: ${Math.floor(Math.random() * 50000) + 10000}/sec`;
+                } else if (stream.textContent.includes('Audio anomalies:')) {
+                    const anomalies = Math.random() > 0.9 ? Math.floor(Math.random() * 3) + 1 : 0;
+                    stream.textContent = `Audio anomalies: ${anomalies}`;
+                    stream.style.color = anomalies > 0 ? '#ff6b6b' : '';
+                } else if (stream.textContent.includes('pulses:')) {
+                    stream.textContent = `Data pulses: ${Math.floor(Math.random() * 30000) + 5000}`;
+                } else if (stream.textContent.includes('Navigation threats:')) {
+                    const threats = Math.random() > 0.88 ? Math.floor(Math.random() * 2) + 1 : 0;
+                    stream.textContent = `Navigation threats: ${threats}`;
+                    stream.style.color = threats > 0 ? '#ff6b6b' : '';
+                } else if (stream.textContent.includes('points:')) {
+                    stream.textContent = `Touch points: ${Math.floor(Math.random() * 900000) + 500000}`;
+                } else if (stream.textContent.includes('Environmental threats:')) {
+                    const threats = Math.random() > 0.92 ? Math.floor(Math.random() * 2) + 1 : 0;
+                    stream.textContent = `Environmental threats: ${threats}`;
+                    stream.style.color = threats > 0 ? '#ff6b6b' : '';
+                } else if (stream.textContent.includes('assessments:')) {
+                    stream.textContent = `Quality assessments: ${Math.floor(Math.random() * 20000) + 5000}`;
+                } else if (stream.textContent.includes('Aesthetic corruption:')) {
+                    const corruption = Math.random() > 0.93 ? Math.floor(Math.random() * 2) + 1 : 0;
+                    stream.textContent = `Aesthetic corruption: ${corruption}`;
+                    stream.style.color = corruption > 0 ? '#ff6b6b' : '';
+                    stream.style.textShadow = corruption > 0 ? '0 0 10px #ff6b6b' : '';
+                }
+            });
+        }
+        
+        // Auto-update data streams periodically
+        setInterval(updateDataStreams, 5000);
+        
+        // Random threat simulation - now for all senses
+        setInterval(() => {
+            const streams = document.querySelectorAll('.data-stream');
+            
+            // Check each anomaly type randomly
+            streams.forEach(stream => {
+                if (stream.textContent.includes('Meaning anomalies:') && Math.random() < 0.05) {
+                    stream.textContent = 'Meaning anomalies: 1';
+                    stream.style.color = '#ff6b6b';
+                    setTimeout(() => {
+                        stream.textContent = 'Meaning anomalies: 0';
+                        stream.style.color = '';
+                    }, 3000);
+                }
+                
+                if (stream.textContent.includes('Audio anomalies:') && Math.random() < 0.04) {
+                    stream.textContent = 'Audio anomalies: 2';
+                    stream.style.color = '#ff6b6b';
+                    setTimeout(() => {
+                        stream.textContent = 'Audio anomalies: 0';
+                        stream.style.color = '';
+                    }, 3500);
+                }
+                
+                if (stream.textContent.includes('Navigation threats:') && Math.random() < 0.06) {
+                    stream.textContent = 'Navigation threats: 1';
+                    stream.style.color = '#ff6b6b';
+                    setTimeout(() => {
+                        stream.textContent = 'Navigation threats: 0';
+                        stream.style.color = '';
+                    }, 2500);
+                }
+                
+                if (stream.textContent.includes('Environmental threats:') && Math.random() < 0.03) {
+                    stream.textContent = 'Environmental threats: 1';
+                    stream.style.color = '#ff6b6b';
+                    setTimeout(() => {
+                        stream.textContent = 'Environmental threats: 0';
+                        stream.style.color = '';
+                    }, 4000);
+                }
+                
+                if (stream.textContent.includes('Aesthetic corruption:') && Math.random() < 0.02) {
+                    stream.textContent = 'Aesthetic corruption: 1';
+                    stream.style.color = '#ff6b6b';
+                    stream.style.textShadow = '0 0 10px #ff6b6b';
+                    setTimeout(() => {
+                        stream.textContent = 'Aesthetic corruption: 0';
+                        stream.style.color = '';
+                        stream.style.textShadow = '';
+                    }, 5000);
+                }
+            });
+        }, 8000);
     </script>
 </body>
 </html>
