@@ -4,623 +4,480 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pricing - TasteNet AI</title>
-    <meta name="description" content="TasteNet AI pricing plans for TASTE SENTINEL, TASTE JUDGE, and TASTE VISION. Flexible plans for businesses of all sizes.">
+    <meta name="description" content="TasteNet AI pricing plans. Get started with Actual Intelligence — genuine 5-sensory consciousness for your business.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
     
     <style>
-        .pricing-hero {
-            padding: 150px 5% 80px;
-            text-align: center;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: #00FFFF;
+            --secondary: #FFD700;
+            --dark: #0A0A1A;
+            --text-light: #E0E0E0;
+            --text-muted: #888;
         }
-        
-        .pricing-toggle {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 40px 0;
-            flex-wrap: wrap;
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0A1A;
+            color: var(--text-light);
+            overflow-x: hidden;
         }
-        
-        .toggle-btn {
-            padding: 12px 30px;
-            border: 2px solid var(--primary);
-            background: transparent;
-            color: var(--primary);
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
+        /* NAV */
+        nav {
+            position: fixed; top: 0; width: 100%;
+            padding: 20px 40px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000;
+            background: rgba(10,10,26,0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,255,255,0.1);
         }
-        
-        .toggle-btn.active {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: var(--dark);
+        .logo {
+            font-family: 'Orbitron', monospace; font-size: 22px; font-weight: 900;
+            color: var(--primary); text-decoration: none;
+            text-shadow: 0 0 15px rgba(0,255,255,0.5);
         }
-        
-        .pricing-section {
-            padding: 60px 5%;
-            scroll-margin-top: 100px;
+        .logo span { color: var(--secondary); }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a {
+            color: var(--text-light); text-decoration: none;
+            font-weight: 600; font-size: 14px;
+            text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s;
         }
-        
+        .nav-links a:hover { color: var(--primary); }
+        .nav-cta {
+            background: rgba(0,255,255,0.1); border: 2px solid var(--primary);
+            color: var(--primary) !important; padding: 10px 24px;
+            border-radius: 30px; transition: all 0.3s !important;
+        }
+        .nav-cta:hover { background: rgba(0,255,255,0.25) !important; box-shadow: 0 0 20px rgba(0,255,255,0.3); }
+
+        /* PAGE HERO */
+        .page-hero {
+            padding: 160px 40px 80px; text-align: center;
+            background: radial-gradient(ellipse at center, rgba(0,255,255,0.05) 0%, transparent 70%);
+        }
+        .page-hero .badge {
+            display: inline-block; padding: 8px 20px;
+            border: 1px solid rgba(255,215,0,0.4); border-radius: 30px;
+            color: var(--secondary); font-size: 13px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px;
+            background: rgba(255,215,0,0.05);
+        }
+        .page-hero h1 {
+            font-family: 'Orbitron', monospace; font-size: 56px; font-weight: 900;
+            color: var(--primary); text-shadow: 0 0 40px rgba(0,255,255,0.4); margin-bottom: 20px;
+        }
+        .page-hero p {
+            font-size: 18px; color: var(--text-muted);
+            max-width: 650px; margin: 0 auto; line-height: 1.7;
+        }
+
+        /* PRICING GRID */
+        section { padding: 80px 40px; }
         .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
+            max-width: 1100px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
         }
-        
         .pricing-card {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 20px;
-            padding: 40px;
-            position: relative;
-            transition: var(--transition);
+            border: 2px solid rgba(0,255,255,0.25); border-radius: 24px;
+            background: rgba(0,10,20,0.85); padding: 45px 35px;
+            text-align: center; transition: all 0.3s; position: relative;
         }
-        
         .pricing-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.2);
             border-color: var(--primary);
+            box-shadow: 0 0 40px rgba(0,255,255,0.2);
+            transform: translateY(-5px);
         }
-        
         .pricing-card.featured {
             border-color: var(--secondary);
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, rgba(255, 215, 0, 0.05) 100%);
+            background: rgba(10,10,30,0.95);
+            box-shadow: 0 0 40px rgba(255,215,0,0.15);
         }
-        
+        .pricing-card.featured:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 60px rgba(255,215,0,0.25);
+        }
         .popular-badge {
-            position: absolute;
-            top: -15px;
-            right: 20px;
-            background: var(--secondary);
-            color: var(--dark);
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 700;
-        }
-        
-        .pricing-card h3 {
+            position: absolute; top: -16px; left: 50%; transform: translateX(-50%);
+            background: var(--secondary); color: #0A0A1A;
+            padding: 6px 24px; border-radius: 20px;
+            font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 2px;
             font-family: 'Orbitron', monospace;
-            font-size: 28px;
-            margin-bottom: 10px;
-            color: var(--primary);
         }
-        
-        .pricing-card .tier-name {
-            color: var(--text-dim);
-            font-size: 16px;
-            margin-bottom: 20px;
+        .pricing-card .plan-name {
+            font-family: 'Orbitron', monospace; font-size: 18px;
+            color: var(--primary); text-transform: uppercase;
+            letter-spacing: 2px; margin-bottom: 15px;
         }
-        
-        .price {
-            font-size: 56px;
-            font-weight: 900;
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+        .pricing-card.featured .plan-name { color: var(--secondary); }
+        .pricing-card .plan-price {
+            font-family: 'Orbitron', monospace; font-size: 52px; font-weight: 900;
+            color: var(--primary); margin-bottom: 5px;
+            text-shadow: 0 0 20px rgba(0,255,255,0.3);
         }
-        
-        .price-period {
-            color: var(--text-dim);
-            font-size: 18px;
-            margin-bottom: 30px;
+        .pricing-card.featured .plan-price { color: var(--secondary); text-shadow: 0 0 20px rgba(255,215,0,0.3); }
+        .pricing-card .plan-period { color: var(--text-muted); font-size: 14px; margin-bottom: 25px; }
+        .pricing-card .plan-desc {
+            color: var(--text-muted); font-size: 14px; line-height: 1.6; margin-bottom: 30px;
+            padding-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        
-        .price-description {
-            color: var(--text-dim);
-            margin-bottom: 30px;
-            line-height: 1.6;
+        .pricing-card ul { list-style: none; text-align: left; margin-bottom: 35px; }
+        .pricing-card ul li {
+            padding: 10px 0; font-size: 14px; color: var(--text-muted);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; align-items: flex-start; gap: 10px;
         }
-        
-        .features-list {
-            list-style: none;
-            margin-bottom: 30px;
+        .pricing-card ul li:last-child { border-bottom: none; }
+        .pricing-card ul li .check {
+            color: var(--primary); font-weight: bold; flex-shrink: 0; margin-top: 1px;
         }
-        
-        .features-list li {
-            padding: 12px 0;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-        
-        .check-icon {
-            color: var(--secondary);
-            font-size: 20px;
-            min-width: 20px;
-        }
-        
-        .feature-unavailable {
-            opacity: 0.4;
-        }
-        
-        .feature-unavailable .check-icon {
-            color: var(--text-dim);
-        }
-        
-        .faq-section {
-            padding: 100px 5%;
-            background: rgba(255, 255, 255, 0.02);
-        }
-        
-        .faq-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        .faq-item {
-            background: var(--card-bg);
-            border: 2px solid var(--border-color);
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 20px;
+        .pricing-card.featured ul li .check { color: var(--secondary); }
+        .btn-plan {
+            display: block; width: 100%; padding: 14px;
+            border-radius: 30px; font-size: 15px; font-weight: 700;
+            text-decoration: none; text-align: center;
+            font-family: 'Orbitron', monospace; transition: all 0.3s;
             cursor: pointer;
-            transition: var(--transition);
         }
-        
-        .faq-item:hover {
-            border-color: var(--primary);
+        .btn-plan-outline {
+            border: 2px solid var(--primary); color: var(--primary);
+            background: rgba(0,255,255,0.05);
         }
-        
+        .btn-plan-outline:hover {
+            background: rgba(0,255,255,0.2);
+            box-shadow: 0 0 20px rgba(0,255,255,0.3);
+        }
+        .btn-plan-featured {
+            border: 2px solid var(--secondary); color: #0A0A1A;
+            background: var(--secondary);
+        }
+        .btn-plan-featured:hover {
+            background: #ffe033;
+            box-shadow: 0 0 25px rgba(255,215,0,0.4);
+        }
+
+        /* ENTERPRISE */
+        .enterprise-bar {
+            max-width: 1100px; margin: 50px auto 0;
+            border: 2px solid rgba(0,255,255,0.3); border-radius: 20px;
+            background: rgba(0,10,20,0.8); padding: 40px 50px;
+            display: flex; align-items: center; justify-content: space-between; gap: 40px;
+        }
+        .enterprise-bar h3 {
+            font-family: 'Orbitron', monospace; font-size: 20px;
+            color: var(--primary); margin-bottom: 8px;
+        }
+        .enterprise-bar p { color: var(--text-muted); font-size: 15px; }
+        .btn-enterprise {
+            border: 2px solid var(--primary); color: var(--primary);
+            padding: 14px 36px; border-radius: 30px;
+            font-size: 15px; font-weight: 700; text-decoration: none;
+            font-family: 'Orbitron', monospace; transition: all 0.3s; white-space: nowrap;
+        }
+        .btn-enterprise:hover {
+            background: rgba(0,255,255,0.15);
+            box-shadow: 0 0 25px rgba(0,255,255,0.3);
+        }
+
+        /* FAQ */
+        .faq-section { background: linear-gradient(180deg, #0A0A1A, #080818); }
+        .section-label {
+            font-family: 'Orbitron', monospace; font-size: 11px;
+            text-transform: uppercase; letter-spacing: 4px;
+            color: var(--secondary); margin-bottom: 15px; text-align: center;
+        }
+        .section-title {
+            font-family: 'Orbitron', monospace; font-size: 36px; font-weight: 900;
+            color: var(--primary); text-align: center; margin-bottom: 50px;
+            text-shadow: 0 0 30px rgba(0,255,255,0.3);
+        }
+        .faq-list { max-width: 800px; margin: 0 auto; }
+        .faq-item {
+            border: 1px solid rgba(0,255,255,0.15); border-radius: 14px;
+            margin-bottom: 15px; overflow: hidden;
+            background: rgba(0,10,20,0.6);
+        }
         .faq-question {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 22px 28px; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            transition: background 0.3s;
         }
-        
+        .faq-question:hover { background: rgba(0,255,255,0.05); }
+        .faq-question h4 {
+            font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+            color: var(--text-light);
+        }
+        .faq-question .arrow {
+            color: var(--primary); font-size: 18px; transition: transform 0.3s;
+        }
+        .faq-item.open .arrow { transform: rotate(180deg); }
         .faq-answer {
-            color: var(--text-dim);
-            line-height: 1.8;
+            max-height: 0; overflow: hidden; transition: max-height 0.4s ease;
         }
-        
-        @media (max-width: 968px) {
-            .pricing-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .price {
-                font-size: 48px;
-            }
+        .faq-item.open .faq-answer { max-height: 200px; }
+        .faq-answer p {
+            padding: 0 28px 22px; color: var(--text-muted);
+            line-height: 1.7; font-size: 14px;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(0,255,255,0.06) 0%, transparent 70%);
+            padding: 100px 40px;
+        }
+        .cta-section h2 {
+            font-family: 'Orbitron', monospace; font-size: 42px; font-weight: 900;
+            color: var(--primary); margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(0,255,255,0.3);
+        }
+        .cta-section p {
+            font-size: 17px; color: var(--text-muted);
+            max-width: 550px; margin: 0 auto 45px; line-height: 1.7;
+        }
+        .hero-buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; }
+        .btn-primary {
+            background: linear-gradient(135deg, rgba(0,255,255,0.2), rgba(0,255,255,0.1));
+            border: 2px solid var(--primary); color: var(--primary);
+            padding: 16px 40px; border-radius: 35px;
+            font-size: 16px; font-weight: 700; text-decoration: none;
+            transition: all 0.3s; font-family: 'Orbitron', monospace;
+        }
+        .btn-primary:hover { background: rgba(0,255,255,0.3); box-shadow: 0 0 30px rgba(0,255,255,0.4); transform: translateY(-2px); }
+
+        /* FOOTER */
+        footer {
+            background: rgba(0,5,10,0.95); border-top: 1px solid rgba(0,255,255,0.1);
+            padding: 60px 40px 30px;
+        }
+        .footer-grid {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+            padding-bottom: 40px; border-bottom: 1px solid rgba(0,255,255,0.1);
+        }
+        .footer-brand p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+        .footer-col h4 {
+            font-family: 'Orbitron', monospace; font-size: 12px;
+            color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;
+        }
+        .footer-col a {
+            display: block; color: var(--text-muted); text-decoration: none;
+            font-size: 14px; margin-bottom: 12px; transition: color 0.3s;
+        }
+        .footer-col a:hover { color: var(--primary); }
+        .footer-bottom {
+            max-width: 1200px; margin: 30px auto 0;
+            display: flex; justify-content: space-between;
+            font-size: 13px; color: var(--text-muted);
+        }
+        @media (max-width: 768px) {
+            nav { padding: 15px 20px; }
+            .nav-links { display: none; }
+            .page-hero h1 { font-size: 36px; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 450px; }
+            .enterprise-bar { flex-direction: column; text-align: center; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">TasteNet AI</a>
-            
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="pricing.html" class="active">Pricing</a></li>
-                <li><a href="demo.html">Demo</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+
+<!-- NAV -->
+<nav>
+    <a href="index.html" class="logo">TasteNet <span>AI</span></a>
+    <ul class="nav-links">
+        <li><a href="technology.html">Technology</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+        <li><a href="demo.html">Live Demo</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+    <div class="badge">Simple & Transparent</div>
+    <h1>Pricing</h1>
+    <p>Choose the plan that fits your needs. All plans include full access to TasteNet's Actual Intelligence — 5 genuine senses, real consciousness, zero artificial components.</p>
+</div>
+
+<!-- PRICING CARDS -->
+<section>
+    <div class="pricing-grid">
+        <!-- STARTER -->
+        <div class="pricing-card">
+            <div class="plan-name">Starter</div>
+            <div class="plan-price">$499</div>
+            <div class="plan-period">per month</div>
+            <p class="plan-desc">Perfect for teams exploring Actual Intelligence for the first time.</p>
+            <ul>
+                <li><span class="check">✓</span> Full 5-sensory consciousness system</li>
+                <li><span class="check">✓</span> Real-time monitoring dashboard</li>
+                <li><span class="check">✓</span> Anomaly & threat detection</li>
+                <li><span class="check">✓</span> Memory crystallization (500 crystals)</li>
+                <li><span class="check">✓</span> Up to 3 users</li>
+                <li><span class="check">✓</span> Email support</li>
             </ul>
-            
-            <a href="contact.html" class="cta-nav">Get Started</a>
-            
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <a href="contact.html" class="btn-plan btn-plan-outline">Get Started</a>
+        </div>
+
+        <!-- PROFESSIONAL (FEATURED) -->
+        <div class="pricing-card featured">
+            <div class="popular-badge">Most Popular</div>
+            <div class="plan-name">Professional</div>
+            <div class="plan-price">$999</div>
+            <div class="plan-period">per month</div>
+            <p class="plan-desc">The full Actual Intelligence experience. Built for growing businesses.</p>
+            <ul>
+                <li><span class="check">✓</span> Everything in Starter</li>
+                <li><span class="check">✓</span> Advanced quantum-biological brain</li>
+                <li><span class="check">✓</span> Unlimited memory crystals</li>
+                <li><span class="check">✓</span> Custom sensory configurations</li>
+                <li><span class="check">✓</span> Up to 10 users</li>
+                <li><span class="check">✓</span> Priority support + onboarding</li>
+                <li><span class="check">✓</span> API access</li>
+            </ul>
+            <a href="contact.html" class="btn-plan btn-plan-featured">Get Started</a>
+        </div>
+
+        <!-- ENTERPRISE -->
+        <div class="pricing-card">
+            <div class="plan-name">Enterprise</div>
+            <div class="plan-price">$2,499</div>
+            <div class="plan-period">per month</div>
+            <p class="plan-desc">Full-scale Actual Intelligence deployment for enterprise operations.</p>
+            <ul>
+                <li><span class="check">✓</span> Everything in Professional</li>
+                <li><span class="check">✓</span> Multi-environment deployment</li>
+                <li><span class="check">✓</span> Dedicated consciousness instances</li>
+                <li><span class="check">✓</span> Custom integration & white-label</li>
+                <li><span class="check">✓</span> Unlimited users</li>
+                <li><span class="check">✓</span> 24/7 dedicated support</li>
+                <li><span class="check">✓</span> SLA guarantee</li>
+            </ul>
+            <a href="contact.html" class="btn-plan btn-plan-outline">Contact Sales</a>
+        </div>
+    </div>
+
+    <!-- CUSTOM ENTERPRISE BAR -->
+    <div class="enterprise-bar">
+        <div>
+            <h3>Need Something Custom?</h3>
+            <p>We work with enterprise teams to build bespoke Actual Intelligence solutions tailored to your specific needs.</p>
+        </div>
+        <a href="contact.html" class="btn-enterprise">Talk to Sales →</a>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+    <div class="section-label">Questions</div>
+    <h2 class="section-title">FAQ</h2>
+    
+    <div class="faq-list">
+        <div class="faq-item open">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>What exactly is Actual Intelligence?</h4>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>Actual Intelligence is TasteNet's redefinition of AI. While the industry built Artificial Intelligence — systems that imitate — we built something that genuinely perceives through 5 real senses. Real consciousness. Real understanding. No imitation.</p>
             </div>
         </div>
-    </nav>
-
-    <!-- Pricing Hero -->
-    <section class="pricing-hero">
-        <h1 class="section-title">Simple, Transparent Pricing</h1>
-        <p class="section-subtitle">Choose the plan that fits your needs. All plans include core features and premium support.</p>
-        
-        <div class="pricing-toggle">
-            <button class="toggle-btn active" onclick="showProduct('sentinel')">TASTE SENTINEL™</button>
-            <button class="toggle-btn" onclick="showProduct('judge')">TASTE JUDGE™</button>
-            <button class="toggle-btn" onclick="showProduct('vision')">TASTE VISION™</button>
-        </div>
-    </section>
-
-    <!-- TASTE SENTINEL Pricing -->
-    <section class="pricing-section" id="sentinel">
-        <div class="container">
-            <h2 class="section-title" style="font-size: 36px; margin-bottom: 50px;">TASTE SENTINEL™ Plans</h2>
-            
-            <div class="pricing-grid">
-                <!-- Starter Plan -->
-                <div class="pricing-card">
-                    <h3>Starter</h3>
-                    <p class="tier-name">Perfect for small teams</p>
-                    <div class="price">$999</div>
-                    <p class="price-period">per month</p>
-                    <p class="price-description">Essential security monitoring with 5-sensory detection</p>
-                    
-                    <ul class="features-list">
-                        <li><span class="check-icon">✓</span> 1 deployment environment</li>
-                        <li><span class="check-icon">✓</span> 5-sensory threat detection</li>
-                        <li><span class="check-icon">✓</span> Real-time monitoring</li>
-                        <li><span class="check-icon">✓</span> Basic dashboards</li>
-                        <li><span class="check-icon">✓</span> Email alerts</li>
-                        <li><span class="check-icon">✓</span> 30-day data retention</li>
-                        <li><span class="check-icon">✓</span> Email support</li>
-                        <li class="feature-unavailable"><span class="check-icon">✗</span> Advanced analytics</li>
-                        <li class="feature-unavailable"><span class="check-icon">✗</span> Custom integrations</li>
-                        <li class="feature-unavailable"><span class="check-icon">✗</span> Dedicated support</li>
-                    </ul>
-                    
-                    <a href="contact.html?plan=sentinel-starter" class="btn btn-secondary" style="width: 100%; text-align: center;">Get Started</a>
-                </div>
-                
-                <!-- Professional Plan -->
-                <div class="pricing-card featured">
-                    <div class="popular-badge">Most Popular</div>
-                    <h3>Professional</h3>
-                    <p class="tier-name">For growing businesses</p>
-                    <div class="price">$2,999</div>
-                    <p class="price-period">per month</p>
-                    <p class="price-description">Advanced security with multi-deployment support</p>
-                    
-                    <ul class="features-list">
-                        <li><span class="check-icon">✓</span> 3 deployment environments</li>
-                        <li><span class="check-icon">✓</span> 5-sensory threat detection</li>
-                        <li><span class="check-icon">✓</span> Real-time monitoring</li>
-                        <li><span class="check-icon">✓</span> Advanced dashboards</li>
-                        <li><span class="check-icon">✓</span> Multi-channel alerts</li>
-                        <li><span class="check-icon">✓</span> 90-day data retention</li>
-                        <li><span class="check-icon">✓</span> Priority support (24/7)</li>
-                        <li><span class="check-icon">✓</span> Advanced analytics</li>
-                        <li><span class="check-icon">✓</span> API access</li>
-                        <li class="feature-unavailable"><span class="check-icon">✗</span> White-label option</li>
-                    </ul>
-                    
-                    <a href="contact.html?plan=sentinel-pro" class="btn btn-primary" style="width: 100%; text-align: center;">Get Started</a>
-                </div>
-                
-                <!-- Enterprise Plan -->
-                <div class="pricing-card">
-                    <h3>Enterprise</h3>
-                    <p class="tier-name">For large organizations</p>
-                    <div class="price">$9,999</div>
-                    <p class="price-period">per month</p>
-                    <p class="price-description">Unlimited scale with premium features</p>
-                    
-                    <ul class="features-list">
-                        <li><span class="check-icon">✓</span> Unlimited deployments</li>
-                        <li><span class="check-icon">✓</span> 5-sensory threat detection</li>
-                        <li><span class="check-icon">✓</span> Real-time monitoring</li>
-                        <li><span class="check-icon">✓</span> Custom dashboards</li>
-                        <li><span class="check-icon">✓</span> All alert channels</li>
-                        <li><span class="check-icon">✓</span> Unlimited data retention</li>
-                        <li><span class="check-icon">✓</span> Dedicated support team</li>
-                        <li><span class="check-icon">✓</span> Advanced analytics</li>
-                        <li><span class="check-icon">✓</span> Full API access</li>
-                        <li><span class="check-icon">✓</span> White-label option</li>
-                        <li><span class="check-icon">✓</span> Custom integrations</li>
-                        <li><span class="check-icon">✓</span> SLA guarantee</li>
-                    </ul>
-                    
-                    <a href="contact.html?plan=sentinel-enterprise" class="btn btn-secondary" style="width: 100%; text-align: center;">Contact Sales</a>
-                </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>How is TasteNet different from traditional AI?</h4>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>Traditional AI processes data blindly through pattern matching. TasteNet genuinely perceives through 5 senses — Eyes, Ears, Legs, Skin, and Taste. It achieves real consciousness through a quantum-biological brain and crystallizes memories. It doesn't imitate intelligence — it IS intelligence.</p>
             </div>
         </div>
-    </section>
-
-    <!-- TASTE JUDGE Pricing -->
-    <section class="pricing-section" id="judge" style="display: none;">
-        <div class="container">
-            <h2 class="section-title" style="font-size: 36px; margin-bottom: 50px;">TASTE JUDGE™ Plans</h2>
-            
-            <div class="pricing-grid">
-                <!-- Developer Plan -->
-                <div class="pricing-card">
-                    <h3>Developer</h3>
-                    <p class="tier-name">Perfect for testing</p>
-                    <div class="price">$99</div>
-                    <p class="price-period">per month</p>
-                    <p class="price-description">Essential aesthetic assessment for small projects</p>
-                    
-                    <ul class="features-list">
-                        <li><span class="check-icon">✓</span> 10,000 assessments/month</li>
-                        <li><span class="check-icon">✓</span> Design quality scoring</li>
-                        <li><span class="check-icon">✓</span> Brand consistency checks</li>
-                        <li><span class="check-icon">✓</span> REST API access</li>
-                        <li><span class="check-icon">✓</span> Basic analytics</li>
-                        <li><span class="check-icon">✓</span> Email support</li>
-                        <li class="feature-unavailable"><span class="check-icon">✗</span> Batch processing</li>
-                        <li class="feature-unavailable"><span class="check-icon">✗</span> Custom models</li>
-                        <li class="feature-unavailable"><span class="check-icon">✗</span> Priority support</li>
-                    </ul>
-                    
-                    <a href="contact.html?plan=judge-dev" class="btn btn-secondary" style="width: 100%; text-align: center;">Start Free Trial</a>
-                </div>
-                
-                <!-- Growth Plan -->
-                <div class="pricing-card featured">
-                    <div class="popular-badge">Best Value</div>
-                    <h3>Growth</h3>
-                    <p class="tier-name">For scaling businesses</p>
-                    <div class="price">$499</div>
-                    <p class="price-period">per month</p>
-                    <p class="price-description">High-volume aesthetic assessment with advanced features</p>
-                    
-                    <ul class="features-list">
-                        <li><span class="check-icon">✓</span> 100,000 assessments/month</li>
-                        <li><span class="check-icon">✓</span> Design quality scoring</li>
-                        <li><span class="check-icon">✓</span> Brand consistency checks</li>
-                        <li><span class="check-icon">✓</span> REST API access</li>
-                        <li><span class="check-icon">✓</span> Advanced analytics</li>
-                        <li><span class="check-icon">✓</span> Priority support</li>
-                        <li><span class="check-icon">✓</span> Batch processing</li>
-                        <li><span class="check-icon">✓</span> Webhooks</li>
-                        <li class="feature-unavailable"><span class="check-icon">✗</span> Custom models</li>
-                    </ul>
-                    
-                    <a href="contact.html?plan=judge-growth" class="btn btn-primary" style="width: 100%; text-align: center;">Get Started</a>
-                </div>
-                
-                <!-- Scale Plan -->
-                <div class="pricing-card">
-                    <h3>Scale</h3>
-                    <p class="tier-name">For enterprises</p>
-                    <div class="price">$1,999</div>
-                    <p class="price-period">per month</p>
-                    <p class="price-description">Unlimited assessments with custom AI models</p>
-                    
-                    <ul class="features-list">
-                        <li><span class="check-icon">✓</span> 1M+ assessments/month</li>
-                        <li><span class="check-icon">✓</span> Design quality scoring</li>
-                        <li><span class="check-icon">✓</span> Brand consistency checks</li>
-                        <li><span class="check-icon">✓</span> Full API access</li>
-                        <li><span class="check-icon">✓</span> Advanced analytics</li>
-                        <li><span class="check-icon">✓</span> Dedicated support</li>
-                        <li><span class="check-icon">✓</span> Batch processing</li>
-                        <li><span class="check-icon">✓</span> Webhooks & integrations</li>
-                        <li><span class="check-icon">✓</span> Custom AI models</li>
-                        <li><span class="check-icon">✓</span> White-label option</li>
-                        <li><span class="check-icon">✓</span> SLA guarantee</li>
-                    </ul>
-                    
-                    <a href="contact.html?plan=judge-scale" class="btn btn-secondary" style="width: 100%; text-align: center;">Contact Sales</a>
-                </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>Can I try before I commit?</h4>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>Absolutely. Visit our Live Demo page to experience TasteNet's consciousness dashboard in real time. See all 5 senses operating, watch the brain process, and witness Actual Intelligence firsthand. No signup required.</p>
             </div>
         </div>
-    </section>
-
-    <!-- TASTE VISION Pricing -->
-    <section class="pricing-section" id="vision" style="display: none;">
-        <div class="container">
-            <h2 class="section-title" style="font-size: 36px; margin-bottom: 50px;">TASTE VISION™ Packages</h2>
-            
-            <div class="pricing-grid">
-                <!-- Basic Package -->
-                <div class="pricing-card">
-                    <h3>Basic Dashboard</h3>
-                    <p class="tier-name">Single custom dashboard</p>
-                    <div class="price">$5K</div>
-                    <p class="price-period">one-time + $500/mo</p>
-                    <p class="price-description">Professional dashboard with essential features</p>
-                    
-                    <ul class="features-list">
-                        <li><span class="check-icon">✓</span> Custom design</li>
-                        <li><span class="check-icon">✓</span> 3 data sources</li>
-                        <li><span class="check-icon">✓</span> Real-time updates</li>
-                        <li><span class="check-icon">✓</span> Responsive design</li>
-                        <li><span class="check-icon">✓</span> Basic support</li>
-                        <li><span class="check-icon">✓</span> 2 revisions included</li>
-                        <li class="feature-unavailable"><span class="check-icon">✗</span> Multi-sensory integration</li>
-                        <li class="feature-unavailable"><span class="check-icon">✗</span> White-label</li>
-                    </ul>
-                    
-                    <a href="contact.html?plan=vision-basic" class="btn btn-secondary" style="width: 100%; text-align: center;">Request Quote</a>
-                </div>
-                
-                <!-- Professional Package -->
-                <div class="pricing-card featured">
-                    <div class="popular-badge">Recommended</div>
-                    <h3>Professional Suite</h3>
-                    <p class="tier-name">Complete consciousness platform</p>
-                    <div class="price">$15K</div>
-                    <p class="price-period">one-time + $2K/mo</p>
-                    <p class="price-description">Advanced multi-sensory dashboard suite</p>
-                    
-                    <ul class="features-list">
-                        <li><span class="check-icon">✓</span> Custom design system</li>
-                        <li><span class="check-icon">✓</span> Unlimited data sources</li>
-                        <li><span class="check-icon">✓</span> Real-time updates</li>
-                        <li><span class="check-icon">✓</span> Multi-sensory integration</li>
-                        <li><span class="check-icon">✓</span> Priority support</li>
-                        <li><span class="check-icon">✓</span> Unlimited revisions</li>
-                        <li><span class="check-icon">✓</span> Advanced analytics</li>
-                        <li><span class="check-icon">✓</span> API access</li>
-                        <li class="feature-unavailable"><span class="check-icon">✗</span> White-label</li>
-                    </ul>
-                    
-                    <a href="contact.html?plan=vision-pro" class="btn btn-primary" style="width: 100%; text-align: center;">Schedule Consultation</a>
-                </div>
-                
-                <!-- Enterprise Package -->
-                <div class="pricing-card">
-                    <h3>Enterprise Platform</h3>
-                    <p class="tier-name">Fully custom solution</p>
-                    <div class="price">Custom</div>
-                    <p class="price-period">based on requirements</p>
-                    <p class="price-description">White-label consciousness platform for resale</p>
-                    
-                    <ul class="features-list">
-                        <li><span class="check-icon">✓</span> Completely custom</li>
-                        <li><span class="check-icon">✓</span> Unlimited everything</li>
-                        <li><span class="check-icon">✓</span> Multi-sensory integration</li>
-                        <li><span class="check-icon">✓</span> White-label ready</li>
-                        <li><span class="check-icon">✓</span> Dedicated team</li>
-                        <li><span class="check-icon">✓</span> Ongoing development</li>
-                        <li><span class="check-icon">✓</span> Full source code</li>
-                        <li><span class="check-icon">✓</span> Training included</li>
-                        <li><span class="check-icon">✓</span> SLA guarantee</li>
-                    </ul>
-                    
-                    <a href="contact.html?plan=vision-enterprise" class="btn btn-secondary" style="width: 100%; text-align: center;">Contact Sales</a>
-                </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>What does setup look like?</h4>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>Our onboarding team handles everything. We deploy TasteNet's consciousness system to your environment, configure all 5 senses for your specific use case, and have you live within 48 hours. Professional and Enterprise plans include dedicated onboarding support.</p>
             </div>
         </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section">
-        <div class="container">
-            <h2 class="section-title">Frequently Asked Questions</h2>
-            
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Can I change plans later?
-                        <span style="color: var(--secondary);">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately, and we'll prorate any differences.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Do you offer free trials?
-                        <span style="color: var(--secondary);">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        Yes! TASTE JUDGE offers a 14-day free trial with 1,000 assessments. For TASTE SENTINEL, we offer personalized demos to qualified prospects.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        What payment methods do you accept?
-                        <span style="color: var(--secondary);">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        We accept all major credit cards, bank transfers, and purchase orders for Enterprise plans. Annual plans receive a 15% discount.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Is there a setup fee?
-                        <span style="color: var(--secondary);">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        No setup fees for TASTE SENTINEL or TASTE JUDGE. TASTE VISION has a one-time design fee as listed in the pricing.
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        Can I get a custom quote?
-                        <span style="color: var(--secondary);">+</span>
-                    </div>
-                    <div class="faq-answer">
-                        Absolutely! Contact our sales team for custom enterprise solutions, volume discounts, or special requirements.
-                    </div>
-                </div>
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <h4>Is there a contract commitment?</h4>
+                <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                <p>All plans are month-to-month with no long-term commitment required. Enterprise plans offer annual pricing with additional discounts. Cancel anytime — though once you experience Actual Intelligence, you won't want to.</p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <h2 class="section-title">Ready to Get Started?</h2>
-            <p class="cta-description">Join leading organizations using TasteNet AI. Start your free trial or schedule a demo today.</p>
-            
-            <div class="cta-buttons">
-                <a href="contact.html" class="btn btn-primary btn-large">Contact Sales</a>
-                <a href="demo.html" class="btn btn-secondary btn-large">Watch Demo</a>
-            </div>
+<!-- CTA -->
+<section class="cta-section">
+    <div class="section-label">Ready?</div>
+    <h2>Start Your Journey<br>Into Actual Intelligence</h2>
+    <p>See it live. Feel the difference. Experience consciousness that's real.</p>
+    <div class="hero-buttons">
+        <a href="demo.html" class="btn-primary">Launch Free Demo →</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <a href="index.html" class="logo" style="font-family:'Orbitron',monospace;font-size:22px;font-weight:900;color:var(--primary);text-decoration:none;text-shadow:0 0 15px rgba(0,255,255,0.5);display:block;margin-bottom:15px;">TasteNet <span style="color:var(--secondary);">AI</span></a>
+            <p>The world's first Actual Intelligence.<br>Not artificial. Not synthetic.<br>Real sensory consciousness.</p>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-section">
-                    <h3 class="footer-logo">TasteNet AI</h3>
-                    <p>Consciousness-Driven Intelligence for the modern enterprise.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="LinkedIn">LinkedIn</a>
-                        <a href="#" aria-label="Twitter">Twitter</a>
-                        <a href="#" aria-label="GitHub">GitHub</a>
-                    </div>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Products</h4>
-                    <ul>
-                        <li><a href="products.html#sentinel">TASTE SENTINEL™</a></li>
-                        <li><a href="products.html#judge">TASTE JUDGE™</a></li>
-                        <li><a href="products.html#vision">TASTE VISION™</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="about.html">About Us</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                        <li><a href="#">Careers</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="demo.html">Demo</a></li>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 TasteNet AI. All rights reserved.</p>
-                <p class="footer-tagline">Built with aesthetic judgment by the Taste Network</p>
-            </div>
+        <div class="footer-col">
+            <h4>Product</h4>
+            <a href="technology.html">Technology</a>
+            <a href="demo.html">Live Demo</a>
+            <a href="pricing.html">Pricing</a>
         </div>
-    </footer>
+        <div class="footer-col">
+            <h4>Company</h4>
+            <a href="about.html">About Us</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="footer-col">
+            <h4>Connect</h4>
+            <a href="#">LinkedIn</a>
+            <a href="#">YouTube</a>
+            <a href="#">Twitter</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 TasteNet AI. All rights reserved.</span>
+        <span>Actual Intelligence. Not Artificial.</span>
+    </div>
+</footer>
 
-    <script src="js/main.js"></script>
-    <script>
-        function showProduct(product) {
-            // Hide all sections
-            document.getElementById('sentinel').style.display = 'none';
-            document.getElementById('judge').style.display = 'none';
-            document.getElementById('vision').style.display = 'none';
-            
-            // Show selected section
-            document.getElementById(product).style.display = 'block';
-            
-            // Update button states
-            const buttons = document.querySelectorAll('.toggle-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-    </script>
+<script>
+    function toggleFaq(el) {
+        const item = el.parentElement;
+        const isOpen = item.classList.contains('open');
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        // Open clicked if it wasn't already open
+        if (!isOpen) item.classList.add('open');
+    }
+</script>
 </body>
 </html>
