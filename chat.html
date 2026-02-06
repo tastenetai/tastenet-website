@@ -786,7 +786,7 @@ function resize() {
   H = canvas.height = window.innerHeight;
 }
 resize();
-window.addEventListener('resize', resize);
+window.adentListener('resize', resize);
 
 class Particle {
   constructor() { this.reset(); }
@@ -945,7 +945,7 @@ async function callAnthropicAPI() {
   const config = sectorConfigs[currentSector];
   
   // Your Cloudflare Worker URL
-  const WORKER_URL = 'https://chat-proxy.tatsenetai.workers.dev';
+  const WORKER_URL = 'https://chat-proxy.tastenetai.workers.dev';
   
   try {
     isThinking = true;
