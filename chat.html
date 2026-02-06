@@ -944,24 +944,21 @@ async function sendMessage() {
   }
 }
 
-// ─── CALL ANTHROPIC API ─── 
+// ─── CALL ANTHROPIC API VIA CLOUDFLARE WORKER ─── 
 async function callAnthropicAPI() {
-  if (!ANTHROPIC_API_KEY || ANTHROPIC_API_KEY === 'YOUR_API_KEY_HERE') {
-    return '⚠️ API key not configured. Please add your Anthropic API key to the code.';
-  }
-  
   const config = sectorConfigs[currentSector];
+  
+  // Your Cloudflare Worker URL
+  const WORKER_URL = 'https://chat-proxy.tatsenetai.workers.dev';
   
   try {
     isThinking = true;
     document.getElementById('sendBtn').disabled = true;
     
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch(WORKER_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
@@ -971,16 +968,22 @@ async function callAnthropicAPI() {
       })
     });
     
-    if (!response.ok) throw new Error('API call failed');
-    
     const data = await response.json();
-    const text = data.content[0].text;
     
+    if (!response.ok) {
+      console.error('API Error:', data);
+      if (data.error) {
+        return `⚠️ ${data.error.message || data.error}`;
+      }
+      return '⚠️ Connection error. Please try again.';
+    }
+    
+    const text = data.content[0].text;
     return text;
     
   } catch (err) {
-    console.error('API Error:', err);
-    return null;
+    console.error('Network Error:', err);
+    return `⚠️ Network error: ${err.message}`;
   } finally {
     isThinking = false;
     document.getElementById('sendBtn').disabled = false;
