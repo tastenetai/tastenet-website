@@ -294,7 +294,9 @@
     gap: 16px;
     max-width: 700px;
     width: 100%;
+    position: relative;
   }
+  
   .sector-card {
     border: 1px solid var(--card-border);
     border-radius: 14px;
@@ -327,6 +329,27 @@
     font-size: 11px;
     color: var(--text-dim);
     line-height: 1.6;
+  }
+
+  /* Swipe hint (mobile only) */
+  .swipe-hint {
+    display: none;
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: var(--cyan);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Orbitron', monospace;
+    animation: swipeHintPulse 2s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 10;
+  }
+  @keyframes swipeHintPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
   }
 
   /* chat container */
@@ -531,6 +554,41 @@
       max-width: 85%;
     }
   }
+
+  /* Mobile: horizontal scroll carousel + swipe hint */
+  @media (max-width: 600px) {
+    .welcome-screen {
+      padding-bottom: 80px;
+    }
+    
+    .sector-grid {
+      display: flex;
+      overflow-x: auto;
+      gap: 14px;
+      width: 100%;
+      max-width: 100%;
+      padding: 0 20px 20px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .sector-grid::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .sector-card {
+      min-width: 280px;
+      flex-shrink: 0;
+      scroll-snap-align: center;
+    }
+    
+    .swipe-hint {
+      display: block;
+    }
+    .swipe-hint.hidden {
+      display: none;
+    }
+  }
 </style>
 </head>
 <body>
@@ -642,6 +700,12 @@
             <p class="sector-desc">Skin monitors 1000+ sensors across your environment.</p>
           </div>
         </div>
+        
+        <!-- Swipe hint for mobile -->
+        <div class="swipe-hint" id="swipeHint">
+          ← Swipe to explore →
+        </div>
+
       </div>
 
       <!-- CHAT CONTAINER -->
@@ -950,6 +1014,39 @@ function bumpConsciousness() {
   document.getElementById('consciousnessVal').textContent = val + '%';
   document.getElementById('consciousnessFill').style.width = val + '%';
 }
+
+// ─── SWIPE HINT LOGIC (MOBILE) ─── 
+(function() {
+  const hint = document.getElementById('swipeHint');
+  const grid = document.querySelector('.sector-grid');
+  
+  if (!hint || !grid) return;
+  
+  // Check if hint was already dismissed
+  if (localStorage.getItem('tastenet-swipe-hint-dismissed') === 'true') {
+    hint.classList.add('hidden');
+    return;
+  }
+  
+  // Listen for scroll (swipe)
+  let scrollTimeout;
+  grid.addEventListener('scroll', function() {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      // User swiped - hide hint and remember
+      hint.classList.add('hidden');
+      localStorage.setItem('tastenet-swipe-hint-dismissed', 'true');
+    }, 100);
+  });
+  
+  // Also hide if user clicks a card (they found it)
+  document.querySelectorAll('.sector-card').forEach(card => {
+    card.addEventListener('click', () => {
+      hint.classList.add('hidden');
+      localStorage.setItem('tastenet-swipe-hint-dismissed', 'true');
+    });
+  });
+})();
 </script>
 
 </body>
