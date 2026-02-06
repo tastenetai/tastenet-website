@@ -56,6 +56,7 @@
     border-bottom: 1px solid rgba(0,255,255,0.08);
     background: rgba(2,4,8,0.85);
     backdrop-filter: blur(12px);
+    flex-shrink: 0;
   }
   .topbar-logo {
     font-family: 'Orbitron', monospace;
@@ -258,6 +259,7 @@
     display: flex;
     flex-direction: column;
     background: rgba(2,4,8,0.5);
+    overflow: hidden;
   }
 
   /* welcome / sector select screen */
@@ -269,6 +271,8 @@
     justify-content: center;
     padding: 40px;
     text-align: center;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .welcome-screen.hidden { display: none; }
 
@@ -295,6 +299,7 @@
     max-width: 700px;
     width: 100%;
     position: relative;
+    margin-bottom: 60px;
   }
   
   .sector-card {
@@ -334,8 +339,8 @@
   /* Swipe hint (mobile only) */
   .swipe-hint {
     display: none;
-    position: absolute;
-    bottom: -40px;
+    position: fixed;
+    bottom: 100px;
     left: 50%;
     transform: translateX(-50%);
     font-size: 11px;
@@ -345,10 +350,14 @@
     font-family: 'Orbitron', monospace;
     animation: swipeHintPulse 2s ease-in-out infinite;
     pointer-events: none;
-    z-index: 10;
+    z-index: 100;
+    background: rgba(2,4,8,0.9);
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,255,255,0.3);
   }
   @keyframes swipeHintPulse {
-    0%, 100% { opacity: 0.5; }
+    0%, 100% { opacity: 0.6; }
     50% { opacity: 1; }
   }
 
@@ -557,17 +566,40 @@
 
   /* Mobile: horizontal scroll carousel + swipe hint */
   @media (max-width: 600px) {
+    .topbar {
+      padding: 14px 20px;
+    }
+    
+    .topbar-center {
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+    
     .welcome-screen {
-      padding-bottom: 80px;
+      padding: 60px 20px 100px;
+      justify-content: flex-start;
+    }
+    
+    .welcome-title {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    
+    .welcome-subtitle {
+      font-size: 13px;
+      margin-bottom: 30px;
+      padding: 0 10px;
     }
     
     .sector-grid {
       display: flex;
       overflow-x: auto;
+      overflow-y: visible;
       gap: 14px;
       width: 100%;
       max-width: 100%;
-      padding: 0 20px 20px;
+      padding: 0 20px 20px 20px;
+      margin-bottom: 0;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
@@ -578,6 +610,7 @@
     
     .sector-card {
       min-width: 280px;
+      max-width: 280px;
       flex-shrink: 0;
       scroll-snap-align: center;
     }
@@ -700,11 +733,6 @@
             <p class="sector-desc">Skin monitors 1000+ sensors across your environment.</p>
           </div>
         </div>
-        
-        <!-- Swipe hint for mobile -->
-        <div class="swipe-hint" id="swipeHint">
-          ← Swipe to explore →
-        </div>
 
       </div>
 
@@ -740,6 +768,11 @@
   </div><!-- end main-content -->
 
 </div><!-- end wrapper -->
+
+<!-- Swipe hint for mobile (outside main structure) -->
+<div class="swipe-hint" id="swipeHint">
+  ← Swipe to explore →
+</div>
 
 <!-- ─── PARTICLE CANVAS JS ─── -->
 <script>
@@ -855,6 +888,9 @@ function startConversation(sector) {
       el.classList.remove('active');
     }
   });
+  
+  // hide swipe hint
+  document.getElementById('swipeHint').classList.add('hidden');
   
   // send initial AI greeting
   const greeting = getGreeting(sector);
