@@ -940,50 +940,55 @@ async function sendMessage() {
   }
 }
 
-// ─── CALL ANTHROPIC API VIA CLOUDFLARE WORKER ─── 
-async function callAnthropicAPI() {
-  const config = sectorConfigs[currentSector];
-  
-  // Your Cloudflare Worker URL
-  const WORKER_URL = 'https://chat-proxy.tatsenetai.workers.dev/';
-  
-  try {
-    isThinking = true;
-    document.getElementById('sendBtn').disabled = true;
-    
-    const response = await fetch(WORKER_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1024,
-        system: config.systemPrompt,
-        messages: conversationHistory
-      })
-    });
-    
-    const data = await response.json();
-    
-    if (!response.ok) {
-      console.error('API Error:', data);
-      if (data.error) {
-        return `⚠️ ${data.error.message || data.error}`;
-      }
-      return '⚠️ Connection error. Please try again.';
-    }
-    
-    const text = data.content[0].text;
-    return text;
-    
-  } catch (err) {
-    console.error('Network Error:', err);
-    return `⚠️ Network error: ${err.message}`;
-  } finally {
-    isThinking = false;
-    document.getElementById('sendBtn').disabled = false;
-  }
+// ─── CALL NOVA API ─── 
+async function callNovaAPI() {
+const config = sectorConfigs[currentSector];
+
+try {
+isThinking = true;
+document.getElementById('sendBtn').disabled = true;
+
+```
+const response = await fetch('/api/chat', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    message: conversationHistory[conversationHistory.length - 1]?.content || '',
+    history: conversationHistory,
+    system_prompt: config.systemPrompt,
+    sector: currentSector
+  })
+});
+
+const data = await response.json();
+
+if (!response.ok) {
+  console.error('API Error:', data);
+  return `⚠️ ${data.error || 'Connection error. Please try again.'}`;
+}
+
+// Expected Nova response format
+if (data.response) {
+  return data.response;
+}
+
+// fallback safety
+if (data.message) {
+  return data.message;
+}
+
+return '⚠️ Invalid response from Nova';
+```
+
+} catch (err) {
+console.error('Network Error:', err);
+return `⚠️ Network error: ${err.message}`;
+} finally {
+isThinking = false;
+document.getElementById('sendBtn').disabled = false;
+}
 }
 
 // ─── ADD MESSAGE TO UI ─── 
