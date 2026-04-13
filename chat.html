@@ -948,7 +948,7 @@ async function callNovaAPI() {
     isThinking = true;
     document.getElementById('sendBtn').disabled = true;
 
-    const response = await fetch('/api/chat', {
+    fetch('https://api.tastenetai.com/api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
