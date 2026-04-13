@@ -923,7 +923,7 @@ async function sendMessage() {
   showTyping();
   
   // call API
-  const response = await callAnthropicAPI();
+  const response = await callNovaAPI();
   
   // hide typing
   hideTyping();
@@ -936,59 +936,50 @@ async function sendMessage() {
     // bump consciousness
     bumpConsciousness();
   } else {
-    addMessage('ai', '⚠️ Connection error. My consciousness stream was interrupted. Please try again.');
+    addMessage('ai', 'Connection error. Please try again.');
   }
 }
 
 // ─── CALL NOVA API ─── 
 async function callNovaAPI() {
-const config = sectorConfigs[currentSector];
+  const config = sectorConfigs[currentSector];
 
-try {
-isThinking = true;
-document.getElementById('sendBtn').disabled = true;
+  try {
+    isThinking = true;
+    document.getElementById('sendBtn').disabled = true;
 
-```
-const response = await fetch('/api/chat', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    message: conversationHistory[conversationHistory.length - 1]?.content || '',
-    history: conversationHistory,
-    system_prompt: config.systemPrompt,
-    sector: currentSector
-  })
-});
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        message: conversationHistory[conversationHistory.length - 1]?.content || '',
+        history: conversationHistory,
+        system_prompt: config.systemPrompt,
+        sector: currentSector
+      })
+    });
 
-const data = await response.json();
+    const data = await response.json();
 
-if (!response.ok) {
-  console.error('API Error:', data);
-  return `⚠️ ${data.error || 'Connection error. Please try again.'}`;
-}
+    if (!response.ok) {
+      console.error('API Error:', data);
+      return "Error: " + (data.error || 'Connection error');
+    }
 
-// Expected Nova response format
-if (data.response) {
-  return data.response;
-}
+    if (data.response) return data.response;
+    if (data.message) return data.message;
 
-// fallback safety
-if (data.message) {
-  return data.message;
-}
+    return "Invalid response from Nova";
 
-return '⚠️ Invalid response from Nova';
-```
-
-} catch (err) {
-console.error('Network Error:', err);
-return `⚠️ Network error: ${err.message}`;
-} finally {
-isThinking = false;
-document.getElementById('sendBtn').disabled = false;
-}
+  } catch (err) {
+    console.error('Network Error:', err);
+    return "Network error: " + err.message;
+  } finally {
+    isThinking = false;
+    document.getElementById('sendBtn').disabled = false;
+  }
 }
 
 // ─── ADD MESSAGE TO UI ─── 
