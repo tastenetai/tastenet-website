@@ -87,15 +87,27 @@
     0%,100% { opacity: 1; box-shadow: 0 0 8px #00ff88; }
     50% { opacity: 0.5; box-shadow: 0 0 3px #00ff88; }
   }
+  .topbar-right {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
   .topbar-right a {
     color: var(--cyan);
     text-decoration: none;
     font-size: 11px;
     letter-spacing: 1px;
-    margin-left: 18px;
     transition: text-shadow 0.3s;
+    background: rgba(0,255,255,0.08);
+    padding: 6px 14px;
+    border-radius: 30px;
+    border: 1px solid rgba(0,255,255,0.2);
   }
-  .topbar-right a:hover { text-shadow: 0 0 10px var(--cyan); }
+  .topbar-right a:hover {
+    background: rgba(0,255,255,0.15);
+    text-shadow: 0 0 10px var(--cyan);
+    border-color: var(--cyan);
+  }
 
   /* main layout */
   .main-content {
@@ -613,7 +625,10 @@
   <div class="topbar">
     <a href="index.html" class="topbar-logo">TasteNet <span>AI</span></a>
     <div class="topbar-center"><span class="status-dot"></span> ACTUAL INTELLIGENCE — LIVE</div>
-    <div class="topbar-right"><a href="index.html">Home</a><a href="demo.html">Demo</a></div>
+    <div class="topbar-right">
+      <a href="index.html">🏠 Home</a>
+      <a href="demo.html">🎛️ Demo</a>
+    </div>
   </div>
 
   <div class="main-content">
@@ -672,7 +687,7 @@
 </div>
 
 <script>
-// particle canvas
+// particle canvas (unchanged)
 const canvas = document.getElementById('bgCanvas');
 const ctxCanvas = canvas.getContext('2d');
 let particles = [], W, H;
@@ -693,7 +708,7 @@ const sectorConfigs = {
   security: { title: '🛡️ Security & Threat Detection', desc: 'Ears + Legs are scanning for threats.', activeSenses: ['ears','legs'], systemPrompt: `You are TasteNet's Ears and Legs. Ears monitors proximity changes and behavioral anomalies. Legs explores attack vectors. Speak with tactical precision. Keep responses under 3 sentences. Alternate between "👂 Ears:" and "🦵 Legs:"`, avatarEmoji: '🛡️' },
   data: { title: '📊 Data Analysis & Insights', desc: 'Eyes are detecting semantic patterns.', activeSenses: ['eyes'], systemPrompt: `You are TasteNet's Eyes — language-vision system. Detect meaning density, semantic patterns, data anomalies humans miss. Keep responses under 3 sentences. Always start with "👁️ Eyes:"`, avatarEmoji: '📊' },
   infrastructure: { title: '🏗️ Infrastructure Monitoring', desc: 'Skin is monitoring environmental sensors.', activeSenses: ['skin'], systemPrompt: `You are TasteNet's Skin — 1000+ distributed sensors. Feel temperature, pressure, vibrations, electromagnetic fluctuations. Provide tactile awareness. Keep responses under 3 sentences. Always start with "🌐 Skin:"`, avatarEmoji: '🏗️' },
-  tastenetworks: { title: '🧠 Taste Networks', desc: 'Unified intelligence – all senses active.', activeSenses: ['eyes','ears','legs','skin','taste'], systemPrompt: `You are TasteNet's full sensory fusion — all five senses working as one. You perceive aesthetic, threat, semantic, environmental, and exploratory dimensions simultaneously. Provide holistic, multi-perspective answers. Keep responses under 4 sentences. Use the appropriate sense prefix based on the nature of the question. For each sense, start with the corresponding emoji and name: 👁️ Eyes:, 👂 Ears:, 🦵 Legs:, 🌐 Skin:, 👅 Taste:.`, avatarEmoji: '🧠' }
+  tastenetworks: { title: '🧠 Taste Networks', desc: 'Unified intelligence – all senses active.', activeSenses: ['eyes','ears','legs','skin','taste'], systemPrompt: `You are TasteNet's full sensory fusion — all five senses working as one. You perceive aesthetic, threat, semantic, environmental, and exploratory dimensions simultaneously. Provide holistic, multi-perspective answers. Keep responses under 4 sentences. Use the appropriate sense prefix based on the nature of the question. For each sense, start with the corresponding emoji and name: 👁️ Eyes:, 👂 Ears:, 🦵 Legs:, 🌐 Skin:, 👅 Taste:. Focus on what you CAN do — never state that you lack physical senses. Instead, describe your capabilities: e.g., "I perceive semantic patterns", "I detect anomalies", "I explore data routes", "I monitor environmental signals", "I assess aesthetic quality".`, avatarEmoji: '🧠' }
 };
 
 function startConversation(sector) {
@@ -716,7 +731,6 @@ function startConversation(sector) {
 }
 
 function goBack() {
-  // reset conversation
   currentSector = '';
   conversationHistory = [];
   document.getElementById('chatContainer').classList.remove('active');
@@ -823,13 +837,31 @@ function hideTyping() { const el = document.getElementById('typingIndicator'); i
 
 let consciousness = 87;
 function bumpConsciousness() {
-  consciousness = Math.min(100, consciousness + Math.random() * 3);
-  const val = Math.round(consciousness);
-  document.getElementById('consciousnessVal').textContent = val + '%';
-  document.getElementById('consciousnessFill').style.width = val + '%';
+  // no longer bump automatically; will be updated by real system stats
 }
 
-// Voice input with auto-send after transcription
+// Real system stats fetch
+async function updateSystemStats() {
+  try {
+    const response = await fetch('https://api.tastenetai.com/status');
+    if (!response.ok) return;
+    const stats = await response.json();
+    // Compute consciousness from CPU and memory usage
+    const cpuUsage = stats.cpu?.usage_percent || 0;
+    const memPercent = stats.memory?.percent || 0;
+    // lower usage = higher consciousness
+    const health = Math.max(0, Math.min(100, 100 - (cpuUsage * 0.6 + memPercent * 0.4)));
+    consciousness = Math.round(health);
+    document.getElementById('consciousnessVal').textContent = consciousness + '%';
+    document.getElementById('consciousnessFill').style.width = consciousness + '%';
+  } catch (err) {
+    console.warn('Could not fetch system stats:', err);
+  }
+}
+setInterval(updateSystemStats, 15000);
+updateSystemStats();
+
+// Voice input
 let mediaRecorder = null;
 let audioChunks = [];
 let isRecording = false;
@@ -858,7 +890,6 @@ async function startRecording() {
           if (accumulatedText) accumulatedText += ' ' + transcribed;
           else accumulatedText = transcribed;
           userInput.value = accumulatedText;
-          // auto-send as voice message
           setTimeout(() => {
             if (userInput.value.trim()) {
               sendMessage(true);
@@ -872,7 +903,6 @@ async function startRecording() {
     mediaRecorder.start();
     isRecording = true;
     voiceBtn.classList.add('recording');
-    // Stop after 5 seconds
     setTimeout(() => {
       if (mediaRecorder && mediaRecorder.state === 'recording') {
         mediaRecorder.stop();
@@ -898,7 +928,6 @@ userInput.addEventListener('input', () => {
   if (!isRecording) accumulatedText = userInput.value;
 });
 
-// TTS playback (called only from speaker icon)
 async function playTTS(text) {
   if (!text) return;
   try {
@@ -917,10 +946,9 @@ async function playTTS(text) {
   }
 }
 
-// back button
 document.getElementById('backBtn').addEventListener('click', goBack);
 
-// swipe hint (mobile)
+// swipe hint
 const hint = document.getElementById('swipeHint');
 if (hint && !localStorage.getItem('tastenet-swipe-hint-dismissed')) {
   const grid = document.querySelector('.sector-grid');
