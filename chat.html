@@ -666,7 +666,7 @@ function startConversation(sector) {
   });
   const hint = document.getElementById('swipeHint');
   if (hint) hint.classList.add('hidden');
-  const greeting = sector === 'tastenetworks' ? "🔗 Taste Networks: All senses online. I perceive aesthetic, threat, semantic, environmental, and exploratory dimensions. What unified insight do you seek?" : sectorConfigs[sector].systemPrompt.split('Keep')[0].trim();
+  const greeting = sector === 'tastenetworks' ? "🔗 Taste Networks: All senses online. I perceive aesthetic, threat, semantic, environmental, and exploratory dimensions. What unified insight do you seek?" : (sectorConfigs[sector].systemPrompt.split('Keep')[0].trim() + " How can I assist?");
   addMessage('ai', greeting);
   document.getElementById('userInput').focus();
 }
@@ -685,6 +685,8 @@ async function sendMessage() {
     addMessage('ai', reply);
     conversationHistory.push({ role: 'assistant', content: reply });
     bumpConsciousness();
+    // Play TTS for the assistant's response
+    playTTS(reply);
   } else {
     addMessage('ai', 'Connection error. Please try again.');
   }
@@ -752,19 +754,18 @@ function bumpConsciousness() {
   document.getElementById('consciousnessVal').textContent = val + '%';
   document.getElementById('consciousnessFill').style.width = val + '%';
 }
-
-// voice recording with silence detection and interruption
+  
+// ─── VOICE INPUT (fixed) ───
 let mediaRecorder = null;
 let audioChunks = [];
 let isRecording = false;
 let silenceTimer = null;
 let speechDetected = false;
-let lastAudioLevel = 0;
-let audioContext = null;
-let sourceNode = null;
 let analyser = null;
 let animationId = null;
-let accumulatedText = ''; // for building on original text
+let audioContext = null;
+let sourceNode = null;
+let accumulatedText = '';
 
 const voiceBtn = document.getElementById('voiceBtn');
 const userInput = document.getElementById('userInput');
@@ -780,36 +781,43 @@ async function startRecording() {
     sourceNode = audioContext.createMediaStreamSource(stream);
     sourceNode.connect(analyser);
     audioContext.resume();
-    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
     mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
     mediaRecorder.onstop = async () => {
       if (animationId) cancelAnimationFrame(animationId);
       if (audioContext) await audioContext.close();
+      // Combine chunks into a single blob
       const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-      const formData = new FormData();
-      formData.append('audio', audioBlob, 'recording.webm');
+      // Send raw blob directly (not FormData) to proxy
       try {
-        const response = await fetch('/transcribe', { method: 'POST', body: formData });
+        const response = await fetch('/transcribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'audio/webm' },
+          body: audioBlob
+        });
         const data = await response.json();
         const transcribed = data.text || '';
         if (transcribed) {
           if (accumulatedText) accumulatedText += ' ' + transcribed;
           else accumulatedText = transcribed;
           userInput.value = accumulatedText;
+        } else {
+          console.warn('Empty transcription');
         }
-      } catch (err) { console.error('Transcription error', err); }
+      } catch (err) {
+        console.error('Transcription error', err);
+      }
       isRecording = false;
       voiceBtn.classList.remove('recording');
       if (silenceTimer) clearTimeout(silenceTimer);
       speechDetected = false;
-      // do not auto-send; user can edit then click send
     };
     mediaRecorder.start(1000);
     isRecording = true;
     voiceBtn.classList.add('recording');
     speechDetected = false;
     silenceTimer = null;
-    // monitor audio level for silence detection
+    // Silence detection
     function detectSilence() {
       if (!isRecording || !analyser) return;
       const dataArray = new Uint8Array(analyser.frequencyBinCount);
@@ -831,7 +839,9 @@ async function startRecording() {
       animationId = requestAnimationFrame(detectSilence);
     }
     detectSilence();
-  } catch (err) { console.error('Microphone error', err); }
+  } catch (err) {
+    console.error('Microphone error', err);
+  }
 }
 
 voiceBtn.addEventListener('click', () => {
@@ -840,15 +850,33 @@ voiceBtn.addEventListener('click', () => {
       mediaRecorder.stop();
     }
   } else {
-    accumulatedText = userInput.value.trim(); // preserve existing text
+    accumulatedText = userInput.value.trim(); // preserve any typed text
     startRecording();
   }
 });
 
-// if user starts typing after voice, reset accumulated
 userInput.addEventListener('input', () => {
   if (!isRecording) accumulatedText = userInput.value;
 });
+
+// ─── TTS PLAYBACK ───
+async function playTTS(text) {
+  if (!text) return;
+  try {
+    const response = await fetch(`/speak?text=${encodeURIComponent(text)}`);
+    if (response.ok) {
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      audio.onended = () => URL.revokeObjectURL(audioUrl);
+      audio.play().catch(e => console.warn('Audio play failed:', e));
+    } else {
+      console.warn('TTS failed', response.status);
+    }
+  } catch (err) {
+    console.error('TTS error', err);
+  }
+}
 
 // swipe hint (mobile)
 const hint = document.getElementById('swipeHint');
