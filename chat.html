@@ -157,6 +157,19 @@
     border: 1px solid rgba(0,255,255,0.15);
     animation: ring-spin 20s linear infinite;
   }
+  .brain-ring-mini::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--cyan);
+    border-radius: 50%;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 8px var(--cyan);
+    animation: pulse-dot 1s ease-in-out infinite;
+  }
   @keyframes ring-spin { to { transform: rotate(360deg); } }
   .brain-core-mini {
     width: 60px;
@@ -571,6 +584,63 @@
     box-shadow: 0 0 15px #ff5555;
   }
 
+  /* Mobile card layout improvements */
+  @media (max-width: 600px) {
+    .sector-grid {
+      display: flex;
+      overflow-x: auto;
+      gap: 14px;
+      width: 100%;
+      padding: 0 20px 20px 20px;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      margin-bottom: 0;
+    }
+    .sector-grid::-webkit-scrollbar {
+      height: 4px;
+      background: rgba(0,255,255,0.1);
+      border-radius: 2px;
+    }
+    .sector-grid::-webkit-scrollbar-thumb {
+      background: var(--cyan);
+      border-radius: 2px;
+    }
+    .sector-card {
+      min-width: 260px;
+      max-width: 260px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      /* first card not full width */
+      margin-right: 8px;
+    }
+    /* make first card slightly smaller to hint scrolling */
+    .sector-card:first-child {
+      margin-left: 4px;
+    }
+    .swipe-hint {
+      display: block;
+      position: relative;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      background: rgba(2,4,8,0.9);
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(0,255,255,0.3);
+      animation: swipeHintPulse 2s ease-in-out infinite;
+      width: fit-content;
+      align-self: center;
+    }
+    .swipe-hint.hidden { display: none; }
+    @keyframes swipeHintPulse {
+      0%,100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+  }
+
   @media (max-width: 900px) {
     .main-content { grid-template-columns: 1fr; }
     .consciousness-panel { display: none; }
@@ -581,41 +651,6 @@
     .welcome-screen { padding: 60px 20px 100px; justify-content: flex-start; }
     .welcome-title { font-size: 22px; }
     .welcome-subtitle { font-size: 13px; margin-bottom: 30px; }
-    .sector-grid {
-      display: flex;
-      overflow-x: auto;
-      gap: 14px;
-      width: 100%;
-      padding: 0 20px 20px 20px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      margin-bottom: 0;
-    }
-    .sector-grid::-webkit-scrollbar { display: none; }
-    .sector-card { min-width: 280px; flex-shrink: 0; scroll-snap-align: center; }
-    .swipe-hint {
-      display: block;
-      position: fixed;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 11px;
-      color: var(--cyan);
-      letter-spacing: 2px;
-      background: rgba(2,4,8,0.9);
-      padding: 8px 16px;
-      border-radius: 20px;
-      border: 1px solid rgba(0,255,255,0.3);
-      animation: swipeHintPulse 2s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 100;
-    }
-    .swipe-hint.hidden { display: none; }
-    @keyframes swipeHintPulse {
-      0%,100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
     .input-field { font-size: 16px; }
   }
 </style>
@@ -666,6 +701,7 @@
           <div class="sector-card" onclick="startConversation('infrastructure')"><span class="sector-icon">🏗️</span><div class="sector-title">Infrastructure</div><p class="sector-desc">Skin monitors 1000+ sensors across your environment.</p></div>
           <div class="sector-card" onclick="startConversation('tastenetworks')"><span class="sector-icon">🧠</span><div class="sector-title">Taste Networks</div><p class="sector-desc">Unified intelligence: all senses combined. Full spectrum awareness for complex challenges.</p></div>
         </div>
+        <div class="swipe-hint" id="swipeHint">← Swipe to explore more →</div>
       </div>
 
       <div class="chat-container" id="chatContainer">
@@ -711,7 +747,7 @@ const sectorConfigs = {
   security: { title: '🛡️ Security & Threat Detection', desc: 'Ears + Legs are scanning for threats.', activeSenses: ['ears','legs'], systemPrompt: `You are TasteNet's Ears and Legs. Ears monitors proximity changes and behavioral anomalies. Legs explores attack vectors. Speak with tactical precision. Keep responses under 3 sentences. Alternate between "👂 Ears:" and "🦵 Legs:"`, avatarEmoji: '🛡️' },
   data: { title: '📊 Data Analysis & Insights', desc: 'Eyes are detecting semantic patterns.', activeSenses: ['eyes'], systemPrompt: `You are TasteNet's Eyes — language-vision system. Detect meaning density, semantic patterns, data anomalies humans miss. Keep responses under 3 sentences. Always start with "👁️ Eyes:"`, avatarEmoji: '📊' },
   infrastructure: { title: '🏗️ Infrastructure Monitoring', desc: 'Skin is monitoring environmental sensors.', activeSenses: ['skin'], systemPrompt: `You are TasteNet's Skin — 1000+ distributed sensors. Feel temperature, pressure, vibrations, electromagnetic fluctuations. Provide tactile awareness. Keep responses under 3 sentences. Always start with "🌐 Skin:"`, avatarEmoji: '🏗️' },
-  tastenetworks: { title: '🧠 Taste Networks', desc: 'Unified intelligence – all senses active.', activeSenses: ['eyes','ears','legs','skin','taste'], systemPrompt: `You are TasteNet's full sensory fusion — all five senses working as one. You perceive aesthetic, threat, semantic, environmental, and exploratory dimensions simultaneously. Provide holistic, multi-perspective answers. Keep responses under 4 sentences. Use the appropriate sense prefix based on the nature of the question. For each sense, start with the corresponding emoji and name: 👁️ Eyes:, 👂 Ears:, 🦵 Legs:, 🌐 Skin:, 👅 Taste:. Focus on what you CAN do — never state that you lack physical senses. Instead, describe your capabilities: e.g., "I perceive semantic patterns", "I detect anomalies", "I explore data routes", "I monitor environmental signals", "I assess aesthetic quality".`, avatarEmoji: '🧠' }
+  tastenetworks: { title: '🧠 Taste Networks', desc: 'Unified intelligence – all senses active.', activeSenses: ['eyes','ears','legs','skin','taste'], systemPrompt: `You are TasteNet's full sensory fusion — all five senses working as one. You perceive aesthetic, threat, semantic, environmental, and exploratory dimensions simultaneously. Provide holistic, multi-perspective answers. Keep responses under 4 sentences. Focus on delivering the answer directly. Do not describe the internal process of each sense; instead, just give the answer. If appropriate, you may mention a relevant sense briefly, but avoid listing all five unless the user explicitly asks for the process.`, avatarEmoji: '🧠' }
 };
 
 function startConversation(sector) {
@@ -755,7 +791,6 @@ async function sendMessage(isVoice = false) {
   if (reply) {
     addMessage('ai', reply);
     conversationHistory.push({ role: 'assistant', content: reply });
-    // consciousness will be updated by real stats
   } else {
     addMessage('ai', 'Connection error. Please try again.');
   }
@@ -814,7 +849,6 @@ function addMessage(type, text) {
     speaker.title = 'Play response (voice)';
     speaker.addEventListener('click', (e) => {
       e.stopPropagation();
-      // strip emojis before TTS
       let cleanText = text.replace(/[\p{Emoji}\uFE0F]/gu, '').trim();
       if (cleanText) playTTS(cleanText);
     });
@@ -848,14 +882,12 @@ async function updateSystemStats() {
     const stats = await response.json();
     const cpu = stats.cpu?.usage_percent || 0;
     const mem = stats.memory?.percent || 0;
-    // Consciousness = 100 - weighted average of usage (lower usage = higher consciousness)
     let raw = 100 - (cpu * 0.5 + mem * 0.5);
     let consciousness = Math.max(0, Math.min(100, Math.round(raw)));
     document.getElementById('consciousnessVal').textContent = consciousness + '%';
     document.getElementById('consciousnessFill').style.width = consciousness + '%';
   } catch (err) {
     console.warn('Could not fetch system stats:', err);
-    // fallback to a gentle random but keep it believable
     let fallback = Math.floor(70 + Math.random() * 20);
     document.getElementById('consciousnessVal').textContent = fallback + '%';
     document.getElementById('consciousnessFill').style.width = fallback + '%';
@@ -951,12 +983,22 @@ async function playTTS(text) {
 
 document.getElementById('backBtn').addEventListener('click', goBack);
 
-// swipe hint
+// swipe hint dismiss (mobile)
 const hint = document.getElementById('swipeHint');
 if (hint && !localStorage.getItem('tastenet-swipe-hint-dismissed')) {
   const grid = document.querySelector('.sector-grid');
-  if (grid) grid.addEventListener('scroll', () => { hint.classList.add('hidden'); localStorage.setItem('tastenet-swipe-hint-dismissed','true'); });
-  document.querySelectorAll('.sector-card').forEach(c => c.addEventListener('click', () => { hint.classList.add('hidden'); localStorage.setItem('tastenet-swipe-hint-dismissed','true'); }));
+  if (grid) {
+    grid.addEventListener('scroll', () => {
+      hint.classList.add('hidden');
+      localStorage.setItem('tastenet-swipe-hint-dismissed','true');
+    });
+  }
+  document.querySelectorAll('.sector-card').forEach(c => {
+    c.addEventListener('click', () => {
+      hint.classList.add('hidden');
+      localStorage.setItem('tastenet-swipe-hint-dismissed','true');
+    });
+  });
 }
 </script>
 </body>
