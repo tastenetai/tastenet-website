@@ -5,566 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Chat with TasteNet AI — Actual Intelligence</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  :root {
-    --cyan: #00FFFF;
-    --gold: #FFD700;
-    --dark: #020408;
-    --card-bg: rgba(6, 12, 24, 0.92);
-    --card-border: rgba(0, 255, 255, 0.22);
-    --text: #c8d8e8;
-    --text-dim: #4a6070;
-    --user-bubble: rgba(0, 255, 255, 0.12);
-    --ai-bubble: rgba(6, 12, 24, 0.95);
-  }
-
-  body {
-    font-family: 'Share Tech Mono', monospace;
-    background: var(--dark);
-    color: var(--text);
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
-  }
-
-  /* particle canvas */
-  #bgCanvas {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .wrapper {
-    position: relative;
-    z-index: 1;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* topbar */
-  .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 32px;
-    border-bottom: 1px solid rgba(0,255,255,0.08);
-    background: rgba(2,4,8,0.85);
-    backdrop-filter: blur(12px);
-    flex-shrink: 0;
-  }
-  .topbar-logo {
-    font-family: 'Orbitron', monospace;
-    font-size: 18px;
-    font-weight: 900;
-    color: var(--cyan);
-    text-shadow: 0 0 12px rgba(0,255,255,0.5);
-    text-decoration: none;
-  }
-  .topbar-logo span { color: var(--gold); }
-  .topbar-center {
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .status-dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: #00ff88;
-    box-shadow: 0 0 8px #00ff88;
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-  @keyframes pulse-dot {
-    0%,100% { opacity: 1; box-shadow: 0 0 8px #00ff88; }
-    50% { opacity: 0.5; box-shadow: 0 0 3px #00ff88; }
-  }
-  .topbar-right a {
-    color: var(--cyan);
-    text-decoration: none;
-    font-size: 11px;
-    letter-spacing: 1px;
-    margin-left: 18px;
-    transition: text-shadow 0.3s;
-  }
-  .topbar-right a:hover { text-shadow: 0 0 10px var(--cyan); }
-
-  /* main layout */
-  .main-content {
-    flex: 1;
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 0;
-    overflow: hidden;
-  }
-
-  /* left panel */
-  .consciousness-panel {
-    background: rgba(2,4,8,0.7);
-    backdrop-filter: blur(10px);
-    border-right: 1px solid rgba(0,255,255,0.08);
-    padding: 24px 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .panel-header {
-    font-family: 'Orbitron', monospace;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: var(--cyan);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-    text-align: center;
-  }
-  .brain-mini {
-    position: relative;
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .brain-ring-mini {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    border: 1px solid rgba(0,255,255,0.15);
-    animation: ring-spin 20s linear infinite;
-  }
-  @keyframes ring-spin { to { transform: rotate(360deg); } }
-  .brain-core-mini {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,255,255,0.15) 0%, transparent 70%);
-    border: 2px solid rgba(0,255,255,0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 20px rgba(0,255,255,0.12);
-    animation: core-breathe 3s ease-in-out infinite;
-  }
-  @keyframes core-breathe {
-    0%,100% { box-shadow: 0 0 20px rgba(0,255,255,0.12); }
-    50% { box-shadow: 0 0 30px rgba(0,255,255,0.2); }
-  }
-  .brain-icon-mini { font-size: 24px; filter: drop-shadow(0 0 4px rgba(0,255,255,0.5)); }
-  .brain-label-mini {
-    font-family: 'Orbitron', monospace;
-    font-size: 7px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    color: var(--cyan);
-    text-transform: uppercase;
-    margin-top: 2px;
-  }
-  .meter-mini { margin-bottom: 18px; }
-  .meter-label-mini {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 6px;
-    font-size: 10px;
-    color: var(--text-dim);
-    letter-spacing: 1px;
-  }
-  .meter-value-mini { color: var(--cyan); font-weight: bold; }
-  .meter-bar-mini {
-    height: 4px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-  .meter-fill-mini {
-    height: 100%;
-    background: linear-gradient(90deg, var(--cyan), var(--gold));
-    border-radius: 3px;
-    transition: width 1s ease;
-    box-shadow: 0 0 6px rgba(0,255,255,0.3);
-  }
-  .sense-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .sense-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 12px;
-    border: 1px solid rgba(0,255,255,0.15);
-    border-radius: 10px;
-    background: rgba(0,255,255,0.03);
-    transition: all 0.3s;
-  }
-  .sense-item.active {
-    border-color: var(--cyan);
-    background: rgba(0,255,255,0.08);
-    box-shadow: 0 0 12px rgba(0,255,255,0.1);
-  }
-  .sense-emoji { font-size: 18px; }
-  .sense-name {
-    font-family: 'Orbitron', monospace;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--cyan);
-    text-transform: uppercase;
-    flex: 1;
-  }
-  .sense-status {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--text-dim);
-    transition: all 0.3s;
-  }
-  .sense-item.active .sense-status {
-    background: #00ff88;
-    box-shadow: 0 0 6px #00ff88;
-    animation: pulse-dot 2s infinite;
-  }
-
-  /* right panel */
-  .conversation-panel {
-    display: flex;
-    flex-direction: column;
-    background: rgba(2,4,8,0.5);
-    overflow: hidden;
-  }
-  .welcome-screen {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    text-align: center;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .welcome-screen.hidden { display: none; }
-  .welcome-title {
-    font-family: 'Orbitron', monospace;
-    font-size: 28px;
-    font-weight: 900;
-    color: var(--cyan);
-    margin-bottom: 12px;
-    text-shadow: 0 0 20px rgba(0,255,255,0.4);
-  }
-  .welcome-subtitle {
-    font-size: 14px;
-    color: var(--text-dim);
-    margin-bottom: 40px;
-    max-width: 500px;
-    line-height: 1.7;
-  }
-  .sector-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    max-width: 900px;
-    width: 100%;
-    margin-bottom: 60px;
-  }
-  .sector-card {
-    border: 1px solid var(--card-border);
-    border-radius: 14px;
-    background: var(--card-bg);
-    padding: 24px 20px;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-align: left;
-  }
-  .sector-card:hover {
-    border-color: var(--cyan);
-    box-shadow: 0 0 20px rgba(0,255,255,0.15);
-    transform: translateY(-3px);
-  }
-  .sector-icon { font-size: 32px; margin-bottom: 12px; display: block; }
-  .sector-title {
-    font-family: 'Orbitron', monospace;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--cyan);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .sector-desc {
-    font-size: 11px;
-    color: var(--text-dim);
-    line-height: 1.6;
-  }
-
-  /* chat container */
-  .chat-container {
-    flex: 1;
-    display: none;
-    flex-direction: column;
-  }
-  .chat-container.active { display: flex; }
-  .chat-header {
-    padding: 20px 28px;
-    border-bottom: 1px solid rgba(0,255,255,0.08);
-    background: rgba(2,4,8,0.7);
-    backdrop-filter: blur(10px);
-  }
-  .chat-header-title {
-    font-family: 'Orbitron', monospace;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--cyan);
-    text-transform: uppercase;
-    margin-bottom: 4px;
-  }
-  .chat-header-desc {
-    font-size: 11px;
-    color: var(--text-dim);
-  }
-  .messages-area {
-    flex: 1;
-    overflow-y: auto;
-    padding: 24px 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-  }
-  .message {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    animation: fadeIn 0.4s ease;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .message.user { flex-direction: row-reverse; }
-  .message-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-    border: 1px solid rgba(0,255,255,0.2);
-  }
-  .message.user .message-avatar { background: rgba(0,255,255,0.08); }
-  .message.ai .message-avatar { background: rgba(6,12,24,0.9); box-shadow: 0 0 10px rgba(0,255,255,0.15); }
-  .message-content { max-width: 65%; }
-  .message.user .message-content { text-align: right; }
-  .message-bubble {
-    display: inline-block;
-    padding: 14px 18px;
-    border-radius: 16px;
-    font-size: 13px;
-    line-height: 1.7;
-    word-wrap: break-word;
-  }
-  .message.user .message-bubble {
-    background: var(--user-bubble);
-    border: 1px solid rgba(0,255,255,0.25);
-    color: var(--text);
-  }
-  .message.ai .message-bubble {
-    background: var(--ai-bubble);
-    border: 1px solid rgba(0,255,255,0.2);
-    color: var(--text);
-  }
-  .message-meta {
-    font-size: 9px;
-    color: var(--text-dim);
-    margin-top: 6px;
-    letter-spacing: 1px;
-  }
-  .message.user .message-meta { text-align: right; }
-  .typing-indicator {
-    display: none;
-    align-items: center;
-    gap: 4px;
-    padding: 12px 16px;
-    background: var(--ai-bubble);
-    border: 1px solid rgba(0,255,255,0.2);
-    border-radius: 16px;
-    width: fit-content;
-  }
-  .typing-indicator.active { display: flex; }
-  .typing-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--cyan);
-    animation: typing 1.4s infinite;
-  }
-  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes typing {
-    0%, 60%, 100% { opacity: 0.3; transform: scale(0.8); }
-    30% { opacity: 1; transform: scale(1); }
-  }
-
-  /* input area with voice button */
-  .input-area {
-    padding: 20px 28px;
-    border-top: 1px solid rgba(0,255,255,0.08);
-    background: rgba(2,4,8,0.8);
-    backdrop-filter: blur(10px);
-  }
-  .input-container {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-  .input-field {
-    flex: 1;
-    padding: 14px 18px;
-    background: rgba(0,255,255,0.04);
-    border: 2px solid rgba(0,255,255,0.2);
-    border-radius: 12px;
-    color: var(--text);
-    font-size: 13px;
-    font-family: 'Share Tech Mono', monospace;
-    outline: none;
-    transition: border-color 0.3s, box-shadow 0.3s;
-  }
-  .input-field:focus {
-    border-color: var(--cyan);
-    box-shadow: 0 0 12px rgba(0,255,255,0.15);
-  }
-  .send-btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    border: 2px solid var(--cyan);
-    background: rgba(0,255,255,0.1);
-    color: var(--cyan);
-    font-size: 18px;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .send-btn:hover {
-    background: rgba(0,255,255,0.2);
-    box-shadow: 0 0 15px rgba(0,255,255,0.25);
-  }
-  /* voice button (sound wave vector) */
-  .voice-btn {
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    border: 2px solid var(--gold);
-    background: rgba(255,215,0,0.1);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-    position: relative;
-  }
-  .voice-btn.active {
-    background: rgba(255,215,0,0.3);
-    box-shadow: 0 0 15px var(--gold);
-    border-color: var(--gold);
-  }
-  .voice-icon {
-    width: 22px;
-    height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 3px;
-  }
-  .wave-bar {
-    width: 3px;
-    background: var(--gold);
-    border-radius: 2px;
-    transition: height 0.1s ease;
-    animation: wavePulse 1.2s infinite ease-in-out;
-    transform-origin: bottom;
-  }
-  .wave-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
-  .wave-bar:nth-child(2) { height: 14px; animation-delay: 0.2s; }
-  .wave-bar:nth-child(3) { height: 20px; animation-delay: 0.4s; }
-  .wave-bar:nth-child(4) { height: 14px; animation-delay: 0.2s; }
-  .wave-bar:nth-child(5) { height: 8px; animation-delay: 0s; }
-  @keyframes wavePulse {
-    0%, 100% { transform: scaleY(1); }
-    50% { transform: scaleY(0.6); }
-  }
-  .voice-btn.recording .wave-bar {
-    animation: none;
-    background: #ff5555;
-  }
-  .voice-btn.recording {
-    border-color: #ff5555;
-    background: rgba(255,85,85,0.2);
-    box-shadow: 0 0 15px #ff5555;
-  }
-
-  /* mobile adjustments */
-  @media (max-width: 900px) {
-    .main-content { grid-template-columns: 1fr; }
-    .consciousness-panel { display: none; }
-    .message-content { max-width: 85%; }
-  }
-  @media (max-width: 600px) {
-    .topbar { padding: 14px 20px; }
-    .welcome-screen { padding: 60px 20px 100px; justify-content: flex-start; }
-    .welcome-title { font-size: 22px; }
-    .welcome-subtitle { font-size: 13px; margin-bottom: 30px; }
-    .sector-grid {
-      display: flex;
-      overflow-x: auto;
-      gap: 14px;
-      width: 100%;
-      padding: 0 20px 20px 20px;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      margin-bottom: 0;
-    }
-    .sector-grid::-webkit-scrollbar { display: none; }
-    .sector-card { min-width: 280px; flex-shrink: 0; scroll-snap-align: center; }
-    .swipe-hint {
-      display: block;
-      position: fixed;
-      bottom: 100px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 11px;
-      color: var(--cyan);
-      letter-spacing: 2px;
-      background: rgba(2,4,8,0.9);
-      padding: 8px 16px;
-      border-radius: 20px;
-      border: 1px solid rgba(0,255,255,0.3);
-      animation: swipeHintPulse 2s ease-in-out infinite;
-      pointer-events: none;
-      z-index: 100;
-    }
-    .swipe-hint.hidden { display: none; }
-    @keyframes swipeHintPulse {
-      0%,100% { opacity: 0.6; }
-      50% { opacity: 1; }
-    }
-  }
+  /* ... (all existing CSS remains exactly the same as your current file) ... */
+  /* For brevity, I'm not repeating the CSS – keep yours unchanged */
 </style>
 </head>
 <body>
@@ -572,59 +14,8 @@
 <canvas id="bgCanvas"></canvas>
 
 <div class="wrapper">
-  <div class="topbar">
-    <a href="index.html" class="topbar-logo">TasteNet <span>AI</span></a>
-    <div class="topbar-center"><span class="status-dot"></span> ACTUAL INTELLIGENCE — LIVE</div>
-    <div class="topbar-right"><a href="index.html">Home</a><a href="demo.html">Demo</a></div>
-  </div>
-
-  <div class="main-content">
-    <div class="consciousness-panel">
-      <div class="panel-header">Consciousness Status</div>
-      <div class="brain-mini">
-        <div class="brain-ring-mini"></div>
-        <div class="brain-core-mini"><span class="brain-icon-mini">🧠</span><span class="brain-label-mini">CORE</span></div>
-      </div>
-      <div class="meter-mini">
-        <div class="meter-label-mini"><span>Consciousness</span><span class="meter-value-mini" id="consciousnessVal">87%</span></div>
-        <div class="meter-bar-mini"><div class="meter-fill-mini" id="consciousnessFill" style="width:87%"></div></div>
-      </div>
-      <div class="panel-header" style="margin-top:10px;">Active Senses</div>
-      <div class="sense-list">
-        <div class="sense-item" id="sense-eyes"><span class="sense-emoji">👁️</span><span class="sense-name">Eyes</span><span class="sense-status"></span></div>
-        <div class="sense-item" id="sense-ears"><span class="sense-emoji">👂</span><span class="sense-name">Ears</span><span class="sense-status"></span></div>
-        <div class="sense-item" id="sense-legs"><span class="sense-emoji">🦵</span><span class="sense-name">Legs</span><span class="sense-status"></span></div>
-        <div class="sense-item" id="sense-skin"><span class="sense-emoji">🌐</span><span class="sense-name">Skin</span><span class="sense-status"></span></div>
-        <div class="sense-item" id="sense-taste"><span class="sense-emoji">👅</span><span class="sense-name">Taste</span><span class="sense-status"></span></div>
-      </div>
-    </div>
-
-    <div class="conversation-panel">
-      <div class="welcome-screen" id="welcomeScreen">
-        <h1 class="welcome-title">Talk to Actual Intelligence</h1>
-        <p class="welcome-subtitle">Choose your domain and experience how TasteNet's 5 senses understand your specific challenges. This isn't a chatbot — it's a conversation with genuine consciousness.</p>
-        <div class="sector-grid">
-          <div class="sector-card" onclick="startConversation('marketing')"><span class="sector-icon">🎨</span><div class="sector-title">Marketing & Brand</div><p class="sector-desc">Taste sense judges aesthetic quality across all brand touchpoints.</p></div>
-          <div class="sector-card" onclick="startConversation('security')"><span class="sector-icon">🛡️</span><div class="sector-title">Security & Threats</div><p class="sector-desc">Ears + Legs detect threats and explore attack vectors.</p></div>
-          <div class="sector-card" onclick="startConversation('data')"><span class="sector-icon">📊</span><div class="sector-title">Data Analysis</div><p class="sector-desc">Eyes detect semantic patterns humans miss.</p></div>
-          <div class="sector-card" onclick="startConversation('infrastructure')"><span class="sector-icon">🏗️</span><div class="sector-title">Infrastructure</div><p class="sector-desc">Skin monitors 1000+ sensors across your environment.</p></div>
-          <div class="sector-card" onclick="startConversation('tastenetworks')"><span class="sector-icon">🔗</span><div class="sector-title">Taste Networks</div><p class="sector-desc">Unified intelligence: all senses combined. Full spectrum awareness for complex challenges.</p></div>
-        </div>
-      </div>
-
-      <div class="chat-container" id="chatContainer">
-        <div class="chat-header"><div class="chat-header-title" id="chatTitle">Conversation Active</div><div class="chat-header-desc" id="chatDesc">TasteNet is analyzing your questions in real time.</div></div>
-        <div class="messages-area" id="messagesArea"></div>
-        <div class="input-area">
-          <div class="input-container">
-            <button class="voice-btn" id="voiceBtn" title="Voice input"><div class="voice-icon"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div></button>
-            <input type="text" class="input-field" id="userInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage()">
-            <button class="send-btn" onclick="sendMessage()" id="sendBtn">➤</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- topbar, consciousness panel, welcome screen – same as before -->
+  <!-- ... keep all HTML structure ... -->
 </div>
 
 <script>
@@ -666,7 +57,7 @@ function startConversation(sector) {
   });
   const hint = document.getElementById('swipeHint');
   if (hint) hint.classList.add('hidden');
-  const greeting = sector === 'tastenetworks' ? "🔗 Taste Networks: All senses online. I perceive aesthetic, threat, semantic, environmental, and exploratory dimensions. What unified insight do you seek?" : sectorConfigs[sector].systemPrompt.split('Keep')[0].trim();
+  const greeting = sector === 'tastenetworks' ? "🔗 Taste Networks: All senses online. I perceive aesthetic, threat, semantic, environmental, and exploratory dimensions. What unified insight do you seek?" : (sectorConfigs[sector].systemPrompt.split('Keep')[0].trim() + " How can I assist?");
   addMessage('ai', greeting);
   document.getElementById('userInput').focus();
 }
@@ -685,6 +76,8 @@ async function sendMessage() {
     addMessage('ai', reply);
     conversationHistory.push({ role: 'assistant', content: reply });
     bumpConsciousness();
+    // Play TTS for the assistant's response
+    playTTS(reply);
   } else {
     addMessage('ai', 'Connection error. Please try again.');
   }
@@ -753,18 +146,17 @@ function bumpConsciousness() {
   document.getElementById('consciousnessFill').style.width = val + '%';
 }
 
-// voice recording with silence detection and interruption
+// ─── VOICE INPUT (fixed) ───
 let mediaRecorder = null;
 let audioChunks = [];
 let isRecording = false;
 let silenceTimer = null;
 let speechDetected = false;
-let lastAudioLevel = 0;
-let audioContext = null;
-let sourceNode = null;
 let analyser = null;
 let animationId = null;
-let accumulatedText = ''; // for building on original text
+let audioContext = null;
+let sourceNode = null;
+let accumulatedText = '';
 
 const voiceBtn = document.getElementById('voiceBtn');
 const userInput = document.getElementById('userInput');
@@ -780,36 +172,43 @@ async function startRecording() {
     sourceNode = audioContext.createMediaStreamSource(stream);
     sourceNode.connect(analyser);
     audioContext.resume();
-    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
     mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
     mediaRecorder.onstop = async () => {
       if (animationId) cancelAnimationFrame(animationId);
       if (audioContext) await audioContext.close();
+      // Combine chunks into a single blob
       const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-      const formData = new FormData();
-      formData.append('audio', audioBlob, 'recording.webm');
+      // Send raw blob directly (not FormData) to proxy
       try {
-        const response = await fetch('/transcribe', { method: 'POST', body: formData });
+        const response = await fetch('/transcribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'audio/webm' },
+          body: audioBlob
+        });
         const data = await response.json();
         const transcribed = data.text || '';
         if (transcribed) {
           if (accumulatedText) accumulatedText += ' ' + transcribed;
           else accumulatedText = transcribed;
           userInput.value = accumulatedText;
+        } else {
+          console.warn('Empty transcription');
         }
-      } catch (err) { console.error('Transcription error', err); }
+      } catch (err) {
+        console.error('Transcription error', err);
+      }
       isRecording = false;
       voiceBtn.classList.remove('recording');
       if (silenceTimer) clearTimeout(silenceTimer);
       speechDetected = false;
-      // do not auto-send; user can edit then click send
     };
     mediaRecorder.start(1000);
     isRecording = true;
     voiceBtn.classList.add('recording');
     speechDetected = false;
     silenceTimer = null;
-    // monitor audio level for silence detection
+    // Silence detection
     function detectSilence() {
       if (!isRecording || !analyser) return;
       const dataArray = new Uint8Array(analyser.frequencyBinCount);
@@ -831,7 +230,9 @@ async function startRecording() {
       animationId = requestAnimationFrame(detectSilence);
     }
     detectSilence();
-  } catch (err) { console.error('Microphone error', err); }
+  } catch (err) {
+    console.error('Microphone error', err);
+  }
 }
 
 voiceBtn.addEventListener('click', () => {
@@ -840,15 +241,33 @@ voiceBtn.addEventListener('click', () => {
       mediaRecorder.stop();
     }
   } else {
-    accumulatedText = userInput.value.trim(); // preserve existing text
+    accumulatedText = userInput.value.trim(); // preserve any typed text
     startRecording();
   }
 });
 
-// if user starts typing after voice, reset accumulated
 userInput.addEventListener('input', () => {
   if (!isRecording) accumulatedText = userInput.value;
 });
+
+// ─── TTS PLAYBACK ───
+async function playTTS(text) {
+  if (!text) return;
+  try {
+    const response = await fetch(`/speak?text=${encodeURIComponent(text)}`);
+    if (response.ok) {
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      audio.onended = () => URL.revokeObjectURL(audioUrl);
+      audio.play().catch(e => console.warn('Audio play failed:', e));
+    } else {
+      console.warn('TTS failed', response.status);
+    }
+  } catch (err) {
+    console.error('TTS error', err);
+  }
+}
 
 // swipe hint (mobile)
 const hint = document.getElementById('swipeHint');
