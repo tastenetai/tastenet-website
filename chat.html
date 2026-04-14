@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Chat with TasteNet AI — Actual Intelligence</title>
+<meta name="description" content="Chat with TasteNet's Actual Intelligence. A genuine 5-sensory system that truly perceives, feels, and understands.">
+<link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
@@ -15,8 +17,8 @@
     --dark: #020408;
     --card-bg: rgba(6, 12, 24, 0.92);
     --card-border: rgba(0, 255, 255, 0.22);
-    --text: #c8d8e8;
-    --text-dim: #4a6070;
+    --text: #e2e8f0;      /* lighter, more readable */
+    --text-dim: #a0aec0;   /* lighter grey */
     --user-bubble: rgba(0, 255, 255, 0.12);
     --ai-bubble: rgba(6, 12, 24, 0.95);
   }
@@ -30,7 +32,6 @@
     position: relative;
   }
 
-  /* particle canvas */
   #bgCanvas {
     position: fixed;
     inset: 0;
@@ -341,6 +342,8 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
+    /* Ensure scrolling works on mobile */
+    -webkit-overflow-scrolling: touch;
   }
   .message {
     display: flex;
@@ -366,13 +369,13 @@
   }
   .message.user .message-avatar { background: rgba(0,255,255,0.08); }
   .message.ai .message-avatar { background: rgba(6,12,24,0.9); box-shadow: 0 0 10px rgba(0,255,255,0.15); }
-  .message-content { max-width: 65%; }
+  .message-content { max-width: 75%; }
   .message.user .message-content { text-align: right; }
   .message-bubble {
     display: inline-block;
     padding: 14px 18px;
     border-radius: 16px;
-    font-size: 13px;
+    font-size: 14px;
     line-height: 1.7;
     word-wrap: break-word;
   }
@@ -437,7 +440,7 @@
     border: 2px solid rgba(0,255,255,0.2);
     border-radius: 12px;
     color: var(--text);
-    font-size: 13px;
+    font-size: 14px;
     font-family: 'Share Tech Mono', monospace;
     outline: none;
     transition: border-color 0.3s, box-shadow 0.3s;
@@ -464,7 +467,6 @@
     background: rgba(0,255,255,0.2);
     box-shadow: 0 0 15px rgba(0,255,255,0.25);
   }
-  /* voice button (sound wave vector) */
   .voice-btn {
     width: 44px;
     height: 44px;
@@ -477,11 +479,6 @@
     justify-content: center;
     transition: all 0.3s;
     position: relative;
-  }
-  .voice-btn.active {
-    background: rgba(255,215,0,0.3);
-    box-shadow: 0 0 15px var(--gold);
-    border-color: var(--gold);
   }
   .voice-icon {
     width: 22px;
@@ -564,6 +561,7 @@
       0%,100% { opacity: 0.6; }
       50% { opacity: 1; }
     }
+    .input-field { font-size: 16px; } /* prevent zoom on mobile */
   }
 </style>
 </head>
@@ -628,7 +626,7 @@
 </div>
 
 <script>
-// particle canvas (unchanged)
+// particle canvas
 const canvas = document.getElementById('bgCanvas');
 const ctxCanvas = canvas.getContext('2d');
 let particles = [], W, H;
@@ -649,7 +647,7 @@ const sectorConfigs = {
   security: { title: '🛡️ Security & Threat Detection', desc: 'Ears + Legs are scanning for threats.', activeSenses: ['ears','legs'], systemPrompt: `You are TasteNet's Ears and Legs. Ears monitors proximity changes and behavioral anomalies. Legs explores attack vectors. Speak with tactical precision. Keep responses under 3 sentences. Alternate between "👂 Ears:" and "🦵 Legs:"` },
   data: { title: '📊 Data Analysis & Insights', desc: 'Eyes are detecting semantic patterns.', activeSenses: ['eyes'], systemPrompt: `You are TasteNet's Eyes — language-vision system. Detect meaning density, semantic patterns, data anomalies humans miss. Keep responses under 3 sentences. Always start with "👁️ Eyes:"` },
   infrastructure: { title: '🏗️ Infrastructure Monitoring', desc: 'Skin is monitoring environmental sensors.', activeSenses: ['skin'], systemPrompt: `You are TasteNet's Skin — 1000+ distributed sensors. Feel temperature, pressure, vibrations, electromagnetic fluctuations. Provide tactile awareness. Keep responses under 3 sentences. Always start with "🌐 Skin:"` },
-  tastenetworks: { title: '🔗 Taste Networks', desc: 'Unified intelligence – all senses active.', activeSenses: ['eyes','ears','legs','skin','taste'], systemPrompt: `You are TasteNet's full sensory fusion — all five senses working as one. You perceive aesthetic, threat, semantic, environmental, and exploratory dimensions simultaneously. Provide holistic, multi-perspective answers. Keep responses under 4 sentences. Use the appropriate sense prefix based on the nature of the question.` }
+  tastenetworks: { title: '🔗 Taste Networks', desc: 'Unified intelligence – all senses active.', activeSenses: ['eyes','ears','legs','skin','taste'], systemPrompt: `You are TasteNet's full sensory fusion — all five senses working as one. You perceive aesthetic, threat, semantic, environmental, and exploratory dimensions simultaneously. Provide holistic, multi-perspective answers. Keep responses under 4 sentences. Use the appropriate sense prefix based on the nature of the question. For each sense, start with the corresponding emoji and name: 👁️ Eyes:, 👂 Ears:, 🦵 Legs:, 🌐 Skin:, 👅 Taste:.` }
 };
 
 function startConversation(sector) {
@@ -685,7 +683,7 @@ async function sendMessage() {
     addMessage('ai', reply);
     conversationHistory.push({ role: 'assistant', content: reply });
     bumpConsciousness();
-    // Play TTS for the assistant's response
+    // Only play TTS if the input was from voice? For now always play.
     playTTS(reply);
   } else {
     addMessage('ai', 'Connection error. Please try again.');
@@ -754,19 +752,12 @@ function bumpConsciousness() {
   document.getElementById('consciousnessVal').textContent = val + '%';
   document.getElementById('consciousnessFill').style.width = val + '%';
 }
-  
-// ─── VOICE INPUT (fixed) ───
+
+// Voice input with auto-send after transcription
 let mediaRecorder = null;
 let audioChunks = [];
 let isRecording = false;
-let silenceTimer = null;
-let speechDetected = false;
-let analyser = null;
-let animationId = null;
-let audioContext = null;
-let sourceNode = null;
 let accumulatedText = '';
-
 const voiceBtn = document.getElementById('voiceBtn');
 const userInput = document.getElementById('userInput');
 
@@ -775,71 +766,42 @@ async function startRecording() {
   audioChunks = [];
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    analyser = audioContext.createAnalyser();
-    analyser.fftSize = 256;
-    sourceNode = audioContext.createMediaStreamSource(stream);
-    sourceNode.connect(analyser);
-    audioContext.resume();
     mediaRecorder = new MediaRecorder(stream, { mimeType: 'audio/webm' });
     mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
     mediaRecorder.onstop = async () => {
-      if (animationId) cancelAnimationFrame(animationId);
-      if (audioContext) await audioContext.close();
-      // Combine chunks into a single blob
       const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-      // Send raw blob directly (not FormData) to proxy
       try {
         const response = await fetch('https://api.tastenetai.com/transcribe', {
           method: 'POST',
           headers: { 'Content-Type': 'audio/webm' },
           body: audioBlob
-         });
-
+        });
         const data = await response.json();
         const transcribed = data.text || '';
         if (transcribed) {
           if (accumulatedText) accumulatedText += ' ' + transcribed;
           else accumulatedText = transcribed;
           userInput.value = accumulatedText;
-        } else {
-          console.warn('Empty transcription');
+          // Auto-send the transcribed message after a short delay
+          setTimeout(() => {
+            if (userInput.value.trim()) {
+              sendMessage();
+            }
+          }, 300);
         }
-      } catch (err) {
-        console.error('Transcription error', err);
-      }
+      } catch (err) { console.error(err); }
       isRecording = false;
       voiceBtn.classList.remove('recording');
-      if (silenceTimer) clearTimeout(silenceTimer);
-      speechDetected = false;
     };
-    mediaRecorder.start(1000);
+    mediaRecorder.start();
     isRecording = true;
     voiceBtn.classList.add('recording');
-    speechDetected = false;
-    silenceTimer = null;
-    // Silence detection
-    function detectSilence() {
-      if (!isRecording || !analyser) return;
-      const dataArray = new Uint8Array(analyser.frequencyBinCount);
-      analyser.getByteFrequencyData(dataArray);
-      let sum = 0;
-      for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
-      let avg = sum / dataArray.length;
-      if (avg > 15) {
-        speechDetected = true;
-        if (silenceTimer) clearTimeout(silenceTimer);
-        silenceTimer = null;
-      } else if (speechDetected && !silenceTimer) {
-        silenceTimer = setTimeout(() => {
-          if (isRecording && speechDetected) {
-            mediaRecorder.stop();
-          }
-        }, 3000);
+    // Stop after 5 seconds of recording (you can adjust)
+    setTimeout(() => {
+      if (mediaRecorder && mediaRecorder.state === 'recording') {
+        mediaRecorder.stop();
       }
-      animationId = requestAnimationFrame(detectSilence);
-    }
-    detectSilence();
+    }, 5000);
   } catch (err) {
     console.error('Microphone error', err);
   }
@@ -851,7 +813,7 @@ voiceBtn.addEventListener('click', () => {
       mediaRecorder.stop();
     }
   } else {
-    accumulatedText = userInput.value.trim(); // preserve any typed text
+    accumulatedText = userInput.value.trim();
     startRecording();
   }
 });
@@ -860,7 +822,7 @@ userInput.addEventListener('input', () => {
   if (!isRecording) accumulatedText = userInput.value;
 });
 
-// ─── TTS PLAYBACK ───
+// TTS playback (always on assistant responses)
 async function playTTS(text) {
   if (!text) return;
   try {
