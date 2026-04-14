@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>Chat with TasteNet AI — Actual Intelligence</title>
 <meta name="description" content="Chat with TasteNet's Actual Intelligence. A genuine 5-sensory system that truly perceives, feels, and understands.">
 <link rel="icon" type="image/x-icon" href="/favicon/favicon.ico">
+<title>Chat with TasteNet AI — Actual Intelligence</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
@@ -17,8 +17,8 @@
     --dark: #020408;
     --card-bg: rgba(6, 12, 24, 0.92);
     --card-border: rgba(0, 255, 255, 0.22);
-    --text: #e2e8f0;      /* lighter, more readable */
-    --text-dim: #a0aec0;   /* lighter grey */
+    --text: #e2e8f0;
+    --text-dim: #a0aec0;
     --user-bubble: rgba(0, 255, 255, 0.12);
     --ai-bubble: rgba(6, 12, 24, 0.95);
   }
@@ -243,6 +243,7 @@
     flex-direction: column;
     background: rgba(2,4,8,0.5);
     overflow: hidden;
+    height: 100%;
   }
   .welcome-screen {
     flex: 1;
@@ -314,6 +315,7 @@
     flex: 1;
     display: none;
     flex-direction: column;
+    height: 100%;
   }
   .chat-container.active { display: flex; }
   .chat-header {
@@ -321,6 +323,7 @@
     border-bottom: 1px solid rgba(0,255,255,0.08);
     background: rgba(2,4,8,0.7);
     backdrop-filter: blur(10px);
+    flex-shrink: 0;
   }
   .chat-header-title {
     font-family: 'Orbitron', monospace;
@@ -342,7 +345,6 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    /* Ensure scrolling works on mobile */
     -webkit-overflow-scrolling: touch;
   }
   .message {
@@ -421,12 +423,13 @@
     30% { opacity: 1; transform: scale(1); }
   }
 
-  /* input area with voice button */
+  /* input area */
   .input-area {
     padding: 20px 28px;
     border-top: 1px solid rgba(0,255,255,0.08);
     background: rgba(2,4,8,0.8);
     backdrop-filter: blur(10px);
+    flex-shrink: 0;
   }
   .input-container {
     display: flex;
@@ -515,7 +518,6 @@
     box-shadow: 0 0 15px #ff5555;
   }
 
-  /* mobile adjustments */
   @media (max-width: 900px) {
     .main-content { grid-template-columns: 1fr; }
     .consciousness-panel { display: none; }
@@ -561,7 +563,7 @@
       0%,100% { opacity: 0.6; }
       50% { opacity: 1; }
     }
-    .input-field { font-size: 16px; } /* prevent zoom on mobile */
+    .input-field { font-size: 16px; }
   }
 </style>
 </head>
@@ -616,8 +618,8 @@
         <div class="input-area">
           <div class="input-container">
             <button class="voice-btn" id="voiceBtn" title="Voice input"><div class="voice-icon"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div></button>
-            <input type="text" class="input-field" id="userInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage()">
-            <button class="send-btn" onclick="sendMessage()" id="sendBtn">➤</button>
+            <input type="text" class="input-field" id="userInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage(false)">
+            <button class="send-btn" onclick="sendMessage(false)" id="sendBtn">➤</button>
           </div>
         </div>
       </div>
@@ -626,7 +628,7 @@
 </div>
 
 <script>
-// particle canvas
+// particle canvas (unchanged)
 const canvas = document.getElementById('bgCanvas');
 const ctxCanvas = canvas.getContext('2d');
 let particles = [], W, H;
@@ -669,7 +671,7 @@ function startConversation(sector) {
   document.getElementById('userInput').focus();
 }
 
-async function sendMessage() {
+async function sendMessage(isVoice = false) {
   const input = document.getElementById('userInput');
   const message = input.value.trim();
   if (!message || isThinking) return;
@@ -683,8 +685,10 @@ async function sendMessage() {
     addMessage('ai', reply);
     conversationHistory.push({ role: 'assistant', content: reply });
     bumpConsciousness();
-    // Only play TTS if the input was from voice? For now always play.
-    playTTS(reply);
+    // Only play TTS if the message came from voice input
+    if (isVoice) {
+      playTTS(reply);
+    }
   } else {
     addMessage('ai', 'Connection error. Please try again.');
   }
@@ -782,10 +786,10 @@ async function startRecording() {
           if (accumulatedText) accumulatedText += ' ' + transcribed;
           else accumulatedText = transcribed;
           userInput.value = accumulatedText;
-          // Auto-send the transcribed message after a short delay
+          // Auto-send the transcribed message as voice
           setTimeout(() => {
             if (userInput.value.trim()) {
-              sendMessage();
+              sendMessage(true);   // true indicates voice input
             }
           }, 300);
         }
@@ -796,7 +800,7 @@ async function startRecording() {
     mediaRecorder.start();
     isRecording = true;
     voiceBtn.classList.add('recording');
-    // Stop after 5 seconds of recording (you can adjust)
+    // Stop after 5 seconds of recording
     setTimeout(() => {
       if (mediaRecorder && mediaRecorder.state === 'recording') {
         mediaRecorder.stop();
@@ -822,7 +826,7 @@ userInput.addEventListener('input', () => {
   if (!isRecording) accumulatedText = userInput.value;
 });
 
-// TTS playback (always on assistant responses)
+// TTS playback only for voice responses
 async function playTTS(text) {
   if (!text) return;
   try {
