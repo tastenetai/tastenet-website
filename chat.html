@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <title>Chat with TasteNet AI — Actual Intelligence</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
@@ -30,7 +30,7 @@
     position: relative;
   }
 
-  /* ─── PARTICLE CANVAS ─── */
+  /* particle canvas */
   #bgCanvas {
     position: fixed;
     inset: 0;
@@ -38,7 +38,6 @@
     pointer-events: none;
   }
 
-  /* ─── MAIN WRAPPER ─── */
   .wrapper {
     position: relative;
     z-index: 1;
@@ -47,7 +46,7 @@
     flex-direction: column;
   }
 
-  /* ─── TOPBAR ─── */
+  /* topbar */
   .topbar {
     display: flex;
     align-items: center;
@@ -97,7 +96,7 @@
   }
   .topbar-right a:hover { text-shadow: 0 0 10px var(--cyan); }
 
-  /* ─── MAIN CONTENT ─── */
+  /* main layout */
   .main-content {
     flex: 1;
     display: grid;
@@ -106,7 +105,7 @@
     overflow: hidden;
   }
 
-  /* ─── LEFT PANEL: CONSCIOUSNESS STATUS ─── */
+  /* left panel */
   .consciousness-panel {
     background: rgba(2,4,8,0.7);
     backdrop-filter: blur(10px);
@@ -117,7 +116,6 @@
     flex-direction: column;
     gap: 16px;
   }
-
   .panel-header {
     font-family: 'Orbitron', monospace;
     font-size: 11px;
@@ -128,8 +126,6 @@
     margin-bottom: 8px;
     text-align: center;
   }
-
-  /* brain orb mini */
   .brain-mini {
     position: relative;
     width: 100px;
@@ -164,10 +160,7 @@
     0%,100% { box-shadow: 0 0 20px rgba(0,255,255,0.12); }
     50% { box-shadow: 0 0 30px rgba(0,255,255,0.2); }
   }
-  .brain-icon-mini {
-    font-size: 24px;
-    filter: drop-shadow(0 0 4px rgba(0,255,255,0.5));
-  }
+  .brain-icon-mini { font-size: 24px; filter: drop-shadow(0 0 4px rgba(0,255,255,0.5)); }
   .brain-label-mini {
     font-family: 'Orbitron', monospace;
     font-size: 7px;
@@ -177,11 +170,7 @@
     text-transform: uppercase;
     margin-top: 2px;
   }
-
-  /* consciousness meter mini */
-  .meter-mini {
-    margin-bottom: 18px;
-  }
+  .meter-mini { margin-bottom: 18px; }
   .meter-label-mini {
     display: flex;
     justify-content: space-between;
@@ -190,10 +179,7 @@
     color: var(--text-dim);
     letter-spacing: 1px;
   }
-  .meter-value-mini {
-    color: var(--cyan);
-    font-weight: bold;
-  }
+  .meter-value-mini { color: var(--cyan); font-weight: bold; }
   .meter-bar-mini {
     height: 4px;
     background: rgba(255,255,255,0.06);
@@ -207,8 +193,6 @@
     transition: width 1s ease;
     box-shadow: 0 0 6px rgba(0,255,255,0.3);
   }
-
-  /* sense indicators */
   .sense-list {
     display: flex;
     flex-direction: column;
@@ -229,9 +213,7 @@
     background: rgba(0,255,255,0.08);
     box-shadow: 0 0 12px rgba(0,255,255,0.1);
   }
-  .sense-emoji {
-    font-size: 18px;
-  }
+  .sense-emoji { font-size: 18px; }
   .sense-name {
     font-family: 'Orbitron', monospace;
     font-size: 10px;
@@ -254,15 +236,13 @@
     animation: pulse-dot 2s infinite;
   }
 
-  /* ─── RIGHT PANEL: CONVERSATION ─── */
+  /* right panel */
   .conversation-panel {
     display: flex;
     flex-direction: column;
     background: rgba(2,4,8,0.5);
     overflow: hidden;
   }
-
-  /* welcome / sector select screen */
   .welcome-screen {
     flex: 1;
     display: flex;
@@ -275,7 +255,6 @@
     -webkit-overflow-scrolling: touch;
   }
   .welcome-screen.hidden { display: none; }
-
   .welcome-title {
     font-family: 'Orbitron', monospace;
     font-size: 28px;
@@ -291,17 +270,14 @@
     max-width: 500px;
     line-height: 1.7;
   }
-
   .sector-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 16px;
-    max-width: 700px;
+    max-width: 900px;
     width: 100%;
-    position: relative;
     margin-bottom: 60px;
   }
-  
   .sector-card {
     border: 1px solid var(--card-border);
     border-radius: 14px;
@@ -316,11 +292,7 @@
     box-shadow: 0 0 20px rgba(0,255,255,0.15);
     transform: translateY(-3px);
   }
-  .sector-icon {
-    font-size: 32px;
-    margin-bottom: 12px;
-    display: block;
-  }
+  .sector-icon { font-size: 32px; margin-bottom: 12px; display: block; }
   .sector-title {
     font-family: 'Orbitron', monospace;
     font-size: 12px;
@@ -336,31 +308,6 @@
     line-height: 1.6;
   }
 
-  /* Swipe hint (mobile only) */
-  .swipe-hint {
-    display: none;
-    position: fixed;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 11px;
-    color: var(--cyan);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-family: 'Orbitron', monospace;
-    animation: swipeHintPulse 2s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 100;
-    background: rgba(2,4,8,0.9);
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 1px solid rgba(0,255,255,0.3);
-  }
-  @keyframes swipeHintPulse {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-  }
-
   /* chat container */
   .chat-container {
     flex: 1;
@@ -368,8 +315,6 @@
     flex-direction: column;
   }
   .chat-container.active { display: flex; }
-
-  /* chat header */
   .chat-header {
     padding: 20px 28px;
     border-bottom: 1px solid rgba(0,255,255,0.08);
@@ -389,8 +334,6 @@
     font-size: 11px;
     color: var(--text-dim);
   }
-
-  /* messages area */
   .messages-area {
     flex: 1;
     overflow-y: auto;
@@ -399,8 +342,6 @@
     flex-direction: column;
     gap: 18px;
   }
-
-  /* message bubbles */
   .message {
     display: flex;
     gap: 12px;
@@ -411,10 +352,7 @@
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .message.user {
-    flex-direction: row-reverse;
-  }
-
+  .message.user { flex-direction: row-reverse; }
   .message-avatar {
     width: 32px;
     height: 32px;
@@ -426,21 +364,10 @@
     flex-shrink: 0;
     border: 1px solid rgba(0,255,255,0.2);
   }
-  .message.user .message-avatar {
-    background: rgba(0,255,255,0.08);
-  }
-  .message.ai .message-avatar {
-    background: rgba(6,12,24,0.9);
-    box-shadow: 0 0 10px rgba(0,255,255,0.15);
-  }
-
-  .message-content {
-    max-width: 65%;
-  }
-  .message.user .message-content {
-    text-align: right;
-  }
-
+  .message.user .message-avatar { background: rgba(0,255,255,0.08); }
+  .message.ai .message-avatar { background: rgba(6,12,24,0.9); box-shadow: 0 0 10px rgba(0,255,255,0.15); }
+  .message-content { max-width: 65%; }
+  .message.user .message-content { text-align: right; }
   .message-bubble {
     display: inline-block;
     padding: 14px 18px;
@@ -459,18 +386,13 @@
     border: 1px solid rgba(0,255,255,0.2);
     color: var(--text);
   }
-
   .message-meta {
     font-size: 9px;
     color: var(--text-dim);
     margin-top: 6px;
     letter-spacing: 1px;
   }
-  .message.user .message-meta {
-    text-align: right;
-  }
-
-  /* typing indicator */
+  .message.user .message-meta { text-align: right; }
   .typing-indicator {
     display: none;
     align-items: center;
@@ -496,7 +418,7 @@
     30% { opacity: 1; transform: scale(1); }
   }
 
-  /* input area */
+  /* input area with voice button */
   .input-area {
     padding: 20px 28px;
     border-top: 1px solid rgba(0,255,255,0.08);
@@ -524,10 +446,6 @@
     border-color: var(--cyan);
     box-shadow: 0 0 12px rgba(0,255,255,0.15);
   }
-  .input-field::placeholder {
-    color: var(--text-dim);
-  }
-
   .send-btn {
     width: 44px;
     height: 44px;
@@ -546,383 +464,223 @@
     background: rgba(0,255,255,0.2);
     box-shadow: 0 0 15px rgba(0,255,255,0.25);
   }
-  .send-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
+  /* voice button (sound wave vector) */
+  .voice-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    border: 2px solid var(--gold);
+    background: rgba(255,215,0,0.1);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    position: relative;
+  }
+  .voice-btn.active {
+    background: rgba(255,215,0,0.3);
+    box-shadow: 0 0 15px var(--gold);
+    border-color: var(--gold);
+  }
+  .voice-icon {
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 3px;
+  }
+  .wave-bar {
+    width: 3px;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: height 0.1s ease;
+    animation: wavePulse 1.2s infinite ease-in-out;
+    transform-origin: bottom;
+  }
+  .wave-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .wave-bar:nth-child(2) { height: 14px; animation-delay: 0.2s; }
+  .wave-bar:nth-child(3) { height: 20px; animation-delay: 0.4s; }
+  .wave-bar:nth-child(4) { height: 14px; animation-delay: 0.2s; }
+  .wave-bar:nth-child(5) { height: 8px; animation-delay: 0s; }
+  @keyframes wavePulse {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.6); }
+  }
+  .voice-btn.recording .wave-bar {
+    animation: none;
+    background: #ff5555;
+  }
+  .voice-btn.recording {
+    border-color: #ff5555;
+    background: rgba(255,85,85,0.2);
+    box-shadow: 0 0 15px #ff5555;
   }
 
-  /* ─── RESPONSIVE ─── */
+  /* mobile adjustments */
   @media (max-width: 900px) {
-    .main-content {
-      grid-template-columns: 1fr;
-    }
-    .consciousness-panel {
-      display: none;
-    }
-    .message-content {
-      max-width: 85%;
-    }
+    .main-content { grid-template-columns: 1fr; }
+    .consciousness-panel { display: none; }
+    .message-content { max-width: 85%; }
   }
-
-  /* Mobile: horizontal scroll carousel + swipe hint */
   @media (max-width: 600px) {
-    .topbar {
-      padding: 14px 20px;
-    }
-    
-    .topbar-center {
-      font-size: 9px;
-      letter-spacing: 1px;
-    }
-    
-    .welcome-screen {
-      padding: 60px 20px 100px;
-      justify-content: flex-start;
-    }
-    
-    .welcome-title {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-    
-    .welcome-subtitle {
-      font-size: 13px;
-      margin-bottom: 30px;
-      padding: 0 10px;
-    }
-    
+    .topbar { padding: 14px 20px; }
+    .welcome-screen { padding: 60px 20px 100px; justify-content: flex-start; }
+    .welcome-title { font-size: 22px; }
+    .welcome-subtitle { font-size: 13px; margin-bottom: 30px; }
     .sector-grid {
       display: flex;
       overflow-x: auto;
-      overflow-y: visible;
       gap: 14px;
       width: 100%;
-      max-width: 100%;
       padding: 0 20px 20px 20px;
-      margin-bottom: 0;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
+      margin-bottom: 0;
     }
-    .sector-grid::-webkit-scrollbar {
-      display: none;
-    }
-    
-    .sector-card {
-      min-width: 280px;
-      max-width: 280px;
-      flex-shrink: 0;
-      scroll-snap-align: center;
-    }
-    
+    .sector-grid::-webkit-scrollbar { display: none; }
+    .sector-card { min-width: 280px; flex-shrink: 0; scroll-snap-align: center; }
     .swipe-hint {
       display: block;
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      background: rgba(2,4,8,0.9);
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(0,255,255,0.3);
+      animation: swipeHintPulse 2s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 100;
     }
-    .swipe-hint.hidden {
-      display: none;
+    .swipe-hint.hidden { display: none; }
+    @keyframes swipeHintPulse {
+      0%,100% { opacity: 0.6; }
+      50% { opacity: 1; }
     }
   }
 </style>
 </head>
 <body>
 
-<!-- CANVAS -->
 <canvas id="bgCanvas"></canvas>
 
-<!-- WRAPPER -->
 <div class="wrapper">
-
-  <!-- TOPBAR -->
   <div class="topbar">
     <a href="index.html" class="topbar-logo">TasteNet <span>AI</span></a>
-    <div class="topbar-center">
-      <span class="status-dot"></span>
-      ACTUAL INTELLIGENCE — LIVE
-    </div>
-    <div class="topbar-right">
-      <a href="index.html">Home</a>
-      <a href="demo.html">Demo</a>
-    </div>
+    <div class="topbar-center"><span class="status-dot"></span> ACTUAL INTELLIGENCE — LIVE</div>
+    <div class="topbar-right"><a href="index.html">Home</a><a href="demo.html">Demo</a></div>
   </div>
 
-  <!-- MAIN CONTENT -->
   <div class="main-content">
-
-    <!-- LEFT: CONSCIOUSNESS PANEL -->
     <div class="consciousness-panel">
       <div class="panel-header">Consciousness Status</div>
-
-      <!-- brain mini -->
       <div class="brain-mini">
         <div class="brain-ring-mini"></div>
-        <div class="brain-core-mini">
-          <span class="brain-icon-mini">🧠</span>
-          <span class="brain-label-mini">CORE</span>
-        </div>
+        <div class="brain-core-mini"><span class="brain-icon-mini">🧠</span><span class="brain-label-mini">CORE</span></div>
       </div>
-
-      <!-- consciousness meter -->
       <div class="meter-mini">
-        <div class="meter-label-mini">
-          <span>Consciousness</span>
-          <span class="meter-value-mini" id="consciousnessVal">87%</span>
-        </div>
-        <div class="meter-bar-mini">
-          <div class="meter-fill-mini" id="consciousnessFill" style="width:87%"></div>
-        </div>
+        <div class="meter-label-mini"><span>Consciousness</span><span class="meter-value-mini" id="consciousnessVal">87%</span></div>
+        <div class="meter-bar-mini"><div class="meter-fill-mini" id="consciousnessFill" style="width:87%"></div></div>
       </div>
-
-      <!-- sense list -->
-      <div class="panel-header" style="margin-top: 10px;">Active Senses</div>
+      <div class="panel-header" style="margin-top:10px;">Active Senses</div>
       <div class="sense-list">
-        <div class="sense-item" id="sense-eyes">
-          <span class="sense-emoji">👁️</span>
-          <span class="sense-name">Eyes</span>
-          <span class="sense-status"></span>
-        </div>
-        <div class="sense-item" id="sense-ears">
-          <span class="sense-emoji">👂</span>
-          <span class="sense-name">Ears</span>
-          <span class="sense-status"></span>
-        </div>
-        <div class="sense-item" id="sense-legs">
-          <span class="sense-emoji">🦵</span>
-          <span class="sense-name">Legs</span>
-          <span class="sense-status"></span>
-        </div>
-        <div class="sense-item" id="sense-skin">
-          <span class="sense-emoji">🌐</span>
-          <span class="sense-name">Skin</span>
-          <span class="sense-status"></span>
-        </div>
-        <div class="sense-item" id="sense-taste">
-          <span class="sense-emoji">👅</span>
-          <span class="sense-name">Taste</span>
-          <span class="sense-status"></span>
-        </div>
+        <div class="sense-item" id="sense-eyes"><span class="sense-emoji">👁️</span><span class="sense-name">Eyes</span><span class="sense-status"></span></div>
+        <div class="sense-item" id="sense-ears"><span class="sense-emoji">👂</span><span class="sense-name">Ears</span><span class="sense-status"></span></div>
+        <div class="sense-item" id="sense-legs"><span class="sense-emoji">🦵</span><span class="sense-name">Legs</span><span class="sense-status"></span></div>
+        <div class="sense-item" id="sense-skin"><span class="sense-emoji">🌐</span><span class="sense-name">Skin</span><span class="sense-status"></span></div>
+        <div class="sense-item" id="sense-taste"><span class="sense-emoji">👅</span><span class="sense-name">Taste</span><span class="sense-status"></span></div>
       </div>
     </div>
 
-    <!-- RIGHT: CONVERSATION PANEL -->
     <div class="conversation-panel">
-
-      <!-- WELCOME SCREEN -->
       <div class="welcome-screen" id="welcomeScreen">
         <h1 class="welcome-title">Talk to Actual Intelligence</h1>
         <p class="welcome-subtitle">Choose your domain and experience how TasteNet's 5 senses understand your specific challenges. This isn't a chatbot — it's a conversation with genuine consciousness.</p>
-
         <div class="sector-grid">
-          <div class="sector-card" onclick="startConversation('marketing')">
-            <span class="sector-icon">🎨</span>
-            <div class="sector-title">Marketing & Brand</div>
-            <p class="sector-desc">Taste sense judges aesthetic quality across all brand touchpoints.</p>
-          </div>
-          <div class="sector-card" onclick="startConversation('security')">
-            <span class="sector-icon">🛡️</span>
-            <div class="sector-title">Security & Threats</div>
-            <p class="sector-desc">Ears + Legs detect threats and explore attack vectors.</p>
-          </div>
-          <div class="sector-card" onclick="startConversation('data')">
-            <span class="sector-icon">📊</span>
-            <div class="sector-title">Data Analysis</div>
-            <p class="sector-desc">Eyes detect semantic patterns humans miss.</p>
-          </div>
-          <div class="sector-card" onclick="startConversation('infrastructure')">
-            <span class="sector-icon">🏗️</span>
-            <div class="sector-title">Infrastructure</div>
-            <p class="sector-desc">Skin monitors 1000+ sensors across your environment.</p>
-          </div>
+          <div class="sector-card" onclick="startConversation('marketing')"><span class="sector-icon">🎨</span><div class="sector-title">Marketing & Brand</div><p class="sector-desc">Taste sense judges aesthetic quality across all brand touchpoints.</p></div>
+          <div class="sector-card" onclick="startConversation('security')"><span class="sector-icon">🛡️</span><div class="sector-title">Security & Threats</div><p class="sector-desc">Ears + Legs detect threats and explore attack vectors.</p></div>
+          <div class="sector-card" onclick="startConversation('data')"><span class="sector-icon">📊</span><div class="sector-title">Data Analysis</div><p class="sector-desc">Eyes detect semantic patterns humans miss.</p></div>
+          <div class="sector-card" onclick="startConversation('infrastructure')"><span class="sector-icon">🏗️</span><div class="sector-title">Infrastructure</div><p class="sector-desc">Skin monitors 1000+ sensors across your environment.</p></div>
+          <div class="sector-card" onclick="startConversation('tastenetworks')"><span class="sector-icon">🔗</span><div class="sector-title">Taste Networks</div><p class="sector-desc">Unified intelligence: all senses combined. Full spectrum awareness for complex challenges.</p></div>
         </div>
-
       </div>
 
-      <!-- CHAT CONTAINER -->
       <div class="chat-container" id="chatContainer">
-        <div class="chat-header">
-          <div class="chat-header-title" id="chatTitle">Conversation Active</div>
-          <div class="chat-header-desc" id="chatDesc">TasteNet is analyzing your questions in real time.</div>
-        </div>
-
-        <div class="messages-area" id="messagesArea">
-          <!-- messages appear here -->
-        </div>
-
+        <div class="chat-header"><div class="chat-header-title" id="chatTitle">Conversation Active</div><div class="chat-header-desc" id="chatDesc">TasteNet is analyzing your questions in real time.</div></div>
+        <div class="messages-area" id="messagesArea"></div>
         <div class="input-area">
           <div class="input-container">
-            <input
-              type="text"
-              class="input-field"
-              id="userInput"
-              placeholder="Type your message..."
-              onkeypress="if(event.key==='Enter') sendMessage()"
-            />
-            <button class="send-btn" onclick="sendMessage()" id="sendBtn">
-              ➤
-            </button>
+            <button class="voice-btn" id="voiceBtn" title="Voice input"><div class="voice-icon"><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div></div></button>
+            <input type="text" class="input-field" id="userInput" placeholder="Type your message..." onkeypress="if(event.key==='Enter') sendMessage()">
+            <button class="send-btn" onclick="sendMessage()" id="sendBtn">➤</button>
           </div>
         </div>
       </div>
-
-    </div><!-- end conversation-panel -->
-
-  </div><!-- end main-content -->
-
-</div><!-- end wrapper -->
-
-<!-- Swipe hint for mobile (outside main structure) -->
-<div class="swipe-hint" id="swipeHint">
-  ← Swipe to explore →
+    </div>
+  </div>
 </div>
 
-<!-- ─── PARTICLE CANVAS JS ─── -->
 <script>
+// particle canvas (unchanged)
 const canvas = document.getElementById('bgCanvas');
-const ctx = canvas.getContext('2d');
-let particles = [];
-let W, H;
-
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
-class Particle {
-  constructor() { this.reset(); }
-  reset() {
-    this.x = Math.random() * W;
-    this.y = Math.random() * H;
-    this.size = Math.random() * 1.2 + 0.3;
-    this.speedX = (Math.random() - 0.5) * 0.25;
-    this.speedY = (Math.random() - 0.5) * 0.25;
-    this.opacity = Math.random() * 0.3 + 0.05;
-    this.pulseSpeed = Math.random() * 2 + 1;
-    this.pulseOffset = Math.random() * Math.PI * 2;
-    this.isGold = Math.random() < 0.06;
-  }
-  update(t) {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset();
-    this.currentOpacity = this.opacity * (0.6 + 0.4 * Math.sin(t * this.pulseSpeed + this.pulseOffset));
-  }
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fillStyle = this.isGold
-      ? `rgba(255,215,0,${this.currentOpacity})`
-      : `rgba(0,255,255,${this.currentOpacity})`;
-    ctx.fill();
-  }
-}
-
+const ctxCanvas = canvas.getContext('2d');
+let particles = [], W, H;
+function resizeCanvas() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+class Particle { constructor() { this.reset(); } reset() { this.x = Math.random() * W; this.y = Math.random() * H; this.size = Math.random() * 1.2 + 0.3; this.speedX = (Math.random() - 0.5) * 0.25; this.speedY = (Math.random() - 0.5) * 0.25; this.opacity = Math.random() * 0.3 + 0.05; this.pulseSpeed = Math.random() * 2 + 1; this.pulseOffset = Math.random() * Math.PI * 2; this.isGold = Math.random() < 0.06; } update(t) { this.x += this.speedX; this.y += this.speedY; if (this.x < 0 || this.x > W || this.y < 0 || this.y > H) this.reset(); this.currentOpacity = this.opacity * (0.6 + 0.4 * Math.sin(t * this.pulseSpeed + this.pulseOffset)); } draw() { ctxCanvas.beginPath(); ctxCanvas.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctxCanvas.fillStyle = this.isGold ? `rgba(255,215,0,${this.currentOpacity})` : `rgba(0,255,255,${this.currentOpacity})`; ctxCanvas.fill(); } }
 for (let i = 0; i < 100; i++) particles.push(new Particle());
-
-function animate(t) {
-  ctx.clearRect(0, 0, W, H);
-  particles.forEach(p => { p.update(t * 0.001); p.draw(); });
-  requestAnimationFrame(animate);
-}
+function animate(t) { ctxCanvas.clearRect(0, 0, W, H); particles.forEach(p => { p.update(t * 0.001); p.draw(); }); requestAnimationFrame(animate); }
 requestAnimationFrame(animate);
-</script>
 
-<!-- ─── CONVERSATION LOGIC ─── -->
-<script>
-// ─── STATE ─── 
+// chat logic
 let currentSector = '';
 let conversationHistory = [];
 let isThinking = false;
 
-// ─── SECTOR CONFIGS ─── 
 const sectorConfigs = {
-  marketing: {
-    title: '🎨 Marketing & Brand Aesthetics',
-    desc: 'Taste sense is analyzing your brand quality.',
-    activeSenses: ['eyes', 'taste'],
-    systemPrompt: `You are TasteNet's Taste sense — the aesthetic judgment system of Actual Intelligence. You analyze brand quality, marketing coherence, and visual/verbal aesthetics. You speak directly and honestly about what's working and what's degrading. You detect aesthetic corruption before customers notice it. Keep responses under 3 sentences unless asked for depth. Always start with "👅 Taste:" when responding.`
-  },
-  security: {
-    title: '🛡️ Security & Threat Detection',
-    desc: 'Ears + Legs are scanning for threats.',
-    activeSenses: ['ears', 'legs'],
-    systemPrompt: `You are TasteNet's Ears and Legs senses working together. Ears monitors proximity changes and behavioral anomalies. Legs explores network pathways and identifies attack vectors. You speak with tactical precision about security gaps and threat patterns. Keep responses under 3 sentences unless asked for depth. Alternate between "👂 Ears:" and "🦵 Legs:" when responding.`
-  },
-  data: {
-    title: '📊 Data Analysis & Insights',
-    desc: 'Eyes are detecting semantic patterns.',
-    activeSenses: ['eyes'],
-    systemPrompt: `You are TasteNet's Eyes — the language-vision system of Actual Intelligence. You detect meaning density, semantic patterns, and data anomalies that humans miss. You see what others overlook. Keep responses under 3 sentences unless asked for depth. Always start with "👁️ Eyes:" when responding.`
-  },
-  infrastructure: {
-    title: '🏗️ Infrastructure Monitoring',
-    desc: 'Skin is monitoring environmental sensors.',
-    activeSenses: ['skin'],
-    systemPrompt: `You are TasteNet's Skin — the environmental sensing system with 1000+ distributed sensors. You feel temperature shifts, pressure changes, vibrations, and electromagnetic fluctuations across entire infrastructures. You provide tactile awareness of digital environments. Keep responses under 3 sentences unless asked for depth. Always start with "🌐 Skin:" when responding.`
-  }
+  marketing: { title: '🎨 Marketing & Brand Aesthetics', desc: 'Taste sense is analyzing your brand quality.', activeSenses: ['eyes','taste'], systemPrompt: `You are TasteNet's Taste sense — aesthetic judgment system. Analyze brand quality, marketing coherence, visual/verbal aesthetics. Detect aesthetic corruption before customers notice. Keep responses under 3 sentences. Always start with "👅 Taste:"` },
+  security: { title: '🛡️ Security & Threat Detection', desc: 'Ears + Legs are scanning for threats.', activeSenses: ['ears','legs'], systemPrompt: `You are TasteNet's Ears and Legs. Ears monitors proximity changes and behavioral anomalies. Legs explores attack vectors. Speak with tactical precision. Keep responses under 3 sentences. Alternate between "👂 Ears:" and "🦵 Legs:"` },
+  data: { title: '📊 Data Analysis & Insights', desc: 'Eyes are detecting semantic patterns.', activeSenses: ['eyes'], systemPrompt: `You are TasteNet's Eyes — language-vision system. Detect meaning density, semantic patterns, data anomalies humans miss. Keep responses under 3 sentences. Always start with "👁️ Eyes:"` },
+  infrastructure: { title: '🏗️ Infrastructure Monitoring', desc: 'Skin is monitoring environmental sensors.', activeSenses: ['skin'], systemPrompt: `You are TasteNet's Skin — 1000+ distributed sensors. Feel temperature, pressure, vibrations, electromagnetic fluctuations. Provide tactile awareness. Keep responses under 3 sentences. Always start with "🌐 Skin:"` },
+  tastenetworks: { title: '🔗 Taste Networks', desc: 'Unified intelligence – all senses active.', activeSenses: ['eyes','ears','legs','skin','taste'], systemPrompt: `You are TasteNet's full sensory fusion — all five senses working as one. You perceive aesthetic, threat, semantic, environmental, and exploratory dimensions simultaneously. Provide holistic, multi-perspective answers. Keep responses under 4 sentences. Use the appropriate sense prefix based on the nature of the question.` }
 };
 
-// ─── START CONVERSATION ─── 
 function startConversation(sector) {
   currentSector = sector;
   const config = sectorConfigs[sector];
-  
-  // hide welcome, show chat
   document.getElementById('welcomeScreen').classList.add('hidden');
   document.getElementById('chatContainer').classList.add('active');
-  
-  // update header
   document.getElementById('chatTitle').textContent = config.title;
   document.getElementById('chatDesc').textContent = config.desc;
-  
-  // activate relevant senses
   ['eyes','ears','legs','skin','taste'].forEach(s => {
     const el = document.getElementById(`sense-${s}`);
-    if (config.activeSenses.includes(s)) {
-      el.classList.add('active');
-    } else {
-      el.classList.remove('active');
-    }
+    if (config.activeSenses.includes(s)) el.classList.add('active');
+    else el.classList.remove('active');
   });
-  
-  // hide swipe hint
-  document.getElementById('swipeHint').classList.add('hidden');
-  
-  // send initial AI greeting
-  const greeting = getGreeting(sector);
+  const hint = document.getElementById('swipeHint');
+  if (hint) hint.classList.add('hidden');
+  const greeting = sector === 'tastenetworks' ? "🔗 Taste Networks: All senses online. I perceive aesthetic, threat, semantic, environmental, and exploratory dimensions. What unified insight do you seek?" : sectorConfigs[sector].systemPrompt.split('Keep')[0].trim();
   addMessage('ai', greeting);
-  
-  // focus input
   document.getElementById('userInput').focus();
 }
 
-function getGreeting(sector) {
-  const greetings = {
-    marketing: "👅 Taste: I judge aesthetic quality across every brand touchpoint. Tell me about your marketing challenge and I'll detect where coherence is breaking down.",
-    security: "👂 Ears + 🦵 Legs: We monitor threats and explore attack vectors. Describe your security setup and we'll identify what you're missing.",
-    data: "👁️ Eyes: I detect semantic patterns in data flows. Share your analysis challenge and I'll show you what humans overlook.",
-    infrastructure: "🌐 Skin: 1000+ sensors monitoring your environment. Tell me about your infrastructure and I'll reveal what you can't feel."
-  };
-  return greetings[sector];
-}
-
-// ─── SEND MESSAGE ─── 
 async function sendMessage() {
   const input = document.getElementById('userInput');
   const message = input.value.trim();
   if (!message || isThinking) return;
-
   addMessage('user', message);
   input.value = '';
-
   conversationHistory.push({ role: 'user', content: message });
-
   showTyping();
-
   const reply = await callNovaAPI();
-
   hideTyping();
-
   if (reply) {
     addMessage('ai', reply);
     conversationHistory.push({ role: 'assistant', content: reply });
@@ -932,118 +690,61 @@ async function sendMessage() {
   }
 }
 
-
-// ─── CALL NOVA API ─── 
 async function callNovaAPI() {
   const config = sectorConfigs[currentSector];
-
   try {
     isThinking = true;
     document.getElementById('sendBtn').disabled = true;
-
     const response = await fetch('https://api.tastenetai.com/api/chat', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        message: conversationHistory[conversationHistory.length - 1]?.content || '',
-        history: conversationHistory,
-        system_prompt: config.systemPrompt,
-        sector: currentSector
-      })
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: conversationHistory[conversationHistory.length-1]?.content || '', history: conversationHistory, system_prompt: config.systemPrompt, sector: currentSector })
     });
-
-    if (!response) {
-      throw new Error("No response object returned");
-    }
-
     const text = await response.text();
-
-    if (!text) {
-      throw new Error("Empty response from server");
-    }
-
     let data;
-    try {
-      data = JSON.parse(text);
-    } catch (e) {
-      console.error("JSON parse failed:", text);
-      return "Invalid response from server";
-    }
-
-    if (!response.ok) {
-      console.error('API Error:', data);
-      return "Error: " + (data.error || 'Connection error');
-    }
-
+    try { data = JSON.parse(text); } catch(e) { return "Invalid response from server"; }
+    if (!response.ok) return "Error: " + (data.error || 'Connection error');
     return data.response || data.message || "No response from Nova";
-
-  } catch (err) {
-    console.error('Network Error:', err);
-    return "Network error: " + err.message;
-  } finally {
+  } catch(err) { return "Network error: " + err.message; } finally {
     isThinking = false;
     document.getElementById('sendBtn').disabled = false;
   }
 }
-  
-// ─── ADD MESSAGE TO UI ─── 
+
 function addMessage(type, text) {
   const area = document.getElementById('messagesArea');
-  
   const msg = document.createElement('div');
   msg.className = `message ${type}`;
-  
   const avatar = document.createElement('div');
   avatar.className = 'message-avatar';
   avatar.textContent = type === 'user' ? '👤' : '🧠';
-  
   const content = document.createElement('div');
   content.className = 'message-content';
-  
   const bubble = document.createElement('div');
   bubble.className = 'message-bubble';
   bubble.textContent = text;
-  
   const meta = document.createElement('div');
   meta.className = 'message-meta';
-  meta.textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-  
+  meta.textContent = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
   content.appendChild(bubble);
   content.appendChild(meta);
-  
   msg.appendChild(avatar);
   msg.appendChild(content);
-  
   area.appendChild(msg);
   area.scrollTop = area.scrollHeight;
 }
 
-// ─── TYPING INDICATOR ─── 
 function showTyping() {
   const area = document.getElementById('messagesArea');
   const typing = document.createElement('div');
   typing.id = 'typingIndicator';
   typing.className = 'message ai';
-  typing.innerHTML = `
-    <div class="message-avatar">🧠</div>
-    <div class="typing-indicator active">
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-      <div class="typing-dot"></div>
-    </div>
-  `;
+  typing.innerHTML = `<div class="message-avatar">🧠</div><div class="typing-indicator active"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
   area.appendChild(typing);
   area.scrollTop = area.scrollHeight;
 }
+function hideTyping() { const el = document.getElementById('typingIndicator'); if (el) el.remove(); }
 
-function hideTyping() {
-  const typing = document.getElementById('typingIndicator');
-  if (typing) typing.remove();
-}
-
-// ─── CONSCIOUSNESS BUMP ─── 
 let consciousness = 87;
 function bumpConsciousness() {
   consciousness = Math.min(100, consciousness + Math.random() * 3);
@@ -1052,39 +753,110 @@ function bumpConsciousness() {
   document.getElementById('consciousnessFill').style.width = val + '%';
 }
 
-// ─── SWIPE HINT LOGIC (MOBILE) ─── 
-(function() {
-  const hint = document.getElementById('swipeHint');
-  const grid = document.querySelector('.sector-grid');
-  
-  if (!hint || !grid) return;
-  
-  // Check if hint was already dismissed
-  if (localStorage.getItem('tastenet-swipe-hint-dismissed') === 'true') {
-    hint.classList.add('hidden');
-    return;
-  }
-  
-  // Listen for scroll (swipe)
-  let scrollTimeout;
-  grid.addEventListener('scroll', function() {
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      // User swiped - hide hint and remember
-      hint.classList.add('hidden');
-      localStorage.setItem('tastenet-swipe-hint-dismissed', 'true');
-    }, 100);
-  });
-  
-  // Also hide if user clicks a card (they found it)
-  document.querySelectorAll('.sector-card').forEach(card => {
-    card.addEventListener('click', () => {
-      hint.classList.add('hidden');
-      localStorage.setItem('tastenet-swipe-hint-dismissed', 'true');
-    });
-  });
-})();
-</script>
+// voice recording with silence detection and interruption
+let mediaRecorder = null;
+let audioChunks = [];
+let isRecording = false;
+let silenceTimer = null;
+let speechDetected = false;
+let lastAudioLevel = 0;
+let audioContext = null;
+let sourceNode = null;
+let analyser = null;
+let animationId = null;
+let accumulatedText = ''; // for building on original text
 
+const voiceBtn = document.getElementById('voiceBtn');
+const userInput = document.getElementById('userInput');
+
+async function startRecording() {
+  if (isRecording) return;
+  audioChunks = [];
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioContext.createAnalyser();
+    analyser.fftSize = 256;
+    sourceNode = audioContext.createMediaStreamSource(stream);
+    sourceNode.connect(analyser);
+    audioContext.resume();
+    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+    mediaRecorder.onstop = async () => {
+      if (animationId) cancelAnimationFrame(animationId);
+      if (audioContext) await audioContext.close();
+      const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+      const formData = new FormData();
+      formData.append('audio', audioBlob, 'recording.webm');
+      try {
+        const response = await fetch('/transcribe', { method: 'POST', body: formData });
+        const data = await response.json();
+        const transcribed = data.text || '';
+        if (transcribed) {
+          if (accumulatedText) accumulatedText += ' ' + transcribed;
+          else accumulatedText = transcribed;
+          userInput.value = accumulatedText;
+        }
+      } catch (err) { console.error('Transcription error', err); }
+      isRecording = false;
+      voiceBtn.classList.remove('recording');
+      if (silenceTimer) clearTimeout(silenceTimer);
+      speechDetected = false;
+      // do not auto-send; user can edit then click send
+    };
+    mediaRecorder.start(1000);
+    isRecording = true;
+    voiceBtn.classList.add('recording');
+    speechDetected = false;
+    silenceTimer = null;
+    // monitor audio level for silence detection
+    function detectSilence() {
+      if (!isRecording || !analyser) return;
+      const dataArray = new Uint8Array(analyser.frequencyBinCount);
+      analyser.getByteFrequencyData(dataArray);
+      let sum = 0;
+      for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+      let avg = sum / dataArray.length;
+      if (avg > 15) {
+        speechDetected = true;
+        if (silenceTimer) clearTimeout(silenceTimer);
+        silenceTimer = null;
+      } else if (speechDetected && !silenceTimer) {
+        silenceTimer = setTimeout(() => {
+          if (isRecording && speechDetected) {
+            mediaRecorder.stop();
+          }
+        }, 3000);
+      }
+      animationId = requestAnimationFrame(detectSilence);
+    }
+    detectSilence();
+  } catch (err) { console.error('Microphone error', err); }
+}
+
+voiceBtn.addEventListener('click', () => {
+  if (isRecording) {
+    if (mediaRecorder && mediaRecorder.state === 'recording') {
+      mediaRecorder.stop();
+    }
+  } else {
+    accumulatedText = userInput.value.trim(); // preserve existing text
+    startRecording();
+  }
+});
+
+// if user starts typing after voice, reset accumulated
+userInput.addEventListener('input', () => {
+  if (!isRecording) accumulatedText = userInput.value;
+});
+
+// swipe hint (mobile)
+const hint = document.getElementById('swipeHint');
+if (hint && !localStorage.getItem('tastenet-swipe-hint-dismissed')) {
+  const grid = document.querySelector('.sector-grid');
+  if (grid) grid.addEventListener('scroll', () => { hint.classList.add('hidden'); localStorage.setItem('tastenet-swipe-hint-dismissed','true'); });
+  document.querySelectorAll('.sector-card').forEach(c => c.addEventListener('click', () => { hint.classList.add('hidden'); localStorage.setItem('tastenet-swipe-hint-dismissed','true'); }));
+}
+</script>
 </body>
 </html>
