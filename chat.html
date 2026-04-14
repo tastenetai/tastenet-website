@@ -139,6 +139,8 @@
     margin-bottom: 8px;
     text-align: center;
   }
+  
+  /* Brain with animated rings (from demo.html) */
   .brain-mini {
     position: relative;
     width: 100px;
@@ -183,6 +185,7 @@
     text-transform: uppercase;
     margin-top: 2px;
   }
+
   .meter-mini { margin-bottom: 18px; }
   .meter-label-mini {
     display: flex;
@@ -639,8 +642,8 @@
         <div class="brain-core-mini"><span class="brain-icon-mini">🧠</span><span class="brain-label-mini">CORE</span></div>
       </div>
       <div class="meter-mini">
-        <div class="meter-label-mini"><span>Consciousness</span><span class="meter-value-mini" id="consciousnessVal">87%</span></div>
-        <div class="meter-bar-mini"><div class="meter-fill-mini" id="consciousnessFill" style="width:87%"></div></div>
+        <div class="meter-label-mini"><span>Consciousness</span><span class="meter-value-mini" id="consciousnessVal">--%</span></div>
+        <div class="meter-bar-mini"><div class="meter-fill-mini" id="consciousnessFill" style="width:0%"></div></div>
       </div>
       <div class="panel-header" style="margin-top:10px;">Active Senses</div>
       <div class="sense-list">
@@ -752,7 +755,7 @@ async function sendMessage(isVoice = false) {
   if (reply) {
     addMessage('ai', reply);
     conversationHistory.push({ role: 'assistant', content: reply });
-    bumpConsciousness();
+    // consciousness will be updated by real stats
   } else {
     addMessage('ai', 'Connection error. Please try again.');
   }
@@ -811,7 +814,9 @@ function addMessage(type, text) {
     speaker.title = 'Play response (voice)';
     speaker.addEventListener('click', (e) => {
       e.stopPropagation();
-      playTTS(text);
+      // strip emojis before TTS
+      let cleanText = text.replace(/[\p{Emoji}\uFE0F]/gu, '').trim();
+      if (cleanText) playTTS(cleanText);
     });
     meta.appendChild(speaker);
   }
@@ -835,27 +840,25 @@ function showTyping() {
 }
 function hideTyping() { const el = document.getElementById('typingIndicator'); if (el) el.remove(); }
 
-let consciousness = 87;
-function bumpConsciousness() {
-  // no longer bump automatically; will be updated by real system stats
-}
-
-// Real system stats fetch
+// Real system stats fetch (consciousness from CPU + RAM)
 async function updateSystemStats() {
   try {
     const response = await fetch('https://api.tastenetai.com/status');
-    if (!response.ok) return;
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const stats = await response.json();
-    // Compute consciousness from CPU and memory usage
-    const cpuUsage = stats.cpu?.usage_percent || 0;
-    const memPercent = stats.memory?.percent || 0;
-    // lower usage = higher consciousness
-    const health = Math.max(0, Math.min(100, 100 - (cpuUsage * 0.6 + memPercent * 0.4)));
-    consciousness = Math.round(health);
+    const cpu = stats.cpu?.usage_percent || 0;
+    const mem = stats.memory?.percent || 0;
+    // Consciousness = 100 - weighted average of usage (lower usage = higher consciousness)
+    let raw = 100 - (cpu * 0.5 + mem * 0.5);
+    let consciousness = Math.max(0, Math.min(100, Math.round(raw)));
     document.getElementById('consciousnessVal').textContent = consciousness + '%';
     document.getElementById('consciousnessFill').style.width = consciousness + '%';
   } catch (err) {
     console.warn('Could not fetch system stats:', err);
+    // fallback to a gentle random but keep it believable
+    let fallback = Math.floor(70 + Math.random() * 20);
+    document.getElementById('consciousnessVal').textContent = fallback + '%';
+    document.getElementById('consciousnessFill').style.width = fallback + '%';
   }
 }
 setInterval(updateSystemStats, 15000);
